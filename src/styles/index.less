@@ -1,0 +1,234 @@
+/**
+ * 全局样式入口文件
+ * @description 导入所有样式模块并定义全局样式
+ */
+
+// 导入TailwindCSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// 导入变量
+@import './variables.less';
+
+// ============================================
+// 全局基础样式
+// ============================================
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: @font-family-base;
+  background-color: @bg-primary;
+  color: @text-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  margin: 0;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  font-feature-settings: tnum;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+// ============================================
+// 链接样式
+// ============================================
+a {
+  color: @primary-color;
+  text-decoration: none;
+  transition: color @transition-fast;
+
+  &:hover {
+    color: @primary-light;
+  }
+}
+
+// ============================================
+// 按钮基础样式
+// ============================================
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: @spacing-sm @spacing-lg;
+  font-size: @font-size-sm;
+  font-weight: 500;
+  border-radius: @border-radius-lg;
+  cursor: pointer;
+  transition: all @transition-fast;
+  border: none;
+  outline: none;
+
+  &-primary {
+    background: linear-gradient(135deg, @primary-color, @accent-cyan);
+    color: @bg-primary;
+
+    &:hover {
+      box-shadow: @shadow-glow;
+      transform: translateY(-2px);
+    }
+  }
+
+  &-outline {
+    background: transparent;
+    border: 1px solid @primary-color;
+    color: @primary-color;
+
+    &:hover {
+      background: fade(@primary-color, 10%);
+    }
+  }
+
+  &-ghost {
+    background: transparent;
+    color: @text-primary;
+
+    &:hover {
+      background: @bg-hover;
+    }
+  }
+}
+
+// ============================================
+// 卡片样式
+// ============================================
+.card {
+  background: @bg-card;
+  border-radius: @border-radius-lg;
+  border: 1px solid @border-color;
+  padding: @spacing-lg;
+  transition: all @transition-normal;
+
+  &:hover {
+    border-color: @primary-color;
+    box-shadow: @shadow-glow;
+  }
+}
+
+// ============================================
+// 滚动条样式
+// ============================================
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: @bg-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  background: @border-light;
+  border-radius: @border-radius-full;
+
+  &:hover {
+    background: @text-tertiary;
+  }
+}
+
+// ============================================
+// 文本工具类
+// ============================================
+.text-gradient {
+  background: linear-gradient(90deg, @primary-color, @accent-cyan);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-glow {
+  text-shadow: 0 0 20px fade(@primary-color, 50%);
+}
+
+// ============================================
+// 动画类
+// ============================================
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity @transition-normal;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all @transition-normal;
+}
+
+.slide-up-enter-from,
+.slide-up-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+// ============================================
+// 响应式容器
+// ============================================
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 @spacing-md;
+
+  @media (min-width: @breakpoint-lg) {
+    padding: 0 @spacing-xl;
+  }
+}
+
+// ============================================
+// 价格涨跌颜色
+// ============================================
+.price-up {
+  color: @accent-green !important;
+}
+
+.price-down {
+  color: @accent-red !important;
+}
+
+// ============================================
+// Vant组件样式覆盖
+// ============================================
+:root {
+  --van-primary-color: @primary-color;
+  --van-background: @bg-primary;
+  --van-background-2: @bg-secondary;
+  --van-text-color: @text-primary;
+  --van-text-color-2: @text-secondary;
+  --van-text-color-3: @text-tertiary;
+  --van-border-color: @border-color;
+}
+
+
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+  font-family: 'iconfont';
+  /* Project id 5121015 */
+  src: url('//at.alicdn.com/t/c/font_5121015_j2nfssd9av.woff2?t=1769868434921') format('woff2'),
+    url('//at.alicdn.com/t/c/font_5121015_j2nfssd9av.woff?t=1769868434921') format('woff'),
+    url('//at.alicdn.com/t/c/font_5121015_j2nfssd9av.ttf?t=1769868434921') format('truetype');
+}
+
+.iconfont {
+  font-family: 'iconfont';
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

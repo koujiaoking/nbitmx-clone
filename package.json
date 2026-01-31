@@ -1,0 +1,45 @@
+{
+  "name": "nbitmx-clone",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@reown/appkit": "^1.8.17",
+    "@reown/appkit-adapter-wagmi": "^1.8.17",
+    "@tanstack/vue-query": "^5.92.9",
+    "@wagmi/vue": "^0.4.14",
+    "animate.css": "^4.1.1",
+    "ant-design-vue": "^4.2.6",
+    "lightweight-charts": "^5.1.0",
+    "viem": "^2.45.0",
+    "vue": "^3.5.24",
+    "vue-virtual-scroller": "^2.0.0-beta.8"
+  },
+  "devDependencies": {
+    "@iconify-json/carbon": "^1.2.18",
+    "@iconify-json/svg-spinners": "^1.2.4",
+    "@types/node": "^24.10.1",
+    "@unocss/reset": "^0.63.6",
+    "@vant/use": "^1.6.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/tsconfig": "^0.8.1",
+    "axios": "^1.13.3",
+    "less": "^4.5.1",
+    "pinia": "^3.0.4",
+    "typescript": "~5.9.3",
+    "unocss": "^0.63.6",
+    "unplugin-auto-import": "^21.0.0",
+    "unplugin-vue-components": "^31.0.0",
+    "vant": "^4.9.22",
+    "vite": "^7.2.4",
+    "vue-i18n": "9",
+    "vue-router": "^4.6.4",
+    "vue-tsc": "^3.1.4"
+  }
+}
