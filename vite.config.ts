@@ -72,5 +72,16 @@ export default defineConfig({
     assetsDir: 'assets',
     sourcemap: false,
     minify: 'esbuild',
+    chunkSizeWarningLimit: 2000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vue-core': ['vue', 'vue-router', 'pinia', 'vue-i18n'],
+          'ui-libs': ['ant-design-vue', 'vant'],
+          'web3-libs': ['viem', '@wagmi/vue'],
+          'web3-appkit': ['@reown/appkit', '@reown/appkit-adapter-wagmi'],
+        },
+      },
+    },
   },
 })

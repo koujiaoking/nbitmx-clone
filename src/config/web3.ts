@@ -38,8 +38,8 @@ export const wagmiAdapter = new WagmiAdapter({
  */
 export const walletMetadata = {
   name: 'NBITMX',
-  description: 'NBITMX - 加密货币交易平台',
-  url: 'https://nbitmx.com',
+  description: 'Professional Virtual Currency Trading Platform',
+  url: typeof window !== 'undefined' ? window.location.origin : 'https://nbitmx.com',
   icons: ['https://nbitmx.com/favicon.ico']
 }
 

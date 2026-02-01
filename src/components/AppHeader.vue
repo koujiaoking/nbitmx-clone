@@ -1,6 +1,7 @@
 <template>
-  <div class="h-56px"></div>
-  <header class="fixed top-0 left-0 right-0 h-56px bg-black/30 backdrop-blur-sm w-full z-10">
+  <div>
+    <div class="h-56px"></div>
+    <header class="fixed top-0 left-0 right-0 h-56px bg-black/30 backdrop-blur-sm w-full z-10">
     <div class="flex items-center mx-18px h-full relative min-w-1280px">
       <!-- Logo -->
       <router-link to="/">
@@ -129,6 +130,7 @@
       </LanguageSelector>
     </div>
   </header>
+  </div>
 </template>
 
 <script setup lang="ts">

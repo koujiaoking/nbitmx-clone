@@ -48,6 +48,18 @@ const routes = [
     title: 'NBITMX News | Crypto Industry Trends',
   }),
 
+  defineRoute('/news', 'News', '@/views/NewsView', {
+    title: 'NBITMX News | Crypto Industry Trends',
+  }),
+
+  defineRoute('/charity', 'Charity', '@/views/CharityView', {
+    title: 'Charity | Nbitmx',
+  }),
+
+  defineRoute('/copy-trading', 'CopyTrading', '@/views/FollowView', {
+    title: 'Copy Trading | Nbitmx',
+  }),
+
   defineRoute('/news', '  News', '@/views/NewsView', {
     title: 'NBITMX News | Crypto Industry Trends',
   }),

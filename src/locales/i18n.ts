@@ -50,3 +50,6 @@ export function setLocale(locale: SupportedLocale) {
   localStorage.setItem('app-locale', locale)
   document.documentElement.lang = locale
 }
+
+// 默认导出 i18n 实例
+export default i18n

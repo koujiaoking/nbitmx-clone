@@ -26,7 +26,7 @@
       "optionsDesc": "단기 사이클, 빠른 수익",
       "spot": "현물",
       "spotDesc": "다중 카테고리, 빠른 거래",
-      "perpetual Contract": "무기한 계약",
+      "perpetualContract": "무기한 계약",
       "perpetualContractDesc": "USDT 무기한 계약, 외환 선물",
       "copyTrading": "카피 트레이딩",
       "copyTradingDesc": "전문 트레이더 팔로우",

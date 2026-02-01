@@ -2,22 +2,21 @@
  * UnoCSS Configuration
  * @description Custom theme configuration for crypto trading platform
  */
-import { defineConfig, presetUno, presetIcons, presetTypography, presetWebFonts } from 'unocss'
+import { defineConfig, presetUno, presetAttributify, presetTypography } from 'unocss'
 
 export default defineConfig({
   presets: [
     presetUno(),
-    presetIcons({
-      scale: 1.2,
-      warn: true,
-    }),
+    presetAttributify(),
+    // Disabled presetIcons temporarily - icons will be added locally later
+    // presetIcons({
+    //   scale: 1.2,
+    //   warn: false,
+    //   cdn: 'https://esm.sh/',
+    // }),
     presetTypography(),
-    presetWebFonts({
-      fonts: {
-        sans: 'Inter:400,500,600,700',
-        mono: 'JetBrains Mono:400,500',
-      },
-    }),
+    // Removed presetWebFonts to avoid timeout errors
+    // Use local fonts or CDN link in index.html instead
   ],
   theme: {
     colors: {

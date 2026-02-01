@@ -42,7 +42,7 @@
           <div class="relative z-10 grid grid-cols-2 gap-4">
             <div v-for="strategy in aiStrategies" :key="strategy.name" class="p-6 bg-[#14151A]/80 backdrop-blur-sm rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_24px_rgba(59,130,246,0.15)]">
               <div class="text-[#848E9C] text-[13px] mb-2 font-medium uppercase tracking-wide">{{ strategy.name }}</div>
-              <div class="text-[28px] font-bold mb-1" :class="strategy.apy > 100 ? 'text-green-400' : 'text-cyan-400'">+{{ strategy.apy }}%</div>
+              <div class="text-[28px] font-bold mb-1" :class="+strategy.apy > 100 ? 'text-green-400' : 'text-cyan-400'">+{{ strategy.apy }}%</div>
               <div class="text-[12px] text-[#6B7280]">年化收益率</div>
             </div>
           </div>
