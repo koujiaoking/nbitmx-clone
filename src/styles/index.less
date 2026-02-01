@@ -15,7 +15,7 @@
 // 全局基础样式
 // ============================================
 * {
-  box-sizing: border-box;
+  box-sizing: content-box !important;
   margin: 0;
   padding: 0;
 }
@@ -215,6 +215,9 @@ a {
   --van-border-color: @border-color;
 }
 
+.theme-color {
+  color: #00f0ff;
+}
 
 /* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {

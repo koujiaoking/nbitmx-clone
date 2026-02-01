@@ -3,7 +3,7 @@
     <!-- PC端首页 - 完整桌面布局 -->
     
     <!-- Home Top - Video Background Section -->
-    <div class="home-top">
+    <div class="home-top -mt-[56px]">
       <div class="top-bg">
         <video class="video-bg" autoplay loop playsinline muted>
           <source :src="homeBannerVideo" type="video/mp4" />
@@ -11,36 +11,36 @@
       </div>
       <div class="top-left" v-animate-on-scroll="'animate__fadeInLeft'">
         <h1>
-          Over <i class="theme-color">36 Million</i> User Sign-Ups <i class="theme-color">Exchange</i>
+          {{ $t('homeBanner.title-1') }} <span class="theme-color">{{ $t('homeBanner.title-2') }}</span> {{ $t('homeBanner.title-3') }} <span class="theme-color">{{ $t('homeBanner.title-4') }}</span>
         </h1>
         <h4 class="fade-in-left">
-          Simple, Secure. Search Popular Investments, Earn Profits Instantly
+          {{ $t('homeBanner.desc') }}
         </h4>
         <div class="input-container">
           <div class="login-btn cm-btn-animation2">
-            <span>Go Trade</span>
+            <span>{{ $t('homeBanner.button') }}</span>
           </div>
         </div>
-        <p class="data-p1">
-          <span>
-            <span>$75.31 Billion</span>
-            <span>24-Hour Trading Volume</span>
-          </span>
-          <span>
-            <span>100+</span>
-            <span>Cryptocurrency Types</span>
-          </span>
-          <span>
-            <span>2 Billion</span>
-            <span>Number of Registered Users</span>
-          </span>
-        </p>
+        <div class="flex mt-48px">
+          <div class="data-item">
+            <span class="data-label">{{ $t('homeBanner.item1Label') }}</span>
+            <span class="data-value">{{ $t('homeBanner.item1Value') }}</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">{{ $t('homeBanner.item2Label') }}</span>
+            <span class="data-value">{{ $t('homeBanner.item2Value') }}</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">{{ $t('homeBanner.item3Label') }}</span>
+            <span class="data-value">{{ $t('homeBanner.item3Value') }}</span>
+          </div>
+        </div>
       </div>
       <div class="bottom-right"></div>
     </div>
 
     <!-- Home Quotes - Scrolling Crypto Prices -->
-    <div class="home-quotes">
+    <div class="home-quotes mb-[30px]">
       <div class="box">
         <div class="quotes-wrap">
           <div class="quotes-content">
@@ -57,8 +57,41 @@
       </div>
     </div>
 
+    <div class="flex flex-col mx-auto w-1360px">
+      <div class="home-banner">
+        <a-carousel arrows :dots="false">
+          <template #prevArrow>
+            <div class="left-hand">
+              <CaretLeftOutlined style="color: rgb(122, 122, 151); font-size: 12px;" />
+            </div>
+          </template>
+          <template #nextArrow>
+            <div class="right-hand">
+              <CaretRightOutlined style="color: rgb(122, 122, 151); font-size: 12px;" />
+            </div>
+          </template>
+          <div class="home-banner-item" v-for="i in 2" :key="i">
+            <div class="home-banner-item-row">
+              <div class="image">
+                <img src="@/assets/images/index-defi.png" alt="">
+              </div>
+              <div class="image">
+                <img src="@/assets/images/index-bitcoin.png" alt="">
+              </div>
+              <div class="image">
+                <img src="@/assets/images/index-nft-sale.png" alt="">
+              </div>
+            </div>
+          </div>
+          
+        </a-carousel>
+      </div>
+    </div>
+
     <!-- Main Content Wrapper -->
     <div class="content-wrapper">
+
+      
       
       <!-- Home Announce -->
       <div class="home-announce" v-animate-on-scroll="'animate__fadeInUp'">
@@ -118,6 +151,7 @@
 import { onMounted } from 'vue'
 import AiStrategy from '@/components/AiStrategy.vue'
 import MarketOverview from '@/components/MarketOverview.vue'
+import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons-vue';
 
 // Import video asset
 import homeBannerVideo from '@/assets/videos/home-banner.mp4'
@@ -138,14 +172,22 @@ onMounted(() => {
 }
 .home-top {
   position: relative;
+  height: 816px;
   width: 100%;
   min-width: 1440px;
-  height: 816px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   overflow: hidden;
   font-size: 14px;
+  .top-left {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    min-height: 425px;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .top-bg {
@@ -168,29 +210,42 @@ onMounted(() => {
   object-position: center center;
 }
 
-.top-left {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  max-width: 850px;
-  min-height: 425px;
-}
+
 
 .top-left h1 {
   color: white;
   font-size: 50px;
   line-height: 60px;
+  font-weight: 500;
 }
 
 .top-left h4 {
   margin-top: 40px;
   margin-bottom: 60px;
   text-align: left;
-  font-weight: normal;
   font-size: 30px;
-  color: rgb(203, 217, 218);
+  color: #cbd9da;
+  font-weight: 400;
   line-height: 30px;
+}
+.data-item {
+  margin-right: 58px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  .data-label {
+    font-family: PingFang SC;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 60px;
+  }
+  .data-value {
+    font-family: PingFang SC;
+    font-size: 14px;
+    color: #888;
+    font-weight: 400;
+    line-height: 14px;
+  }
 }
 
 .top-left .input-container {
@@ -244,6 +299,159 @@ onMounted(() => {
   background-color: white;
   width: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== Home Quotes Section ==================== */
+.home-quotes {
+  position: relative;
+  width: 100%;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: rgb(44, 44, 62);
+  background-color: rgb(15, 15, 22);
+}
+
+.home-quotes .box {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  height: 9vw;
+  line-height: 46px;
+}
+
+@media (min-width: 768px) {
+  .home-quotes .box {
+    width: 1360px;
+    height: 46px;
+  }
+}
+
+.quotes-wrap {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  overflow: hidden;
+}
+
+.quotes-content {
+  position: absolute;
+  white-space: nowrap;
+  color: white;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  animation: scroll-quotes 131.43s linear infinite;
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .quotes-content {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .quotes-content:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes scroll-quotes {
+  0% {
+    transform: translate(0);
+  }
+  to {
+    transform: translate(-50%);
+  }
+}
+
+.quote-item {
+  margin: 0 20px;
+}
+
+.quote-item .price {
+  color: white;
+  padding-left: 5px;
+}
+
+.quote-item .change-up {
+  color: #00f0ff;
+}
+
+.quote-item .change-down {
+  color: #ff4834;
+}
+.home-banner {
+  height: 320px;
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 70px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: initial;
+  flex-direction: initial;
+  align-items: center;
+  justify-content: initial;
+  .left-hand, .right-hand {
+      box-sizing: border-box;
+      overflow: hidden;
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      border: 2px solid #2c2c3e;
+      background: #0f0f16;
+      cursor: pointer;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+       transition-duration: .3s;
+       margin-top: -30px;
+      &:hover {
+        background-color: rgba(0, 240, 255, .3);
+        border: 2px solid #00f0ff;
+      }
+  }
+  .home-banner-item {
+    height: 320px;
+    width: 100%;
+  }
+  .home-banner-item-row {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+  }
+  .image {
+    
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+    transition-duration: .3s;
+    &:hover {
+      border-radius: 12px;
+    }
+    
+    img {
+      object-fit: contain;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      transition-duration: .3s;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+    
+  }
+}
+:deep(.ant-carousel) {
+  width: 1360px;
+}
+:deep(.slick-slide) {
+  height: 320px;
+  display: flex;
+  width: 1360px;
 }
 
 </style>

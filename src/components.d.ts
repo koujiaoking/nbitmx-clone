@@ -11,10 +11,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ACarousel: typeof import('ant-design-vue/es')['Carousel']
+    ACol: typeof import('ant-design-vue/es')['Col']
     AiStrategy: typeof import('./components/AiStrategy.vue')['default']
     AppFooter: typeof import('./components/AppFooter.vue')['default']
     AppHeader: typeof import('./components/AppHeader.vue')['default']
     AppLoadingSpinner: typeof import('./components/base/AppLoadingSpinner.vue')['default']
+    ARow: typeof import('ant-design-vue/es')['Row']
     BaseScroller: typeof import('./components/base/BaseScroller.vue')['default']
     CoinSelector: typeof import('./components/trading/CoinSelector.vue')['default']
     CustomerService: typeof import('./components/CustomerService.vue')['default']

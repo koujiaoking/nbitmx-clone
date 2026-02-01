@@ -10,21 +10,21 @@
 
       <!-- Trading/NFT Tabs -->
       <div class="header-tabs">
-        <router-link
-      to="/play/currency/trade"
-      class="tab-item"
-      :class="{ active: !isNFT }"
-    >
-      {{ $t('header.tradingTab') }}
-    </router-link>
+        <span
+            @click="router.push('/play/currency/trade')"
+            class="tab-item"
+            :class="{ active: !isNFT }"
+            >
+          {{ $t('header.tradingTab') }}
+        </span>
 
-    <router-link
-      to="/nft/index"
-      class="tab-item"
-      :class="{ active: isNFT }"
-    >
-      {{ $t('header.nftTab') }}
-    </router-link>
+        <span
+            @click="router.push('/nft/index')"
+            class="tab-item"
+            :class="{ active: isNFT }"
+          >
+            {{ $t('header.nftTab') }}
+    </span>
       </div>
 
       <span class="line"></span>
@@ -135,6 +135,7 @@
 
 <script setup lang="ts">
 import LanguageSelector from '@/components/LanguageSelector.vue'
+import router from '@/router';
 
 const route = useRoute()
 
@@ -152,20 +153,18 @@ const isNFT = computed(() => route.path === '/nft/index')
   height: 32px;
   cursor: pointer;
   border-radius: 0.375rem;
-}
-
-.header-tabs .tab-item {
-  height: 32px;
-  min-width: 50px;
-  padding-left: 1vw;
-  padding-right: 1vw;
-  text-align: center;
-  line-height: 32px;
-}
-
-.header-tabs .active  {
-  background-color: rgb(26, 27, 36);
-  color: rgb(255, 255, 255);
+  .tab-item {
+    height: 32px;
+    min-width: 50px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    text-align: center;
+    line-height: 32px;
+    &.active  {
+      background-color: rgb(26, 27, 36);
+      color: rgb(255, 255, 255);
+    }
+  }
 }
 
 .line {
@@ -184,44 +183,41 @@ const isNFT = computed(() => route.path === '/nft/index')
   margin: 0 0 0 30px;
   display: flex;
   align-items: center;
+  .tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    min-width: 40px;
+    height: 50px;
+    padding-left: 8px;
+    padding-right: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    line-height: 15px;
+    transition: all 0.3s;
+    &:hover .sub-list {
+      visibility: visible;
+      top: 50px;
+      opacity: 1;
+    }
+    &:hover .down-triangle {
+      transform: rotate(270deg);
+    }
+  }
+  .down-triangle {
+    margin-left: 4px;
+    display: inline-flex;
+    transform: rotate(90deg);
+    transition: all 0.3s;
+    color: rgb(255, 255, 255);
+    font-size: 10px;
+  }
 }
 
-.tab-list .tab {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  min-width: 40px;
-  height: 50px;
-  padding-left: 8px;
-  padding-right: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-  text-align: center;
-  color: rgb(255, 255, 255);
-  line-height: 15px;
-  transition: all 0.3s;
-}
-
-.tab-list .tab:hover .sub-list {
-  visibility: visible;
-  top: 50px;
-  opacity: 1;
-}
-
-.tab-list .tab:hover .down-triangle {
-  transform: rotate(270deg);
-}
-
-.tab-list .down-triangle {
-  margin-left: 4px;
-  display: inline-flex;
-  transform: rotate(90deg);
-  transition: all 0.3s;
-  color: rgb(255, 255, 255);
-  font-size: 10px;
-}
 
 .tab-list .sub-list {
   box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.49);
@@ -237,18 +233,18 @@ const isNFT = computed(() => route.path === '/nft/index')
   padding: 3px;
   color: rgb(144, 144, 173);
   transition: all 0.3s;
-}
-
-.tab-list .sub-title {
+  .sub-title {
   display: flex;
   flex-direction: column;
   justify-content: center;
   white-space: pre-wrap;
   padding: 10px 20px;
   line-height: 15px;
-}
-
-.tab-list .sub-title .top {
+  &:hover {
+    background: linear-gradient(90deg, #00e3ff, #089);
+    border-radius: 0.375rem;
+  }
+  .top {
   margin-bottom: 5px;
   height: 24px;
   display: flex;
@@ -257,26 +253,22 @@ const isNFT = computed(() => route.path === '/nft/index')
   font-size: 16px;
   color: rgb(255, 255, 255);
   font-weight: 500;
-}
+    .svg-img {
+      margin-right: 10px;
+      fill: rgb(255, 255, 255);
+    }
 
-.tab-list .sub-title .top .svg-img {
-  margin-right: 10px;
-  fill: rgb(255, 255, 255);
-}
-
-.tab-list .sub-title .bottom {
-  display: flex;
-  align-items: center;
-  padding-left: 34px;
-  text-align: left;
-  font-size: 12px;
-  color: rgb(136, 136, 136);
-  line-height: 14px;
-}
-
-.tab-list .sub-title:hover {
-  background: linear-gradient(90deg, #00e3ff, #089);
-  border-radius: 0.375rem;
+  }
+    .bottom {
+      display: flex;
+      align-items: center;
+      padding-left: 34px;
+      text-align: left;
+      font-size: 12px;
+      color: rgb(136, 136, 136);
+      line-height: 14px;
+    }
+  }
 }
 
 .tab-list .sub-title:hover .top,

@@ -56,6 +56,11 @@ export default defineConfig({
     open: false,
   },
 
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['@ant-design/icons-vue'],
+  },
+
   // CSS预处理器配置
   css: {
     preprocessorOptions: {

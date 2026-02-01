@@ -69,6 +69,11 @@
       "verification": "인증 파트너십",
       "copyright": "© 2024 NBITMX. All rights reserved.",
       "riskWarning": "위험 경고: 암호화폐 거래는 높은 위험을 수반합니다. 신중하게 투자하십시오."
+    },
+    "chart": {
+      "candlestick": "K선",
+      "line": "라인",
+      "indicators": "지표"
     }
   },
   "en": {
@@ -141,6 +146,11 @@
       "verification": "Verification Partnership",
       "copyright": "© 2024 NBITMX. All rights reserved.",
       "riskWarning": "Risk Warning: Cryptocurrency trading is highly risky. Please invest cautiously."
+    },
+    "chart": {
+      "candlestick": "Candlestick",
+      "line": "Line",
+      "indicators": "Indicators"
     }
   },
   "zh-HK": {
@@ -160,12 +170,12 @@
     "header": {
       "tradingTab": "交易",
       "nftTab": "NFT",
-      "recharge": "充值",
+      "recharge": "快捷買幣",
       "rechargeDesc": "快速充值",
       "simplex": "Simplex",
       "coinbase": "Coinbase",
       "kraken": "Kraken",
-      "trade": "交易",
+      "trade": "交易中心",
       "options": "期權",
       "optionsDesc": "短週期，快速回報",
       "spot": "現貨",
@@ -174,10 +184,10 @@
       "perpetualContractDesc": "USDT永續合約，外匯期貨",
       "copyTrading": "跟單",
       "copyTradingDesc": "跟隨專業交易員",
-      "strategy": "策略",
-      "aiComputing": "AI算力",
+      "strategy": "金融理財",
+      "aiComputing": " AI智算",
       "aiComputingDesc": "涉及兩種加密貨幣的組合回報",
-      "more": "更多",
+      "more": "發現",
       "marketTrends": "行情走勢",
       "marketTrendsDesc": "全球交易市場數據",
       "moreNews": "更多新聞",
@@ -185,6 +195,21 @@
       "charity": "慈善",
       "charityDesc": "幫助、貢獻、回饋"
     },
+    "homeBanner": {
+      "title-1": "超過",
+      "title-2": "3600萬",
+      "title-3": " 用戶加入",
+      "title-4": "Exchange",
+      "desc": "簡單，安全。搜尋熱門投資，立即賺取收益",
+      "button": "去交易",
+      "item1Label": "$75,31億",
+      "item1Value": "24小時交易量",
+      "item2Label": "100+",
+      "item2Value": "加密貨幣種類",
+      "item3Label": "2,000萬",
+      "item3Value": "註冊用戶數量"
+    },
+    "homeNotice": "歡迎造訪BitCoTyrax，您的數位資產交易平台",
     "footer": {
       "tradingMarket": "交易市場",
       "spotTrading": "現貨交易",
@@ -213,6 +238,11 @@
       "verification": "認證合作",
       "copyright": "© 2024 NBITMX. 保留所有權利。",
       "riskWarning": "風險提示：加密貨幣交易具有高風險，請謹慎投資。"
+    },
+    "chart": {
+      "candlestick": "K線",
+      "line": "分時",
+      "indicators": "指標"
     }
   },
   "ja": {
@@ -285,6 +315,11 @@
       "verification": "認証パートナーシップ",
       "copyright": "© 2024 NBITMX. All rights reserved.",
       "riskWarning": "リスク警告：暗号通貨取引は高リスクです。慎重に投資してください。"
+    },
+    "chart": {
+      "candlestick": "ローソク足",
+      "line": "ライン",
+      "indicators": "インジケーター"
     }
   },
   "de": {
@@ -357,6 +392,11 @@
       "verification": "Verifizierungspartnerschaft",
       "copyright": "© 2024 NBITMX. Alle Rechte vorbehalten.",
       "riskWarning": "Risikowarnung: Der Handel mit Kryptowährungen ist hochriskant. Bitte investieren Sie vorsichtig."
+    },
+    "chart": {
+      "candlestick": "Kerze",
+      "line": "Linie",
+      "indicators": "Indikatoren"
     }
   },
   "ru": {
@@ -429,6 +469,11 @@
       "verification": "Партнерство по верификации",
       "copyright": "© 2024 NBITMX. Все права защищены.",
       "riskWarning": "Предупреждение о рисках: Торговля криптовалютами очень рискованна. Пожалуйста, инвестируйте осторожно."
+    },
+    "chart": {
+      "candlestick": "Свечи",
+      "line": "Линия",
+      "indicators": "Индикаторы"
     }
   },
   "pt": {
@@ -501,6 +546,11 @@
       "verification": "Parceria de verificação",
       "copyright": "© 2024 NBITMX. Todos os direitos reservados.",
       "riskWarning": "Aviso de risco: A negociação de criptomoedas é altamente arriscada. Invista com cautela."
+    },
+    "chart": {
+      "candlestick": "Velas",
+      "line": "Linha",
+      "indicators": "Indicadores"
     }
   }
 }

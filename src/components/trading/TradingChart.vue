@@ -10,14 +10,14 @@
           class="px-3 py-1 text-xs rounded transition-all"
           :class="chartType === 'candlestick' ? 'bg-nbit-cyan text-black font-bold' : 'text-gray-400 hover:text-white'"
         >
-          K线
+          {{ $t('chart.candlestick') }}
         </button>
         <button 
           @click="chartType = 'line'"
           class="px-3 py-1 text-xs rounded transition-all"
           :class="chartType === 'line' ? 'bg-nbit-cyan text-black font-bold' : 'text-gray-400 hover:text-white'"
         >
-          分时
+          {{ $t('chart.line') }}
         </button>
       </div>
       
@@ -37,7 +37,7 @@
       <!-- 指标 -->
       <div class="flex gap-2">
         <button class="px-3 py-1 text-xs text-gray-400 hover:text-white transition-all">
-          指标
+          {{ $t('chart.indicators') }}
         </button>
       </div>
     </div>
@@ -48,8 +48,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
 import { createChart, ColorType, CandlestickSeries, LineSeries, type IChartApi, type ISeriesApi } from 'lightweight-charts'
+import { useI18n } from 'vue-i18n'
+import { useLanguageStore } from '@/stores/language'
 
 interface Props {
   symbol?: string
@@ -59,10 +61,27 @@ const props = withDefaults(defineProps<Props>(), {
   symbol: 'BTC/USDT'
 })
 
+const { locale } = useI18n()
+const languageStore = useLanguageStore()
+
 const chartContainer = ref<HTMLElement>()
 const chartType = ref<'candlestick' | 'line'>('candlestick')
 const timeframe = ref('15m')
 const timeframes = ['1m', '5m', '15m', '1h', '4h', '1d']
+
+// 语言映射：将 i18n locale 映射到 lightweight-charts 支持的语言
+const getChartLocale = computed(() => {
+  const localeMap: Record<string, string> = {
+    'en': 'en-US',
+    'ko': 'ko-KR',
+    'zh-HK': 'zh-TW',
+    'ja': 'ja-JP',
+    'de': 'de-DE',
+    'ru': 'ru-RU',
+    'pt': 'pt-BR',
+  }
+  return localeMap[locale.value] || 'en-US'
+})
 
 let chart: IChartApi | null = null
 let series: any = null
@@ -118,6 +137,22 @@ function initChart() {
       borderColor: '#1A1B24',
       timeVisible: true,
       secondsVisible: false,
+    },
+    localization: {
+      locale: getChartLocale.value,
+      timeFormatter: (time: number) => {
+        const date = new Date(time * 1000)
+        return date.toLocaleTimeString(getChartLocale.value, { 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        })
+      },
+      priceFormatter: (price: number) => {
+        return price.toLocaleString(getChartLocale.value, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })
+      },
     },
     width: chartContainer.value.clientWidth,
     height: chartContainer.value.clientHeight,
