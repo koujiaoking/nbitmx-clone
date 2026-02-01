@@ -7,7 +7,7 @@ import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import { AntDesignVueResolver, VantResolver } from 'unplugin-vue-components/resolvers'
 import { resolve } from 'path'
 
 // https://vite.dev/config/
@@ -37,6 +37,7 @@ export default defineConfig({
         AntDesignVueResolver({
           importStyle: false, // css in js
         }),
+        VantResolver(),
       ],
       dts: 'src/components.d.ts',
     }),
