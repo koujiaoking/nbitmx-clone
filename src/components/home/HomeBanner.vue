@@ -10,7 +10,7 @@
         <h1>
           {{ $t('homeBanner.title-1') }} <span class="theme-color">{{ $t('homeBanner.title-2') }}</span> {{ $t('homeBanner.title-3') }} <span class="theme-color">{{ $t('homeBanner.title-4') }}</span>
         </h1>
-        <h4 class="fade-in-left">
+        <h4 v-animate-on-scroll="'animate__fadeInLeft'">
           {{ $t('homeBanner.desc') }}
         </h4>
         <div class="input-container">

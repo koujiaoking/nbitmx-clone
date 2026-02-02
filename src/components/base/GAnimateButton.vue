@@ -1,5 +1,5 @@
 <template>
-  <button class="g-btn-animation" @click="emit('click')">
+  <button class="g-btn-animation" @click="emit('click')" :class="size">
     <span>{{ text }}</span>
     <div class="iconfont">&#xe631;</div>
   </button>
@@ -8,8 +8,10 @@
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
   text?: string
+  size?: string
 }>(), {
   text: '',
+  size: '',
 })
 
 const emit = defineEmits(['click'])
@@ -28,7 +30,6 @@ const emit = defineEmits(['click'])
     padding: 25px 60px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
     cursor: pointer;
     overflow: hidden;
     border-radius: 24px;
@@ -38,6 +39,15 @@ const emit = defineEmits(['click'])
     --un-text-opacity: 1;
     box-sizing: border-box;
     color: rgb(255 255 255 / var(--un-text-opacity));
+    &.small {
+      height: 44px;
+      cursor: pointer;
+      border-radius: 24px;
+      padding: 0px 30px;
+      --un-text-opacity: 1;
+      color: rgb(255 255 255 / var(--un-text-opacity));
+      line-height: 30px
+    }
 }
 .g-btn-animation:hover:before {
     width: 100%

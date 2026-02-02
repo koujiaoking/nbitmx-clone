@@ -82,7 +82,7 @@
           {{ $t('header.strategy') }}
           <van-icon name="play" class="down-triangle" />
           <div class="sub-list">
-            <router-link to="/" class="sub-title">
+            <router-link to="/web3/index" class="sub-title">
               <span class="top"><div class="svg-img iconfont text-[22px]">&#xe91e;</div>{{ $t('header.aiComputing') }}</span>
               <span class="bottom">{{ $t('header.aiComputingDesc') }}</span>
             </router-link>

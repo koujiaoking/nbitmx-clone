@@ -104,7 +104,7 @@ import LanguageSelector from '@/components/LanguageSelector.vue'
   display: flex;
   align-items: center;
   overflow: hidden;
-  background-color: rgb(11, 11, 14);
+  background-color: #0b0b0e;
   font-size: 14px;
 }
 

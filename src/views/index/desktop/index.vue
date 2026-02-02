@@ -31,7 +31,9 @@
       <div class="home-currency-list">
         <HomeTitleHeader imp="Web3" title="journey starts from here! "/>
         <HomeWeb3 />
-        <GAnimateButton text="查看更多" />
+        <div class="mt-[20px]">
+          <GAnimateButton text="查看更多" />
+        </div>
       </div>
 
       <div class="home-trend pb-[60px]">
@@ -57,54 +59,25 @@
         <HomeBreakingNews />
       </div>
 
-      <div class="home-nft">
-        <!-- <HomeTitleHeader imp="AI" title="Quantitative Strategy"/> -->
-      </div>
+     <HomeNft />
 
       <div class="home-charity">
          <HomeTitleHeader imp="Charity" title="Committed to" right :desc="`<p>Make the world a better place through blockchain!</p><p> This platform builds a complete industry ecological layout around digital asset issuance, circulation, application, valuation discovery and blockchain bottom layer. Our vision is to become the infrastructure of the blockchain world and contribute to charity </p>`" />
-
-
+          <HomeCharity />
+          <img class="w-1260px h-53px mx-auto mb-120px" src="@/assets/images/partners.png" alt="">
           <HomeTitleHeader imp="partner" title="Your reliable partner" right :desc="`<p>Safety first. To protect your assets and information security, we will continue to improve. </p>`" />
+            <HomeSafeList />
       </div>
 
       <div class="home-problem">
 
         <HomeTitleHeader imp="Problem" title="Common" right />
+        <div class="pb-[60px]">
+          <HomeCommonProblem />
+        </div>
       </div>
     </div>
 
-    <!-- Main Content Wrapper -->
-    <div class="content-wrapper">
-      
-      <!-- Home Announce (Original - kept for reference or removal if redundant, though user asked to add notice bar, not replace) -->
-      <!-- Consider if the new Notice Bar replaces this. For now keeping it below as user asked to add 'below' banner -->
-      
-      
-
-      
-
-      <!-- AI Strategy Section -->
-      <div v-animate-on-scroll="'animate__fadeInUp'">
-        <!-- <AiStrategy /> -->
-      </div>
-
-      <!-- Market Overview -->
-      <div v-animate-on-scroll="'animate__fadeInUp'">
-        <!-- <MarketOverview /> -->
-      </div>
-
-      <!-- NFT Showcase -->
-      <!-- <div class="home-nft" v-animate-on-scroll="'animate__zoomIn'">
-        <header class="nft-header">Explore Our NFT Marketplace</header>
-        <div class="nft-btn">Explore NFTs</div>
-        <img src="/assets/images/nft-1-_K3Dez7N.png" alt="NFT 1" class="nft-1" />
-        <img src="/assets/images/nft-2-Bidcm4Hl.png" alt="NFT 2" class="nft-2" />
-        <img src="/assets/images/nft-3-DTTE9tVe.png" alt="NFT 3" class="nft-3" />
-        <img src="/assets/images/nft-4-BtmWgRar.png" alt="NFT 4" class="nft-4" />
-      </div> -->
-
-    </div>
 
   </div>
 </template>
@@ -142,4 +115,6 @@ onMounted(() => {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+
 </style>

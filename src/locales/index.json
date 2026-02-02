@@ -70,6 +70,36 @@
       "copyright": "© 2024 NBITMX. All rights reserved.",
       "riskWarning": "위험 경고: 암호화폐 거래는 높은 위험을 수반합니다. 신중하게 투자하십시오."
     },
+    "follow": {
+      "title": "팔로우",
+      "totalIncome": "총 수익",
+      "today": "오늘",
+      "tabs": {
+        "tradingPlaza": "거래 광장",
+        "myCopyTrading": "내 카피 트레이딩"
+      },
+      "categories": {
+        "all": "전체",
+        "options": "옵션",
+        "futures": "선물",
+        "spot": "현물"
+      },
+      "filters": {
+        "all": "전체",
+        "highYield": "고수익",
+        "stable": "안정형",
+        "lowRisk": "저위험",
+        "newStars": "뉴스타"
+      },
+      "trader": {
+        "copyTrade": "카피",
+        "roi": "ROI",
+        "days": "일수",
+        "apy": "APY",
+        "winRate": "승률",
+        "scale": "규모"
+      }
+    },
     "chart": {
       "candlestick": "K선",
       "line": "라인",
@@ -146,6 +176,36 @@
       "verification": "Verification Partnership",
       "copyright": "© 2024 NBITMX. All rights reserved.",
       "riskWarning": "Risk Warning: Cryptocurrency trading is highly risky. Please invest cautiously."
+    },
+    "follow": {
+      "title": "Follow",
+      "totalIncome": "Total Income",
+      "today": "Today",
+      "tabs": {
+        "tradingPlaza": "Trading Plaza",
+        "myCopyTrading": "My Copy Trading"
+      },
+      "categories": {
+        "all": "All",
+        "options": "Options",
+        "futures": "Futures",
+        "spot": "Spot"
+      },
+      "filters": {
+        "all": "All",
+        "highYield": "High Yield",
+        "stable": "Stable",
+        "lowRisk": "Low Risk",
+        "newStars": "New Stars"
+      },
+      "trader": {
+        "copyTrade": "Copy",
+        "roi": "ROI",
+        "days": "Days",
+        "apy": "APY",
+        "winRate": "Win Rate",
+        "scale": "Scale"
+      }
     },
     "chart": {
       "candlestick": "Candlestick",
@@ -239,6 +299,36 @@
       "copyright": "© 2024 NBITMX. 保留所有權利。",
       "riskWarning": "風險提示：加密貨幣交易具有高風險，請謹慎投資。"
     },
+    "follow": {
+      "title": "跟單",
+      "totalIncome": "總收益",
+      "today": "今日",
+      "tabs": {
+        "tradingPlaza": "交易廣場",
+        "myCopyTrading": "我的跟單"
+      },
+      "categories": {
+        "all": "全部",
+        "options": "期權",
+        "futures": "合約",
+        "spot": "現貨"
+      },
+      "filters": {
+        "all": "全部",
+        "highYield": "高收益",
+        "stable": "穩定型",
+        "lowRisk": "低風險",
+        "newStars": "新星"
+      },
+      "trader": {
+        "copyTrade": "跟單",
+        "roi": "收益率",
+        "days": "跟隨天數",
+        "apy": "年化收益",
+        "winRate": "勝率",
+        "scale": "規模"
+      }
+    },
     "chart": {
       "candlestick": "K線",
       "line": "分時",
@@ -315,6 +405,36 @@
       "verification": "認証パートナーシップ",
       "copyright": "© 2024 NBITMX. All rights reserved.",
       "riskWarning": "リスク警告：暗号通貨取引は高リスクです。慎重に投資してください。"
+    },
+    "follow": {
+      "title": "フォロー",
+      "totalIncome": "総収益",
+      "today": "今日",
+      "tabs": {
+        "tradingPlaza": "取引プラザ",
+        "myCopyTrading": "私のコピートレード"
+      },
+      "categories": {
+        "all": "すべて",
+        "options": "オプション",
+        "futures": "先物",
+        "spot": "現物"
+      },
+      "filters": {
+        "all": "すべて",
+        "highYield": "高利回り",
+        "stable": "安定型",
+        "lowRisk": "低リスク",
+        "newStars": "ニュースター"
+      },
+      "trader": {
+        "copyTrade": "コピー",
+        "roi": "ROI",
+        "days": "日数",
+        "apy": "APY",
+        "winRate": "勝率",
+        "scale": "規模"
+      }
     },
     "chart": {
       "candlestick": "ローソク足",
@@ -393,6 +513,36 @@
       "copyright": "© 2024 NBITMX. Alle Rechte vorbehalten.",
       "riskWarning": "Risikowarnung: Der Handel mit Kryptowährungen ist hochriskant. Bitte investieren Sie vorsichtig."
     },
+    "follow": {
+      "title": "Folgen",
+      "totalIncome": "Gesamteinnahmen",
+      "today": "Heute",
+      "tabs": {
+        "tradingPlaza": "Handelsplatz",
+        "myCopyTrading": "Mein Copy Trading"
+      },
+      "categories": {
+        "all": "Alle",
+        "options": "Optionen",
+        "futures": "Futures",
+        "spot": "Spot"
+      },
+      "filters": {
+        "all": "Alle",
+        "highYield": "Hohe Rendite",
+        "stable": "Stabil",
+        "lowRisk": "Geringes Risiko",
+        "newStars": "Neue Sterne"
+      },
+      "trader": {
+        "copyTrade": "Kopieren",
+        "roi": "ROI",
+        "days": "Tage",
+        "apy": "APY",
+        "winRate": "Gewinnrate",
+        "scale": "Skala"
+      }
+    },
     "chart": {
       "candlestick": "Kerze",
       "line": "Linie",
@@ -470,6 +620,36 @@
       "copyright": "© 2024 NBITMX. Все права защищены.",
       "riskWarning": "Предупреждение о рисках: Торговля криптовалютами очень рискованна. Пожалуйста, инвестируйте осторожно."
     },
+    "follow": {
+      "title": "Подписки",
+      "totalIncome": "Общий доход",
+      "today": "Сегодня",
+      "tabs": {
+        "tradingPlaza": "Торговая площадка",
+        "myCopyTrading": "Мой копи-трейдинг"
+      },
+      "categories": {
+        "all": "Все",
+        "options": "Опционы",
+        "futures": "Фьючерсы",
+        "spot": "Спот"
+      },
+      "filters": {
+        "all": "Все",
+        "highYield": "Высокий доход",
+        "stable": "Стабильные",
+        "lowRisk": "Низкий риск",
+        "newStars": "Новые звезды"
+      },
+      "trader": {
+        "copyTrade": "Копировать",
+        "roi": "ROI",
+        "days": "Дней",
+        "apy": "APY",
+        "winRate": "Винрейт",
+        "scale": "Масштаб"
+      }
+    },
     "chart": {
       "candlestick": "Свечи",
       "line": "Линия",
@@ -546,6 +726,36 @@
       "verification": "Parceria de verificação",
       "copyright": "© 2024 NBITMX. Todos os direitos reservados.",
       "riskWarning": "Aviso de risco: A negociação de criptomoedas é altamente arriscada. Invista com cautela."
+    },
+    "follow": {
+      "title": "Seguir",
+      "totalIncome": "Rendimento Total",
+      "today": "Hoje",
+      "tabs": {
+        "tradingPlaza": "Praça de Negociação",
+        "myCopyTrading": "Meu Copy Trading"
+      },
+      "categories": {
+        "all": "Todos",
+        "options": "Opções",
+        "futures": "Futuros",
+        "spot": "Spot"
+      },
+      "filters": {
+        "all": "Todos",
+        "highYield": "Alto Rendimento",
+        "stable": "Estável",
+        "lowRisk": "Baixo Risco",
+        "newStars": "Novas Estrelas"
+      },
+      "trader": {
+        "copyTrade": "Copiar",
+        "roi": "ROI",
+        "days": "Dias",
+        "apy": "APY",
+        "winRate": "Taxa de Vitória",
+        "scale": "Escala"
+      }
     },
     "chart": {
       "candlestick": "Velas",

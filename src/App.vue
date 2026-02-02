@@ -65,7 +65,7 @@ const showMobileFooter = computed(() => {
 /* Global styles */
 #app {
   min-height: 100vh;
-  background: #000;
+  background: #0d0d0f;
   color: #fff;
 }
 

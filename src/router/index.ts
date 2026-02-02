@@ -17,14 +17,9 @@ const routes = [
     responsive: true,  // 首页有 desktop/index.vue 和 mobile/index.vue
   }),
 
-  defineRoute('/nft', 'Nft', '@/views/NftView', {
-    title: 'NFT Marketplace | Nbitmx',
-    responsive: true,  // NFT页面响应式
-  }),
-
   defineRoute('/nft/index', 'NftIndex', '@/views/NftView', {
     title: 'NFT Marketplace | Nbitmx',
-    responsive: true,
+    responsive: false,
   }),
 
   // 展示类页面 - 可选响应式
@@ -34,6 +29,10 @@ const routes = [
 
   defineRoute('/follow/index', 'FollowIndex', '@/views/FollowView', {
     title: 'Copy Trading | Nbitmx',
+  }),
+
+  defineRoute('/follow/detail/:id', 'FollowDetail', '@/views/FollowDetailView', {
+    title: 'Trader Details | Nbitmx',
   }),
 
   defineRoute('/quotes', 'Quotes', '@/views/QuotesView', {
@@ -60,8 +59,12 @@ const routes = [
     title: 'Copy Trading | Nbitmx',
   }),
 
-  defineRoute('/news', '  News', '@/views/NewsView', {
+  defineRoute('/news', 'News', '@/views/NewsView', {
     title: 'NBITMX News | Crypto Industry Trends',
+  }),
+
+  defineRoute('/news/details/:id', 'NewsDetail', '@/views/NewsDetailView', {
+    title: 'News Details | Nbitmx',
   }),
 
   defineRoute('/Charity/index', 'CharityIndex', '@/views/CharityView', {
@@ -81,9 +84,6 @@ const routes = [
     title: 'Recharge | Nbitmx',
   }),
 
-  defineRoute('/copy-trading', 'CopyTrading', '@/views/PlaceholderView', {
-    title: 'Copy Trading | Nbitmx',
-  }),
 
   defineRoute('/assets', 'AssetsPage', '@/views/PlaceholderView', {
     title: 'My Assets | Nbitmx',
@@ -99,25 +99,25 @@ const routes = [
 
   // 业务组件 - 统一实现（不需要响应式）
   // 交易页面
-  defineRoute('/play/futures/trade', 'FuturesTrade', '@/views/trade/FuturesTradeView', {
+  defineRoute('/play/futures/trade/:symbol?', 'FuturesTrade', '@/views/trade/FuturesTradeView', {
     title: 'Futures Trading | Nbitmx',
     hideFooter: true,
     responsive: false,  // 业务组件，统一实现
   }),
 
-  defineRoute('/play/spot/trade', 'SpotTrade', '@/views/trade/SpotTradeView', {
+  defineRoute('/play/spot/trade/:symbol?', 'SpotTrade', '@/views/trade/SpotTradeView', {
     title: 'Spot Trading | Nbitmx',
     hideFooter: true,
     responsive: false,
   }),
 
-  defineRoute('/play/currency/trade', 'CurrencyTrade', '@/views/trade/SpotTradeView', {
+  defineRoute('/play/currency/trade/:symbol?', 'CurrencyTrade', '@/views/trade/SpotTradeView', {
     title: 'Currency Trading | Nbitmx',
     hideFooter: true,
     responsive: false,
   }),
 
-  defineRoute('/play/ucontract/index', 'UContract', '@/views/trade/UContractView', {
+  defineRoute('/play/ucontract/index/:symbol?', 'UContract', '@/views/trade/UContractView', {
     title: 'U-Margined Contract | Nbitmx',
     hideFooter: true,
     responsive: false,
