@@ -4,9 +4,9 @@
     <div class="w-full h-[200px] lg:h-[300px] relative overflow-hidden">
       <main class="w-full lg:w-[1175px] h-full mx-auto flex flex-col justify-center relative z-10">
         <div class="lg:max-w-1/2 relative z-20">
-          <h1 class="text-[26px] lg:text-[40px] mb-[17px] text-white px-[4vw] lg:px-0 line-clamp-2">News</h1>
+          <h1 class="text-[26px] lg:text-[40px] mb-[17px] text-white px-[4vw] lg:px-0 line-clamp-2">{{ $t('news.title') }}</h1>
           <p class="text-[12px] leading-[24px] lg:text-[14px] px-[4vw] lg:px-0 line-clamp-3">
-            Pay attention to market trends in the currency circle to make more informed trading and investment decisions.
+            {{ $t('news.desc') }}
           </p>
         </div>
         <img class="absolute z-10 w-auto h-full bottom-0 right-0 hidden lg:block" src="@/assets/images/news-bg.png" alt="News background" loading="lazy">
@@ -39,7 +39,7 @@
           </div>
         </div>
         
-        <button class="my-[30px] mx-auto border-none bg-transparent text-[#00f0ff] text-[16px] font-600 cursor-pointer w-full text-center hover:opacity-80 transition-opacity">View More</button>
+        <button class="my-[30px] mx-auto border-none bg-transparent text-[#00f0ff] text-[16px] font-600 cursor-pointer w-full text-center hover:opacity-80 transition-opacity">{{ $t('news.viewMore') }}</button>
       </ul>
     </div>
   </div>

@@ -5,7 +5,7 @@
       <!-- Top Title Area -->
       <div class="title_wrap" mymode="false">
         <div class="top_title">
-          <span class="main-title">{{ $t('follow.title') }}</span>
+          <span class="main-title theme-color">{{ $t('follow.title') }}</span>
           <div class="title_sec">
             <span class="name">
               {{ $t('follow.totalIncome') }} 
@@ -261,7 +261,7 @@ const filteredTraders = computed(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* Copied from fllowView.css */
 
 .title_wrap {
@@ -281,8 +281,7 @@ const filteredTraders = computed(() => {
 
 .top_title {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    align-items: center;
 }
 
 .main-title {
@@ -292,39 +291,69 @@ const filteredTraders = computed(() => {
 
 .title_sec {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    position: relative;
+    margin-left: 60px;
+    &:before {
+      content: "";
+      position: absolute;
+      left: -30px;
+      height: 14px;
+      width: 2px;
+      background-color: #363751;
+    }
 }
 
 .name {
     display: flex;
+    flex-wrap: initial;
+    flex-direction: initial;
     align-items: center;
-    gap: 5px;
-    font-size: 14px;
-    color: #888;
+    justify-content: initial;
+    gap: 8px;
 }
 
 .title_num {
-    display: flex;
-    gap: 15px;
+    margin-left: 20px;
 }
 
 .row1 {
-    font-size: 20px;
-    font-weight: bold;
+  &:nth-child(1) {
     color: #fff;
+      line-height: 24px;
+      font-size: 20px
+  }
+  &:nth-child(2) {
+    color: #848e9c;
+    line-height: 24px;
+    font-size: 16px
+}
 }
 
 .row2 {
-    font-size: 14px;
-    color: #888;
+    &:nth-child(1) {
+    color: #848e9c;
+    line-height: 14px;
+    font-size: 14px
+}
+&:nth-child(2) {
+    color: #00f0ff;
+    line-height: 14px;
+    font-size: 14px
+}
 }
 
 .right-con-1 {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #fff;
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  background-color: transparent;
+  padding: 10px 26px;
+  font-size: 14px;
+  --un-text-opacity: 1;
+  color: rgb(255 255 255 / var(--un-text-opacity));
 }
 
 .item {

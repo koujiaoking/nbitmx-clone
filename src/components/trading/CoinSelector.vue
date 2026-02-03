@@ -208,7 +208,7 @@ const switchTab = (id: string) => {
             activeSubTab.value = ''
         }
         
-        const currentSymbol = props.selectedSymbol ? props.selectedSymbol.split('/')[0].toLowerCase() : 'btc'
+        const currentSymbol = props.selectedSymbol ? props.selectedSymbol.split('/')[0]?.toLowerCase() : 'btc'
         router.push(`${path}/${currentSymbol}`)
     }
 }

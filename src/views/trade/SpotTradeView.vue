@@ -1,144 +1,29 @@
 <template>
-  <div class="futures-trade-page bg-black min-h-screen text-white text-sm">
-    
-    <main class="pt-[56px] h-screen flex flex-col overflow-hidden">
-      <!-- 交易主界面 -->
-      <div class="flex-1 flex overflow-hidden">
-        
-        <!-- Region 1: Left Coin List -->
-        <aside class="w-[280px] border-r border-white/5 hidden lg:flex flex-col bg-[#12141E]">
-          <CoinSelector :selected-symbol="selectedCoin.symbol" @select="handleSelectCoin" />
-        </aside>
-
-        <!-- Region 2: Middle Main Content -->
-        <section class="flex-1 flex flex-col min-w-0 bg-[#0B0B0F] overflow-y-auto custom-scrollbar">
-          
-          <!-- Ticker Info -->
-          <div class="bg-[#12141E] border-b border-white/5 px-4 py-3 shrink-0">
-             <!-- Same Ticker as existing -->
-             <div class="flex items-center gap-6 flex-wrap">
-              <div class="flex items-center gap-2 mr-4">
-                  <img :src="selectedCoin.icon" :alt="selectedCoin.symbol" class="w-8 h-8 rounded-full" />
-                  <div>
-                    <div class="text-lg font-bold leading-none">{{ selectedCoin.symbol }}</div>
-                    <span class="text-xs text-nbit-cyan bg-nbit-cyan/10 px-1 rounded">Spot</span>
-                  </div>
-              </div>
-              <div class="flex gap-8 text-xs">
-                  <div>
-                    <div class="text-gray-500 mb-0.5">Price</div>
-                    <div class="text-lg font-medium" :class="parseFloat(selectedCoin.change) >= 0 ? 'text-[#0ECB81]' : 'text-[#F6465D]'">{{ selectedCoin.price }}</div>
-                  </div>
-                  <div>
-                    <div class="text-gray-500 mb-0.5">24h Change</div>
-                    <div class="font-medium" :class="parseFloat(selectedCoin.change) >= 0 ? 'text-[#0ECB81]' : 'text-[#F6465D]'">{{ parseFloat(selectedCoin.change) >= 0 ? '+' : '' }}{{ selectedCoin.change }}%</div>
-                  </div>
-                  <div>
-                    <div class="text-gray-500 mb-0.5">24h High</div>
-                    <div class="text-white">{{ selectedCoin.high }}</div>
-                  </div>
-                  <div>
-                    <div class="text-gray-500 mb-0.5">24h Low</div>
-                    <div class="text-white">{{ selectedCoin.low }}</div>
-                  </div>
-                  <div>
-                    <div class="text-gray-500 mb-0.5">24h Vol(BTC)</div>
-                    <div class="text-white">{{ selectedCoin.volume }}</div>
-                  </div>
-              </div>
-             </div>
-          </div>
-
-          <!-- Chart Area -->
-          <div class="h-[450px] shrink-0 border-b border-white/5">
-            <TradingChart :symbol="selectedCoin.symbol" />
-          </div>
-
-          <!-- Trade Form Area -->
-          <div class="shrink-0 border-b border-white/5">
-             <TradeForm :symbol="selectedCoin.symbol" />
-          </div>
-
-          <!-- Orders Table Area -->
-          <div class="flex-1 min-h-[300px]">
-             <TradeOrders :symbol="selectedCoin.symbol" />
-          </div>
-
-        </section>
-
-        <!-- Region 3: Right Order Book -->
-        <aside class="w-[320px] border-l border-white/5 hidden xl:flex flex-col bg-[#12141E]">
-          <OrderBook :symbol="selectedCoin.symbol" />
-        </aside>
-
-      </div>
-    </main>
-  </div>
+  <component :is="activeComponent" />
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import CoinSelector from '@/components/trading/CoinSelector.vue'
-import OrderBook from '@/components/trading/OrderBook.vue'
-import TradingChart from '@/components/trading/TradingChart.vue'
-import TradeForm from '@/components/trading/TradeForm.vue'
-import TradeOrders from '@/components/trading/TradeOrders.vue'
+import { defineAsyncComponent, shallowRef, onMounted, onUnmounted } from 'vue'
 
-const route = useRoute()
-const router = useRouter()
+const DesktopView = defineAsyncComponent(() => import('./desktop/SpotTradeView.vue'))
+const MobileView = defineAsyncComponent(() => import('./mobile/SpotTradeView.vue'))
 
-// Mock Initial Data
-const selectedCoin = ref({
-  symbol: 'BTC/USDT',
-  icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png',
-  price: '77864.13',
-  change: '1.25',
-  high: '78120.50',
-  low: '76890.20',
-  volume: '5,456.78'
-})
+const activeComponent = shallowRef(DesktopView)
 
-const updateCoinFromRoute = () => {
-    let s = route.params.symbol as string
-    if (!s) return // Keep default if no param
-    
-    s = s.toUpperCase()
-    // Simple mock logic to reconstruct pair or just use symbol
-    const symbol = s.includes('USDT') ? s : `${s}/USDT`
-    
-    // In real app, we would fetch coin details by symbol
-    selectedCoin.value = {
-        ...selectedCoin.value,
-        symbol: symbol,
-        price: (Math.random() * 50000 + 100).toFixed(2), // Mock update price to show change
-        change: (Math.random() * 10 - 5).toFixed(2)
-    }
+const checkLayout = () => {
+  if (window.innerWidth < 768) {
+    activeComponent.value = MobileView
+  } else {
+    activeComponent.value = DesktopView
+  }
 }
-
-watch(() => route.params.symbol, () => {
-    updateCoinFromRoute()
-})
 
 onMounted(() => {
-    updateCoinFromRoute()
+  checkLayout()
+  window.addEventListener('resize', checkLayout)
 })
 
-const handleSelectCoin = (coin: any) => {
-  // Navigation is handled by CoinSelector. 
-  // We can just wait for route change. 
-}
+onUnmounted(() => {
+  window.removeEventListener('resize', checkLayout)
+})
 </script>
-
-<style scoped>
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 2px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-</style>

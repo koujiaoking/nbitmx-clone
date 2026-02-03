@@ -21,7 +21,7 @@ const route = useRoute()
 const title = computed(() => {
   const titles: Record<string, string> = {
     '/recharge': 'Recharge',
-    '/copy-trading': 'Copy Trading',
+    '/follow/index': 'Copy Trading',
     '/assets': 'My Assets',
     '/withdraw': 'Withdraw',
     '/customer-service': 'Customer Service',
@@ -32,7 +32,7 @@ const title = computed(() => {
 const description = computed(() => {
   const descriptions: Record<string, string> = {
     '/recharge': 'Deposit funds to your account',
-    '/copy-trading': 'Follow expert traders and copy their strategies',
+    '/follow/index': 'Follow expert traders and copy their strategies',
     '/assets': 'Manage your cryptocurrency assets',
     '/withdraw': 'Withdraw funds from your account',
     '/customer-service': 'Get help from our support team',

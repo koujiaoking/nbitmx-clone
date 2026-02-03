@@ -2,32 +2,31 @@
   <main class="nft-page">
     <div class="nft-top">
       <div class="donate">
-        <div class="title hidden lg:block">Cumulative donation</div>
+        <div class="title hidden lg:block">{{ $t('nft.cumulativeDonation') }}</div>
         <ul class="list">
           <li cv-animate-on-scroll="'animate__fadeInBottom'" style="view-transition-name: none;"><img
               src="@/assets/images/mdonate1.png" class="w-70px h-70px -mt-30px">
             <div><span>7,039</span></div>
-            <div class="color-[#7a7a97]">Trading Volume(Order)</div>
+            <div class="color-[#7a7a97]">{{ $t('nft.tradingVolume') }}</div>
           </li>
           <li cv-animate-on-scroll="'animate__fadeInBottom'" style="view-transition-name: none;"><img
               src="@/assets/images/mdonate2.png" class="w-70px h-70px -mt-30px">
             <div><span>23,669,490</span></div>
-            <div class="color-[#7a7a97]">Transaction Amount USDT</div>
+            <div class="color-[#7a7a97]">{{ $t('nft.transactionAmount') }}</div>
           </li>
           <li cv-animate-on-scroll="'animate__fadeInBottom'" style="view-transition-name: none;"><img
               src="@/assets/images/mdonate3.png"
               class="w-70px h-70px -mt-30px">
             <div><span>7,879</span></div>
-            <div class="color-[#7a7a97]">NFT Quantity(Piece)</div>
+            <div class="color-[#7a7a97]">{{ $t('nft.nftQuantity') }}</div>
           </li>
           <li cv-animate-on-scroll="'animate__fadeInBottom'" style="view-transition-name: none;"><img
               src="@/assets/images/mdonate4.png" class="w-70px h-70px -mt-30px">
             <div><span>1,029,392</span></div>
-            <div class="color-[#7a7a97]">Profit Users</div>
+            <div class="color-[#7a7a97]">{{ $t('nft.profitUsers') }}</div>
           </li>
         </ul>
-        <div class="text-20px fw-400 color-[#888] mt-50px hidden lg:block"> We promise to donate 30% of
-          the proceeds from NFT sales to UNICEF for charity. </div>
+        <div class="text-20px fw-400 color-[#888] mt-50px hidden lg:block"> {{ $t('nft.promise') }} </div>
         <div class="hidden lg:block mt-35px"><img src="@/assets/images/mdonate-bar.svg"></div>
       </div>
       <div class="right-con" @click="showVideo = true">
@@ -49,7 +48,7 @@
 
     <div class="max-w-1360px mx-auto px-4vw box-border md:px-0">
       <div class="color-white text-center font-bold text-3xl mt-15 mb-10" v-animate-on-scroll="'animate__fadeInLeft'"
-        style="view-transition-name: none;"> Hot </div>
+        style="view-transition-name: none;"> {{ $t('nft.hot') }} </div>
       <ul class="p-0 m-0 list-none flex flex-wrap md:gap-42px gap-24px">
         <li class="hot-item"><img class="nft-img" src="@/assets/images/wzgif.gif"
             alt="Alejandra Compton #3677">
@@ -155,36 +154,36 @@
       <div class="fitwidth-wrap">
         <div class="nftauthor">
           <div class="nftauthor-title" v-animate-on-scroll="'animate__fadeInTop'" style="view-transition-name: none;"><span
-              class="title white-color-text">Featured creator</span><span
-              class="top10">TOP10</span></div>
+              class="title white-color-text">{{ $t('nft.featuredCreator') }}</span><span
+              class="top10">{{ $t('nft.top10') }}</span></div>
           <ul class="author-list">
             <li class="author-item">
               <div class="sort sort1">1.</div><img class="head-img"
                 src="@/assets/images/wzgif.gif" alt="ApeReunion">
               <div class="name">ApeReunion</div>
               <div class="articles">3,677 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
             <li class="author-item">
               <div class="sort sort2">2.</div><img class="head-img"
                 src="@/assets/images/wz1.png" alt="MGLAND">
               <div class="name">MGLAND</div>
               <div class="articles">3,539 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
             <li class="author-item">
               <div class="sort sort3">3.</div><img class="head-img"
                 src="@/assets/images/wz2.png" alt="OtherdeedforOtherside">
               <div class="name">OtherdeedforOtherside</div>
               <div class="articles">4,206 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
             <li class="author-item">
               <div class="sort sort4">4.</div><img class="head-img"
                 src="@/assets/images/wz3.png" alt="TheSanctumNeophytes">
               <div class="name">TheSanctumNeophytes</div>
               <div class="articles">3,069 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
             <li class="author-item">
               <div class="sort sort5">5.</div><img class="head-img"
@@ -192,52 +191,51 @@
                 alt="TheSandbox">
               <div class="name">TheSandbox</div>
               <div class="articles">3,683 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
             <li class="author-item">
               <div class="sort sort6">6.</div><img class="head-img"
                 src="@/assets/images/wz5.png" alt="WolfPupsOfficial">
               <div class="name">WolfPupsOfficial</div>
               <div class="articles">3,710 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
             <li class="author-item">
               <div class="sort sort7">7.</div><img class="head-img"
                 src="@/assets/images/wz6.png" alt="KEEPOFFTHEGRASS">
               <div class="name">KEEPOFFTHEGRASS</div>
               <div class="articles">3,970 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
             <li class="author-item">
               <div class="sort sort8">8.</div><img class="head-img"
                 src="@/assets/images/wz7.png" alt="AIORBIT">
               <div class="name">AIORBIT</div>
               <div class="articles">4,687 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
             <li class="author-item">
               <div class="sort sort9">9.</div><img class="head-img"
                 src="@/assets/images/wz8.gif" alt="BitcoinPunks">
               <div class="name">BitcoinPunks</div>
               <div class="articles">4,947 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
             <li class="author-item">
               <div class="sort sort10">10.</div><img class="head-img"
                 src="@/assets/images/wz1.png" alt="CUBE">
               <div class="name">CUBE</div>
               <div class="articles">3,046 Works</div><button
-                class="view-article">View portfolio</button>
+                class="view-article">{{ $t('nft.viewPortfolio') }}</button>
             </li>
           </ul>
         </div>
       </div>
       <h2 class="color-white mt-15 text-center md:text-46px text-18px" v-animate-on-scroll="'animate__fadeInRight'"
-        style="view-transition-name: none;"> Yield Output </h2>
+        style="view-transition-name: none;"> {{ $t('nft.yieldOutput') }} </h2>
       <div class="mt-8 px-13px">
-        <div class="flex text-14px"><span class="column addr color-[#888]">User
-            Address</span><span class="column name color-[#888]">NFT Name</span><span
-            class="column amount color-[#888]">Revenue</span></div>
+        <div class="flex text-14px"><span class="column addr color-[#888]">{{ $t('nft.userAddress') }}</span><span class="column name color-[#888]">{{ $t('nft.nftName') }}</span><span
+            class="column amount color-[#888]">{{ $t('nft.revenue') }}</span></div>
         <div class="h-480px mt-40px overflow-hidden">
           <ul class="table-body">
             <li class="flex items-center b-b-1px b-b-solid b-b-[#12141e] py-15px md:text-20px"><span
@@ -286,47 +284,37 @@
     </div>
     <div class="be-author">
       <div class="be-author-title white-color-text" v-animate-on-scroll="'animate__fadeInTop'" style="view-transition-name: none;">
-        BecomeExchange NFTCertified Creator </div>
-      <div class="be-author-title-sub" v-animate-on-scroll="'animate__fadeInTop'" style="view-transition-name: none;"> Looking forward
-        to you who are talented and use your works to create value and hope </div>
+        {{ $t('nft.becomeCreator') }} </div>
+      <div class="be-author-title-sub" v-animate-on-scroll="'animate__fadeInTop'" style="view-transition-name: none;"> {{ $t('nft.lookingForward') }} </div>
       <div class="advantage-wrap" v-animate-on-scroll="'animate__fadeInBottom'" style="view-transition-name: none;">
         <div class="advantage-list">
           <div class="advantage-item">
-            <div class="top"><span>Unique logo</span><img
+            <div class="top"><span>{{ $t('nft.advantage1Title') }}</span><img
                 src="@/assets/images/creator-2.svg"
                 alt="Unique logo"></div>
-            <div class="bottom">Certified asExchange_NFTCreators getExchange_NFTThe official exclusive
-              certification logo, which is permanently bound to the creator's account and displayed synchronously with the
-              creator's work</div>
+            <div class="bottom">{{ $t('nft.advantage1Desc') }}</div>
           </div>
           <div class="advantage-item">
-            <div class="top"><span>Traffic exposure</span><img
+            <div class="top"><span>{{ $t('nft.advantage2Title') }}</span><img
                 src="@/assets/images/advantage2-dark.svg" alt="Traffic exposure"></div>
-            <div class="bottom">Exchange_NFTCertified creators will have the opportunity to obtain
-              official homeless support, including the display of works on the homepage of the official website, the
-              exposure opportunities of tens of millions of rapid traffic on official social media and community channels
-            </div>
+            <div class="bottom">{{ $t('nft.advantage2Desc') }}</div>
           </div>
           <div class="advantage-item">
-            <div class="top"><span>Operation customization</span><img
+            <div class="top"><span>{{ $t('nft.advantage3Title') }}</span><img
                 src="@/assets/images/creator-3.svg"
                 alt="Operation customization"></div>
-            <div class="bottom">Exchange_NFTProvide each certified creator with an exclusive
-              operational support plan, including support for various online and offline operational activities, and will
-              also receive exclusive qualifications to participate in the official high-quality project sharing sessions
-              held regularly</div>
+            <div class="bottom">{{ $t('nft.advantage3Desc') }}</div>
           </div>
           <div class="advantage-item">
-            <div class="top"><span>Exclusive customer service</span><img
+            <div class="top"><span>{{ $t('nft.advantage4Title') }}</span><img
                 src="@/assets/images/creator-4.svg"
                 alt="Exclusive customer service"></div>
-            <div class="bottom">Exchange_NFTAll certified creators can enjoy7*24Exclusive customer
-              service to meet all your needsExchange_NFTNeeds, and have the priority to answer questions</div>
+            <div class="bottom">{{ $t('nft.advantage4Desc') }}</div>
           </div>
         </div>
       </div>
       <div class="nft-banner" v-animate-on-scroll="'animate__fadeInBottom'" style="view-transition-name: none;">
-        <div class="nft-banner-title white-color-text"> Start Exchange NFT market trading journey
+        <div class="nft-banner-title white-color-text"> {{ $t('nft.startJourney') }}
         </div>
         <div class="cm-empty"></div>
       </div>

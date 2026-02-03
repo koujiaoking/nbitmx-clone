@@ -1,14 +1,14 @@
 <template>
   <div class="quotes-page bg-[#000] min-h-screen text-white font-sans pt-[60px] pb-[100px]"> <!-- Added padding top/bottom based on html/css context -->
     <div class="mx-auto w-[1360px] max-w-full px-4 sm:px-6 lg:px-8">
-      <h1 class="h-[45px] font-bold text-[30px] leading-[45px] text-white mb-[20px]">Cryptocurrency Quotes</h1>
+      <h1 class="h-[45px] font-bold text-[30px] leading-[45px] text-white mb-[20px]">{{ $t('quotes.title') }}</h1>
       
       <!-- Top Cards: Gain Ranking & Popular Currencies -->
       <div class="flex flex-col lg:flex-row items-stretch justify-between mt-[50px] gap-[50px]">
         
         <!-- Gain Ranking -->
         <div class="w-full lg:w-1/2 px-[20px] py-[26px] box-border rounded-[12px] border border-[#31323f]">
-          <div class="font-bold text-[20px]">Gain ranking</div>
+          <div class="font-bold text-[20px]">{{ $t('quotes.gainRanking') }}</div>
           <div class="flex flex-wrap items-start justify-start mt-[20px]">
             <div v-for="coin in gainRankings" :key="coin.symbol" class="w-1/2 my-[9px] flex items-center justify-start font-bold text-[15px] px-[15px] box-border">
               <div class="w-1/3 flex items-center justify-start">
@@ -23,7 +23,7 @@
 
         <!-- Popular Currencies -->
         <div class="w-full lg:w-1/2 px-[20px] py-[26px] box-border rounded-[12px] border border-[#31323f]">
-          <div class="font-bold text-[20px]">Popular currencies</div>
+          <div class="font-bold text-[20px]">{{ $t('quotes.popularCurrencies') }}</div>
           <div class="flex flex-wrap items-start justify-start mt-[20px]">
             <div v-for="coin in popularCoins" :key="coin.symbol" class="w-1/2 my-[9px] flex items-center justify-start font-bold text-[15px] px-[15px] box-border">
               <div class="w-1/3 flex items-center justify-start">
@@ -44,10 +44,10 @@
       <div class="tab-base mt-[42px] flex items-center justify-between">
         <div class="cm-tabs-container flex-1">
            <van-tabs v-model:active="activeTab" background="transparent" title-active-color="#fff" title-inactive-color="#888" line-width="50px" line-height="2px" color="#fff" :border="false">
-             <van-tab title="Optional" name="optional"></van-tab>
-             <van-tab title="Spot" name="spot"></van-tab>
-             <van-tab title="Contract" name="contract"></van-tab>
-             <van-tab title="Options" name="options"></van-tab>
+             <van-tab :title="$t('quotes.tabOptional')" name="optional"></van-tab>
+             <van-tab :title="$t('quotes.tabSpot')" name="spot"></van-tab>
+             <van-tab :title="$t('quotes.tabContract')" name="contract"></van-tab>
+             <van-tab :title="$t('quotes.tabOptions')" name="options"></van-tab>
            </van-tabs>
         </div>
         <div class="search w-[260px] h-[32px] flex items-center rounded-full border border-[#31323f] bg-[#12141E] px-[10px] ml-4">
@@ -56,7 +56,7 @@
               <path d="M14.4733 13.5267L11.9999 11.0733C12.96 9.87627 13.4249 8.35686 13.2991 6.82753C13.1733 5.2982 12.4664 3.87519 11.3236 2.85109C10.1808 1.827 8.68914 1.27967 7.15522 1.32164C5.62129 1.36362 4.16175 1.99171 3.0767 3.07676C1.99164 4.16181 1.36356 5.62136 1.32158 7.15528C1.27961 8.6892 1.82694 10.1809 2.85103 11.3237C3.87512 12.4664 5.29814 13.1734 6.82747 13.2992C8.3568 13.425 9.87621 12.9601 11.0733 12L13.5266 14.4533C13.5886 14.5158 13.6623 14.5654 13.7436 14.5993C13.8248 14.6331 13.9119 14.6505 13.9999 14.6505C14.0879 14.6505 14.1751 14.6331 14.2563 14.5993C14.3376 14.5654 14.4113 14.5158 14.4733 14.4533C14.5934 14.329 14.6606 14.1629 14.6606 13.99C14.6606 13.8171 14.5934 13.651 14.4733 13.5267ZM7.33327 12C6.41029 12 5.50804 11.7263 4.74061 11.2135C3.97318 10.7007 3.37504 9.97191 3.02183 9.11919C2.66862 8.26646 2.57621 7.32815 2.75627 6.42291C2.93634 5.51766 3.38079 4.68614 4.03344 4.0335C4.68608 3.38085 5.5176 2.9364 6.42285 2.75633C7.32809 2.57627 8.2664 2.66868 9.11913 3.02189C9.97185 3.3751 10.7007 3.97324 11.2135 4.74067C11.7262 5.5081 11.9999 6.41035 11.9999 7.33333C11.9999 8.57101 11.5083 9.75799 10.6331 10.6332C9.75793 11.5083 8.57095 12 7.33327 12Z" />
             </svg>
           </div>
-          <input type="text" placeholder="Search" class="bg-transparent border-none text text-[#eaeae7] flex-1 ml-2 focus:outline-none placeholder-[#5e5e7a]">
+          <input type="text" :placeholder="$t('quotes.search')" class="bg-transparent border-none text text-[#eaeae7] flex-1 ml-2 focus:outline-none placeholder-[#5e5e7a]">
         </div>
       </div>
 
@@ -64,14 +64,14 @@
       <div class="crypto-table mt-[20px] font-sans">
         <!-- Header -->
         <div class="table-header flex border-b border-[#31323f] h-[51px] text-[14px] font-black items-center text-[#eee] uppercase">
-          <div class="header-cell name flex-[1.6]">Crypto</div>
-          <div class="header-cell flex-1 text-right">Latest Price</div>
-          <div class="header-cell flex-1 text-right">24H Change</div>
-          <div class="header-cell flex-1 text-right">24H Low</div>
-          <div class="header-cell flex-1 text-right">24H High</div>
-          <div class="header-cell flex-1 text-right">24H Volume</div>
-          <div class="header-cell flex-1 text-right">24H Amount</div>
-          <div class="header-cell flex-1 text-right">Operation</div>
+          <div class="header-cell name flex-[1.6]">{{ $t('quotes.marketing') }}</div>
+          <div class="header-cell flex-1 text-right">{{ $t('quotes.latestPrice') }}</div>
+          <div class="header-cell flex-1 text-right">{{ $t('quotes.change24h') }}</div>
+          <div class="header-cell flex-1 text-right">{{ $t('quotes.low24h') }}</div>
+          <div class="header-cell flex-1 text-right">{{ $t('quotes.high24h') }}</div>
+          <div class="header-cell flex-1 text-right">{{ $t('quotes.volume24h') }}</div>
+          <div class="header-cell flex-1 text-right">{{ $t('quotes.amount24h') }}</div>
+          <div class="header-cell flex-1 text-right">{{ $t('quotes.operation') }}</div>
         </div>
 
         <!-- Body -->
@@ -93,7 +93,7 @@
             <div class="row-cell flex-1 text-right">
               <span class="trade-btn inline-flex items-center justify-center w-[73px] h-[30px] rounded-full border border-[#84849f] bg-[#12141E] px-[15px] text-[12px] text-white hover:border-0 hover:bg-gradient-to-b from-[#6491e9] to-[#556dea] transition-all cursor-pointer">
                 <img src="data:image/svg+xml,%3csvg%20width='20'%20height='20'%20viewBox='0%200%2020%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20id='Design%20tools%20/%20horizontal%20distribute%20center'%3e%3cpath%20id='Vector'%20d='M15.834%204.16797H15.0007V2.5013C15.0007%202.28029%2014.9129%202.06833%2014.7566%201.91205C14.6003%201.75577%2014.3883%201.66797%2014.1673%201.66797C13.9463%201.66797%2013.7343%201.75577%2013.5781%201.91205C13.4218%202.06833%2013.334%202.28029%2013.334%202.5013V4.16797H12.5007C12.2796%204.16797%2012.0677%204.25577%2011.9114%204.41205C11.7551%204.56833%2011.6673%204.78029%2011.6673%205.0013V15.0013C11.6673%2015.2223%2011.7551%2015.4343%2011.9114%2015.5906C12.0677%2015.7468%2012.2796%2015.8346%2012.5007%2015.8346H13.334V17.5013C13.334%2017.7223%2013.4218%2017.9343%2013.5781%2018.0906C13.7343%2018.2468%2013.9463%2018.3346%2014.1673%2018.3346C14.3883%2018.3346%2014.6003%2018.2468%2014.7566%2018.0906C14.9129%2017.9343%2015.0007%2017.7223%2015.0007%2017.5013V15.8346H15.834C16.055%2015.8346%2016.267%2015.7468%2016.4232%2015.5906C16.5795%2015.4343%2016.6673%2015.2223%2016.6673%2015.0013V5.0013C16.6673%204.78029%2016.5795%204.56833%2016.4232%204.41205C16.267%204.25577%2016.055%204.16797%2015.834%204.16797ZM15.0007%2014.168H13.334V5.83464H15.0007V14.168ZM9.16732%203.33464H7.50065V2.5013C7.50065%202.28029%207.41285%202.06833%207.25657%201.91205C7.10029%201.75577%206.88833%201.66797%206.66732%201.66797C6.4463%201.66797%206.23434%201.75577%206.07806%201.91205C5.92178%202.06833%205.83398%202.28029%205.83398%202.5013V3.33464H4.16732C3.9463%203.33464%203.73434%203.42243%203.57806%203.57871C3.42178%203.73499%203.33398%203.94696%203.33398%204.16797V15.8346C3.33398%2016.0556%203.42178%2016.2676%203.57806%2016.4239C3.73434%2016.5802%203.9463%2016.668%204.16732%2016.668H5.83398V17.5013C5.83398%2017.7223%205.92178%2017.9343%206.07806%2018.0906C6.23434%2018.2468%206.4463%2018.3346%206.66732%2018.3346C6.88833%2018.3346%207.10029%2018.2468%207.25657%2018.0906C7.41285%2017.9343%207.50065%2017.7223%207.50065%2017.5013V16.668H9.16732C9.38833%2016.668%209.60029%2016.5802%209.75657%2016.4239C9.91285%2016.2676%2010.0007%2016.0556%2010.0007%2015.8346V4.16797C10.0007%203.94696%209.91285%203.73499%209.75657%203.57871C9.60029%203.42243%209.38833%203.33464%209.16732%203.33464ZM8.33398%2015.0013H5.00065V5.0013H8.33398V15.0013Z'%20fill='%23ECECFF'/%3e%3c/g%3e%3c/svg%3e" class="mr-[5px] w-[13px]">
-                Trading
+                {{ $t('quotes.trading') }}
               </span>
             </div>
           </div>

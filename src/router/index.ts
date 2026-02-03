@@ -55,7 +55,7 @@ const routes = [
     title: 'Charity | Nbitmx',
   }),
 
-  defineRoute('/copy-trading', 'CopyTrading', '@/views/FollowView', {
+  defineRoute('/follow/index', 'CopyTrading', '@/views/FollowView', {
     title: 'Copy Trading | Nbitmx',
   }),
 

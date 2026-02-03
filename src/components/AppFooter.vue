@@ -27,45 +27,42 @@
             <!-- Trading Market -->
             <div class="list">
               <div class="head">{{ $t('footer.tradingMarket') }}</div>
-              <router-link to="/play/spot/trade" class="item">{{ $t('footer.spotTrading') }}</router-link>
-              <router-link to="/play/ucontract/index" class="item">{{ $t('footer.contractTrading') }}</router-link>
-              <router-link to="/copy-trading" class="item">{{ $t('footer.copyTrading') }}</router-link>
-              <router-link to="/play/futures/trade" class="item">{{ $t('footer.optionsTrading') }}</router-link>
-              <router-link to="/nft/index" class="item">{{ $t('footer.nftMarket') }}</router-link>
+              <router-link to="/quotes" class="item">{{ $t('footer.quotes') }}</router-link>
+              <router-link to="/play/futures/trade" class="item">{{ $t('footer.options') }}</router-link>
+              <router-link to="/play/spot/trade" class="item">{{ $t('footer.spot') }}</router-link>
+              <router-link to="/play/ucontract/index" class="item">{{ $t('footer.perpetual') }}</router-link>
             </div>
 
             <!-- Asset Management -->
             <div class="list">
-              <div class="head">{{ $t('footer.service') }}</div>
-              <router-link to="/assets" class="item">{{ $t('footer.helpCenter') }}</router-link>
-              <router-link to="/recharge" class="item">{{ $t('footer.announcements') }}</router-link>
-              <router-link to="/withdraw" class="item">{{ $t('footer.customerService') }}</router-link>
-              <router-link to="/assets" class="item">{{ $t('footer.submitTicket') }}</router-link>
-              <router-link to="/assets" class="item">{{ $t('footer.tradingRules') }}</router-link>
+              <div class="head">{{ $t('footer.assetManagement') }}</div>
+              <router-link to="/assets/index?tab=asset_overview" class="item">{{ $t('footer.myAssets') }}</router-link>
+              <router-link to="/assets/recharge" class="item">{{ $t('footer.deposit') }}</router-link>
+              <router-link to="/assets/withdraw" class="item">{{ $t('footer.withdraw') }}</router-link>
+              <router-link to="/assets/index?tab=transfer" class="item">{{ $t('footer.transfer') }}</router-link>
+              <router-link to="/assets/index?tab=order_center" class="item">{{ $t('footer.orderCenter') }}</router-link>
             </div>
 
             <!-- Products -->
             <div class="list">
-              <div class="head">{{ $t('footer.company') }}</div>
-              <router-link to="/" class="item">{{ $t('footer.aboutUs') }}</router-link>
-              <router-link to="/" class="item">{{ $t('footer.careers') }}</router-link>
-              <router-link to="/" class="item">{{ $t('footer.blog') }}</router-link>
+              <div class="head">{{ $t('footer.products') }}</div>
+              <router-link to="/customer/index" class="item">{{ $t('footer.inviteRewards') }}</router-link>
+              <router-link to="/web3/index" class="item">{{ $t('footer.financialManagement') }}</router-link>
             </div>
 
             <!-- Support -->
             <div class="list">
-              <div class="head">{{ $t('footer.resources') }}</div>
-              <router-link to="/customer-service" class="item">{{ $t('footer.download') }}</router-link>
-              <router-link to="/" class="item">{{ $t('footer.apiDoc') }}</router-link>
-              <router-link to="/" class="item">{{ $t('footer.fees') }}</router-link>
+              <div class="head">{{ $t('footer.support') }}</div>
+              <router-link to="/" class="item">{{ $t('footer.onlineSupport') }}</router-link>
+              <router-link to="/" class="item">{{ $t('footer.aboutUs') }}</router-link>
             </div>
 
             <!-- Policy -->
             <div class="list">
-              <div class="head">{{ $t('footer.company') }}</div>
+              <div class="head">{{ $t('footer.policy') }}</div>
               <router-link to="/" class="item">{{ $t('footer.terms') }}</router-link>
               <router-link to="/" class="item">{{ $t('footer.privacy') }}</router-link>
-              <router-link to="/" class="item">{{ $t('footer.listing') }}</router-link>
+              <router-link to="/" class="item">{{ $t('footer.aml') }}</router-link>
             </div>
           </div>
 

@@ -1,0 +1,32 @@
+@media screen and (min-width: 992px) {
+    .notice-page[data-v-d56327b3] {
+        margin-left:auto;
+        margin-right: auto;
+        box-sizing: border-box;
+        width: 1350px;
+        padding-bottom: 50px
+    }
+
+    .page-header[data-v-d56327b3] {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 30px 20px;
+        --un-text-opacity: 1;
+        color: rgb(255 255 255 / var(--un-text-opacity))
+    }
+
+    .page-header p[data-v-d56327b3] {
+        font-size: 20px
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .notice-page[data-v-d56327b3] {
+        box-sizing:border-box;
+        width: 100%;
+        padding-left: 3.2vw;
+        padding-right: 3.2vw;
+        padding-bottom: 10vw
+    }
+}

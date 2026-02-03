@@ -113,7 +113,7 @@
              
              <!-- Empty State -->
              <div class="flex flex-col items-center justify-center py-10">
-                 <img src="@/assets/icons/empty.png" class="w-16 h-16 opacity-50 mb-4" />
+                 <van-icon name="description" size="64" color="#888" class="mb-4 opacity-50" />
                  <p class="text-[#888]">{{ $t('common.noMore') }}</p>
              </div>
         </div>

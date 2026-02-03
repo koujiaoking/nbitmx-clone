@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="h-56px"></div>
-    <header class="fixed top-0 left-0 right-0 h-56px bg-black/30 backdrop-blur-sm w-full z-10">
+    <header class="fixed top-0 left-0 right-0 h-56px bg-black/30 backdrop-blur-sm w-full z-50">
     <div class="flex items-center mx-18px h-full relative min-w-1280px">
       <!-- Logo -->
       <router-link to="/">
@@ -36,19 +36,16 @@
           {{ $t('header.recharge') }}
           <van-icon name="play" class="down-triangle" />
           <div class="sub-list">
-            <router-link to="/recharge" class="sub-title">
-              
+            <a href="https://buy.simplex.com/" target="_blank" class="sub-title">
               <span class="top">
                 <img src="@/assets/images/logo-simplex.jpeg" class="svg-img h-full" alt="">Simplex</span>
-            </router-link>
-            <router-link to="/recharge" class="sub-title">
-              
+            </a>
+            <a href="https://www.coinbase.com/" target="_blank" class="sub-title">
               <span class="top"><img src="@/assets/images/logo-coinbase.jpeg" class="svg-img h-full"  alt="">Coinbase</span>
-            </router-link>
-            <router-link to="/recharge" class="sub-title">
-              
+            </a>
+            <a href="https://www.kraken.com/" target="_blank" class="sub-title">
               <span class="top"><img src="@/assets/images/logo-mkraken.jpeg" class="svg-img h-full" alt="">Kraken</span>
-            </router-link>
+            </a>
           </div>
         </li>
 
@@ -73,7 +70,7 @@
         </li>
 
         <!-- Copy Trading -->
-        <router-link to="/copy-trading" custom v-slot="{ navigate }">
+        <router-link to="/follow/index" custom v-slot="{ navigate }">
           <li class="tab" @click="navigate">{{ $t('header.copyTrading') }}</li>
         </router-link>
 
@@ -111,16 +108,78 @@
 
       </ul>
 
-      <div class="iconfont text-[18px] mr-[20px]">&#xe829;</div>
+      <!-- Wallet Menu -->
+      <div class="icon-menu-item group relative mr-4">
+        <div class="iconfont text-[18px] cursor-pointer hover:text-[#00f0ff]">&#xe829;</div>
+        <!-- Dropdown -->
+        <div class="sub-list w-[200px]! p-[6px]!">
+             <router-link to="/assets/index?tab=asset_overview" class="sub-title">
+                <span class="top"><div class="iconfont">&#xe922;</div>{{ $t('header.assetCenter') }}</span>
+             </router-link>
+             
+             <router-link to="/assets/recharge" class="sub-title">
+               <span class="top"><div class="iconfont">&#xe920;</div>{{ $t('header.recharge') }}</span>
+             </router-link>
+             <router-link to="/assets/withdraw" class="sub-title">
+               <span class="top"><div class="iconfont">&#xe921;</div>{{ $t('header.withdraw') }}</span>
+             </router-link>
+             <router-link to="/assets/index?tab=transfer" class="sub-title">
+               <span class="top"><div class="iconfont">&#xe923;</div>{{ $t('header.transfer') }}</span>
+             </router-link>
+             <router-link to="/assets/index?tab=order_center" class="sub-title">
+               <span class="top"><div class="iconfont">&#xe926;</div>{{ $t('header.orderCenter') }}</span>
+             </router-link>
+             <router-link to="/assets/address" class="sub-title">
+               <span class="top"><div class="iconfont">&#xe928;</div>{{ $t('header.addressBook') }}</span>
+             </router-link>
+        </div>
+      </div>
 
-      <div class="iconfont text-[16px]">&#xe660;</div>
+      <!-- User Menu -->
+      <div class="icon-menu-item group relative mr-4">
+        <div class="iconfont text-[16px] cursor-pointer hover:text-[#00f0ff]">&#xe660;</div>
+         <!-- Dropdown -->
+        <div class="sub-list w-[280px]! p-[12px]!">
+             <!-- User Info -->
+             <div class="flex items-start mb-4 px-2">
+               <img src="@/assets/images/ai-logo2.png" class="w-10 h-10 rounded-full mr-3 border border-[#333]" onerror="this.src='/favicon.ico'">
+               <div class="flex-1">
+                 <div class="flex items-center mb-1">
+                   <span class="text-white text-sm mr-2">0x67*****88c2</span>
+                   <span class="bg-gradient-to-r from-[#FAD961] to-[#F76B1C] text-[10px] text-black px-1 rounded font-bold italic">VIP0</span>
+                 </div>
+                 <div class="text-[#848E9C] text-xs mb-2">UID:775889</div>
+                 
+                 <!-- Credit Score -->
+                 <div class="bg-[#2B2F36] rounded p-2 flex items-center justify-between border border-[#373b45]">
+                    <span class="text-[#848E9C] text-xs">{{ $t('header.creditScore') }} 100</span>
+                 </div>
+               </div>
+             </div>
+             
+             <div class="h-[1px] bg-[#2B2F36] my-2"></div>
+             
+             <!-- List -->
+             <div>
+                <div class="sub-title" @click="showModal = true">
+                   <span class="top"><div class="iconfont">&#xe927;</div>{{ $t('header.setFundPassword') }}</span>
+                </div>
+                <router-link to="/customer/index" class="sub-title">
+                   <span class="top"><div class="iconfont">&#xe925;</div>{{ $t('header.shareFriends') }}</span>
+                </router-link>
+                <div class="sub-title" @click="handleLogout">
+                   <span class="top"><div class="iconfont">&#xe924;</div>{{ $t('header.logout') }}</span>
+                </div>
+             </div>
+        </div>
+      </div>
 
 
-      <div class="line mx-[30px]"></div>
+      <div class="line mx-[10px] mr-[30px]"></div>
 
       <div class="iconfont text-[18px] mr-[16px]">&#xe694;</div>
 
-      <div class="iconfont text-[18px] mr-[16px]">&#xe605;</div>
+      <div class="iconfont text-[18px] mr-[16px]" @click="router.push('/notices')">&#xe605;</div>
 
       <!-- Language Selector -->
       <LanguageSelector>
@@ -130,16 +189,35 @@
       </LanguageSelector>
     </div>
   </header>
+  
+  <FundPasswordModal v-model:show="showModal" @confirm="handleSetPassword" />
+  
   </div>
 </template>
 
 <script setup lang="ts">
 import LanguageSelector from '@/components/LanguageSelector.vue'
-import router from '@/router';
+import FundPasswordModal from '@/components/FundPasswordModal.vue'
+import { useRouter, useRoute } from 'vue-router'
+import { computed, ref } from 'vue'
 
+const router = useRouter()
 const route = useRoute()
 
 const isNFT = computed(() => route.path === '/nft/index')
+
+const showModal = ref(false)
+
+const handleSetPassword = (pwd: string) => {
+  console.log('Set password:', pwd)
+  // Implement API call here
+  showModal.value = false
+}
+
+const handleLogout = () => {
+    // Implement Logout logic
+    console.log('Logout')
+}
 </script>
 
 <style scoped lang="less">
@@ -218,8 +296,8 @@ const isNFT = computed(() => route.path === '/nft/index')
   }
 }
 
-
-.tab-list .sub-list {
+/* Shared Sub-list Styles */
+.sub-list {
   box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.49);
   visibility: hidden;
   opacity: 0;
@@ -233,32 +311,42 @@ const isNFT = computed(() => route.path === '/nft/index')
   padding: 3px;
   color: rgb(144, 144, 173);
   transition: all 0.3s;
+  
   .sub-title {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  white-space: pre-wrap;
-  padding: 10px 20px;
-  line-height: 15px;
-  &:hover {
-    background: linear-gradient(90deg, #00e3ff, #089);
-    border-radius: 0.375rem;
-  }
-  .top {
-  margin-bottom: 5px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  text-align: left;
-  font-size: 16px;
-  color: rgb(255, 255, 255);
-  font-weight: 500;
-    .svg-img {
-      margin-right: 10px;
-      fill: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    white-space: pre-wrap;
+    padding: 10px 20px;
+    line-height: 15px;
+    cursor: pointer;
+    &:hover {
+      background: linear-gradient(90deg, #00e3ff, #089);
+      border-radius: 0.375rem;
+      .top, .bottom, .iconfont {
+        color: rgb(0, 0, 0) !important;
+        fill: rgb(0, 0, 0) !important;
+      } 
     }
-
-  }
+    .top {
+      margin-bottom: 5px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      text-align: left;
+      font-size: 16px;
+      color: rgb(255, 255, 255);
+      font-weight: 500;
+      .svg-img {
+        margin-right: 10px;
+        fill: rgb(255, 255, 255);
+      }
+      .iconfont {
+        font-size: 22px;
+        margin-right: 10px;
+        color: #fff;
+      }
+    }
     .bottom {
       display: flex;
       align-items: center;
@@ -271,9 +359,17 @@ const isNFT = computed(() => route.path === '/nft/index')
   }
 }
 
-.tab-list .sub-title:hover .top,
-.tab-list .sub-title:hover .bottom {
-  color: rgb(0, 0, 0);
+.icon-menu-item {
+  &:hover .sub-list {
+    visibility: visible;
+    top: 56px; /* Adjust based on header height 56px */
+    opacity: 1;
+  }
+  .sub-list {
+    left: auto;
+    right: 0; /* Align right for icon menus */
+    top: 66px; /* Start slightly lower for transition effect */
+  }
 }
 
 </style>
