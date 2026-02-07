@@ -67,7 +67,7 @@ const inviteCode = ref('')
 const inviteLink = ref('')
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* === Base Variables === */
 :root {
   --content-bg: #1f1f2f;

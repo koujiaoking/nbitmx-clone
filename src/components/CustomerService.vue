@@ -26,7 +26,7 @@
 // No logic needed for static clone
 </script>
 
-<style scoped>
+<style scoped lang="less">
 @keyframes ping {
   75%, 100% {
     transform: scale(2);

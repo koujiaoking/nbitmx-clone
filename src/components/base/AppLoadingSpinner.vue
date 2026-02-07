@@ -20,7 +20,7 @@
 <script setup lang="ts">
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .app_loading_spinner {
     width: 100vw;
     height: 100vh;

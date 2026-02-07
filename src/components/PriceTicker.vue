@@ -36,7 +36,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .price-ticker {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);

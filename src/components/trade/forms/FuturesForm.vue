@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-auto px-4 py-2 border-t border-[#2B2F36]">
     <div class="mb-2">
-        <van-tabs v-model:active="tradeType" type="line" background="transparent" color="#00f0ff" title-active-color="#00f0ff" title-inactive-color="#848e9c" line-width="30px" line-height="2px" :border="false">
+        <van-tabs v-model:active="tradeType" shrink type="line" background="transparent" color="#FFFFFF" title-active-color="#FFFFFF" title-inactive-color="#848e9c" line-width="30px" line-height="2px" :border="false">
           <van-tab title="Limit Trade"></van-tab>
           <van-tab title="Market Transaction"></van-tab>
           <van-tab title="Plan Delegation"></van-tab>
@@ -89,7 +89,7 @@ const sellAmount = ref('')
 const sellSlider = ref(0)
 </script>
 
-<style scoped>
+<style scoped lang="less">
 :deep(.field-transparent) {
   background-color: transparent !important;
 }

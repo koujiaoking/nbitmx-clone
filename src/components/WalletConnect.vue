@@ -78,7 +78,7 @@ function getNetworkName(id: number | undefined): string {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /**
  * 钱包连接容器
  */

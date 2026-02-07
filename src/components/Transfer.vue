@@ -191,7 +191,7 @@ const extractErrorMessage = (err: any): string => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* Add any specific styles if tailwind + uno isn't enough */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {

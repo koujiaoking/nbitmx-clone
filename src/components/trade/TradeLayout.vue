@@ -1,5 +1,5 @@
 <template>
-  <div class="vben-layout-content h-screen flex flex-col bg-[#0B0E11] text-[#EAECEF]">
+  <div class="vben-layout-content h-screen flex flex-col bg-[#0B0E11] text-[#EAECEF] overflow-hidden">
     <!-- Top Info Area -->
     <div class="flex-shrink-0">
       <slot name="top-info"></slot>
@@ -24,7 +24,7 @@
 // Trade Layout Shell
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* Scrollbar styling for Webkit */
 .overflow-y-auto::-webkit-scrollbar {
   width: 6px;

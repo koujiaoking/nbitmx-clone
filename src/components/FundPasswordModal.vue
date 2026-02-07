@@ -69,7 +69,7 @@ const confirm = () => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 @keyframes fadeInUp {
   from {
     opacity: 0;

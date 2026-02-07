@@ -157,6 +157,6 @@ const goToDetail = (id: number) => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* No specific scoped styles needed as Tailwind classes handle most styling */
 </style>

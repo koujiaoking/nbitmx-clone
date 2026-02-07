@@ -137,7 +137,7 @@ const handleConfirm = () => {
 </script>
 
 
-<style scoped>
+<style scoped lang="less">
 .custom-field-wrapper {
   border-radius: 9999px; /* full rounded */
   overflow: hidden;

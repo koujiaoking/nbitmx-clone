@@ -140,7 +140,7 @@ const withdrawSliderValue = ref(0)
 const currentTab = ref('swap')
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* Copied from web3.css and adapted */
 .c-btn {
     margin-top: 8px;

@@ -237,7 +237,7 @@ const handleSelect = (coin: Coin) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }

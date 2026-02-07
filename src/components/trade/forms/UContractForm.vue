@@ -89,7 +89,7 @@ const sellAmount = ref('')
 const sellSlider = ref(0)
 </script>
 
-<style scoped>
+<style scoped lang="less">
 :deep(.field-transparent) {
   background-color: transparent !important;
 }

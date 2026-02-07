@@ -1,7 +1,7 @@
 <template>
   <div class="chart-area w-full h-full bg-[#12141E] relative">
     <div class="tradingview-widget-container w-full h-full">
-      <iframe scrolling="no" allowtransparency="true" frameborder="0" :src="iframeSrc" style="user-select: none; box-sizing: border-box; display: block; height: 100%; width: 100%;"></iframe>
+      <iframe :key="iframeSrc" scrolling="no" allowtransparency="true" frameborder="0" :src="iframeSrc" style="user-select: none; box-sizing: border-box; display: block; height: 100%; width: 100%;"></iframe>
     </div>
   </div>
 </template>

@@ -41,7 +41,7 @@ const tickerList = [
 ]
 </script>
 
-<style scoped>
+<style scoped lang="less">
 @keyframes ticker {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }

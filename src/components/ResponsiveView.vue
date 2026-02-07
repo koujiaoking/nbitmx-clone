@@ -113,7 +113,7 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /**
  * 响应式视图容器
  */

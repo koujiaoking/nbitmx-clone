@@ -105,7 +105,7 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .mobile-tabbar {
   position: fixed;
   bottom: 0;

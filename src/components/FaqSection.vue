@@ -28,7 +28,7 @@ import { ref } from 'vue'
 const activeNames = ref(['1'])
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* Vant Collapse Overrides - kept here or moved to global if needed */
 :deep(.van-collapse-item__content) {
   background-color: transparent;

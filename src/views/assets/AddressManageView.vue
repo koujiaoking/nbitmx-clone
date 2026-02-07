@@ -62,7 +62,7 @@ const activeTab = ref('crypto')
 const searchQuery = ref('')
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* === Base Variables === */
 :root {
   --font-color-main: #fff;

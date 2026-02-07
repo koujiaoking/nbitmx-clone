@@ -16,7 +16,7 @@
            <div class="flex-1 flex flex-col border-r border-[#2B2F36] min-w-0">
               <!-- Chart Area - Fixed height or flex? Let's make it fixed min height for visibility -->
               <div class="h-[450px] w-full relative">
-                 <TradeChart symbol="BINANCE:BTCUSDT" pageUri="nbitmx.com/play/currency/trade" />
+                 <TradeChart :symbol="currentSymbol" pageUri="nbitmx.com/play/currency/trade" />
               </div>
               <!-- Form Area -->
               <SpotForm class="!h-auto" />
@@ -32,10 +32,10 @@
         <div class="area-right-bottom p-0 bg-[#0B0E11]">
             <div class="order-list">
               <div class="cm-tabs-container px-4 border-b border-[#2B2F36]">
-                <van-tabs v-model:active="activeOrderTab" type="line" background="transparent" color="#00f0ff" title-active-color="#00f0ff" title-inactive-color="#848e9c" line-width="30px" line-height="2px" :border="false">
-                    <van-tab title="Open orders"></van-tab>
-                    <van-tab title="Filled Order"></van-tab>
-                    <van-tab title="Cancelled Order"></van-tab>
+                <van-tabs v-model:active="activeOrderTab" shrink type="line" background="transparent" color="#FFFFFF" title-active-color="#FFFFFF" title-inactive-color="#848e9c" line-width="30px" line-height="2px" :border="false">
+                    <van-tab :title="t('trade.entrusted')"></van-tab>
+                    <van-tab :title="t('trade.traded')"></van-tab>
+                    <van-tab :title="t('trade.canceled')"></van-tab>
                 </van-tabs>
               </div>
               <div class="content-container">
@@ -69,7 +69,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 import TradeLayout from '@/components/trade/TradeLayout.vue'
 import TradeTopInfo from '@/components/trade/TradeTopInfo.vue'
 import TradeCurrencyList from '@/components/trade/TradeCurrencyList.vue'
@@ -77,9 +79,17 @@ import TradeChart from '@/components/trade/TradeChart.vue'
 import TradeOrderBook from '@/components/trade/TradeOrderBook.vue'
 import SpotForm from '@/components/trade/forms/SpotForm.vue'
 
-const activeOrderTab = ref(0)
+const { t } = useI18n()
+const route = useRoute()
+const activeOrderTab = ref(0) // 0: Open Orders
+
+const currentSymbol = computed(() => {
+  const s = route.params.symbol
+  const symbolStr = Array.isArray(s) ? s[0] : (s || 'BTCUSDT')
+  return `BINANCE:${symbolStr}`
+})
 </script>
 
-<style scoped>
-@import '@/views/jiaoyi.css';
+<style scoped lang="less">
+@import '@/styles/trade.less';
 </style>

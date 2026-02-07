@@ -359,7 +359,7 @@ const initCharts = () => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* Inline detail.css content */
 
 .user_info_box {

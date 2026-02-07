@@ -2,9 +2,12 @@
  * UnoCSS Configuration
  * @description Custom theme configuration for crypto trading platform
  */
-import { defineConfig, presetUno, presetAttributify, presetTypography } from 'unocss'
+import { defineConfig, presetUno, presetAttributify, presetTypography, transformerDirectives } from 'unocss'
 
 export default defineConfig({
+  transformers: [
+    transformerDirectives(),
+  ],
   presets: [
     presetUno(),
     presetAttributify(),

@@ -1,17 +1,53 @@
 <template>
   <div class="transaction-list-area max-w-[320px] w-full h-full border-l border-[#2B2F36] flex flex-col bg-[#0B0E11]">
-    <!-- Tabs -->
-    <div class="border-b border-[#2B2F36]">
-        <van-tabs v-model:active="activeTab" type="line" background="transparent" color="#00f0ff" title-active-color="#00f0ff" title-inactive-color="#848e9c" line-width="30px" line-height="2px" :border="false">
-            <van-tab title="Entrusted Order"></van-tab>
-            <van-tab title="Latest Transaction"></van-tab>
-        </van-tabs>
+    <!-- Tabs and Layout Switcher -->
+    <div class="border-b border-[#2B2F36] px-2 pt-1 pb-1">
+        <div class="flex items-center justify-between">
+            <van-tabs v-model:active="activeTab" type="line" background="transparent" color="#FFFFFF" title-active-color="#FFFFFF" title-inactive-color="#848e9c" line-width="30px" line-height="2px" :border="false" class="custom-tabs flex-1">
+                <van-tab :title="t('trade.entrusted')"></van-tab>
+                <van-tab :title="t('trade.latestDeal')"></van-tab>
+            </van-tabs>
+        </div>
+        
+            <div 
+                v-for="layout in layouts" 
+                :key="layout.id"
+                class="layout-btn flex items-center justify-center transition-all duration-200"
+                :class="{ active: activeLayout === layout.id }"
+                @click="activeLayout = layout.id"
+            >
+                <!-- Layout 1 -->
+                <svg v-if="layout.id === 1" width="16" height="16" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="30" height="30" rx="8" fill="var(--bg-color, #1A1B24)" />
+                  <rect x="5" y="5" width="5.87413" height="9.09091" rx="2" fill="var(--primary-color, #00F0FF)" />
+                  <rect x="13.811" y="5" width="10.7692" height="4.54545" rx="2" fill="var(--right-color, #888)" />
+                  <rect x="13.811" y="12.2729" width="10.7692" height="4.54545" rx="2" fill="var(--right-color, #888)" />
+                  <rect x="13.811" y="19.5459" width="10.7692" height="4.54545" rx="2" fill="var(--right-color, #888)" />
+                  <rect x="5" y="15.9131" width="5.87413" height="9.09091" rx="2" fill="var(--secondary-color, #DB4242)" />
+                </svg>
+                <!-- Layout 2 -->
+                <svg v-if="layout.id === 2" width="16" height="16" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="30" height="30" rx="8" fill="var(--bg-color, #1A1B24)" />
+                  <rect x="5" y="5" width="6" height="19" rx="2" fill="var(--primary-color, #00F0FF)" />
+                  <rect x="13.811" y="5" width="10.7692" height="4.54545" rx="2" fill="var(--right-color, #888)" />
+                  <rect x="13.811" y="12.2729" width="10.7692" height="4.54545" rx="2" fill="var(--right-color, #888)" />
+                  <rect x="13.811" y="19.5459" width="10.7692" height="4.54545" rx="2" fill="var(--right-color, #888)" />
+                </svg>
+                <!-- Layout 3 -->
+                <svg v-if="layout.id === 3" width="16" height="16" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="30" height="30" rx="8" fill="var(--bg-color, #1A1B24)" />
+                  <rect x="13.811" y="5" width="10.7692" height="4.54545" rx="2" fill="var(--right-color, #888)" />
+                  <rect x="13.811" y="12.2729" width="10.7692" height="4.54545" rx="2" fill="var(--right-color, #888)" />
+                  <rect x="13.811" y="19.5459" width="10.7692" height="4.54545" rx="2" fill="var(--right-color, #888)" />
+                  <rect x="5" y="5" width="6" height="20" rx="2" fill="var(--secondary-color, #DB4242)" />
+                </svg>
+            </div>
     </div>
     
     <!-- Table Header (Mock) -->
     <div class="flex justify-between px-4 py-2 text-xs text-[#848E9C]">
-        <span>Amount</span>
-        <span>Price</span>
+        <span>{{ t('trade.amount') }}</span>
+        <span>{{ t('trade.price') }}</span>
     </div>
 
     <!-- Content -->
@@ -35,8 +71,17 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const activeTab = ref(0) // Entrusted Order
+const activeLayout = ref(1)
+
+const layouts = [
+    { id: 1, name: 'layout1' },
+    { id: 2, name: 'layout2' },
+    { id: 3, name: 'layout3' },
+]
 
 const orderBook = [
   { amount: '0.023244', price: '79048.355912', type: 'buy', bgOffset: 91 },
@@ -63,13 +108,31 @@ const orderBook = [
 ]
 </script>
 
-<style scoped>
-/* Scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #2B2F36;
-  border-radius: 2px;
+<style scoped lang="less">
+@import '@/styles/trade.less';
+
+/* Layout Switcher Styles */
+.layout-btn {
+    --primary-color: #339a6f;
+    --bg-color: #141428;
+    --right-color: #7a7a97;
+    --secondary-color: #a41862;
+    
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    border-width: 2px;
+    background-color: var(--bg-color);
+    border-color: #2c2c3e;
+    border-radius: 8px;
+    border-style: solid;
+
+    &.active {
+        --primary-color: #40d38e !important;
+        --secondary-color: #e21a7b !important;
+        --right-color: #ececff !important;
+        border-color: #84849f !important;
+    }
 }
 </style>

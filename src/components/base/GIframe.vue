@@ -20,7 +20,7 @@ withDefaults(defineProps<{
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .iframe-wrapper {
   width: 100%;
   height: 100%;

@@ -13,9 +13,9 @@
           <div class="select-container">
             <div class="select-header" role="button" aria-expanded="false" tabindex="0">
               <span>選擇幣種</span>
-              <span>
+              <span class="select-right">
                 <!-- TODO: Currency icon image -->
-                <span class="currency-placeholder">[ICON]</span>
+                <img class="currency-icon" src="https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0641ec97345654e7e99e024bcb569c9fd.png" alt="">
                 <span class="selected-value">USDC</span>
                 <div class="svg-container svg-img" style="fill: rgb(122, 122, 151);">
                   <svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
@@ -26,16 +26,13 @@
             </div>
           </div>
           
-          <van-field
-            v-model="depositAmount"
-            label="存入金額"
-            type="number"
-            placeholder="輸入金額"
-            input-align="right"
-            class="cm-input-box-pc"
-          />
+          <div class="cm-input-box-pc">
+            <span>存入金額</span>
+            <input class="numeric-input text-right" type="text" placeholder="輸入金額" v-model="depositAmount">
+          </div>
           
           <div class="amount-convert">我會得到 {{ depositAmount || 0 }} USDC</div>
+          
           <ul class="tips">
             <li>此操作將向您的錢包充值 <span style="color: rgb(255, 255, 255);">合約帳戶</span></li>
             <li>預計需要 1 次區塊鏈網絡確認才能到帳。</li>
@@ -48,22 +45,15 @@
     </div>
     <div class="deposit-page">
       <div class="qr-wrap">
-        <!-- Canvas/QR Placeholder -->
-        <div class="qr-code-placeholder">QR Code</div>
+        <!-- QR Code Canvas Placeholder -->
+        <canvas class="qr-canvas" height="300" width="300"></canvas>
       </div>
       <div class="label-row">帳戶地址</div>
       <div class="c-input-box">
-        <van-field
-          v-model="walletAddress"
-          readonly
-          placeholder="帳戶地址"
-        >
-          <template #button>
-            <svg class="text-[#00F0FF] w-20px h-20px cursor-pointer">
-              <use href="#icon-copy"></use>
-            </svg>
-          </template>
-        </van-field>
+        <input type="text" placeholder="帳戶地址" disabled v-model="walletAddress">
+        <svg class="copy-icon">
+          <use href="#icon-copy"></use>
+        </svg>
       </div>
       <div class="limit-info">
         <div>最低充值限額: 1 USDC</div>
@@ -71,8 +61,12 @@
       </div>
     </div>
   </section>
+  
   <section class="section-bottom no-vw">
-    <h3><span class="white-color-text">近期充值記錄</span><span class="blue-color-text">查看歷史記錄</span></h3>
+    <h3>
+      <span class="white-color-text">近期充值記錄</span>
+      <span class="blue-color-text">查看歷史記錄</span>
+    </h3>
     <div class="data-list">
       <div class="titles">
         <div class="column column0">交易時間</div>
@@ -84,7 +78,13 @@
         <div class="column column6">狀態</div>
       </div>
       <div class="list-wrap">
-        <div class="text-center text-gray-500 py-10">暫無數據</div>
+        <div class="cm-empty-image">
+          <svg width="66" height="50" viewBox="0 0 66 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.33936 7.80139H46.3551V24.4C46.3551 33.3608 46.3551 37.8412 44.6112 41.2638C43.0773 44.2744 40.6296 46.7221 37.619 48.2561C34.1964 50 29.716 50 20.7551 50H13.7394C11.4991 50 10.379 50 9.52339 49.564C8.77075 49.1805 8.15882 48.5686 7.77533 47.8159C7.33936 46.9603 7.33936 45.8402 7.33936 43.6V7.80139Z" fill="white" fill-opacity="0.04"></path>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M59.5244 29.0085C59.5244 34.755 54.9639 39.4135 49.3384 39.4135C43.7128 39.4135 39.1523 34.755 39.1523 29.0085C39.1523 23.262 43.7128 18.6035 49.3384 18.6035C54.9639 18.6035 59.5244 23.262 59.5244 29.0085ZM55.8508 29.1791C55.8508 32.9473 52.8603 36.002 49.1714 36.002C45.4825 36.002 42.4921 32.9473 42.4921 29.1791C42.4921 25.4109 45.4825 22.3562 49.1714 22.3562C52.8603 22.3562 55.8508 25.4109 55.8508 29.1791Z" fill="#7A7A97"></path>
+            <path d="M49.1715 36.0021C52.8605 36.0021 55.8509 32.9473 55.8509 29.1791C55.8509 25.4109 52.8605 22.3562 49.1715 22.3562C45.4826 22.3562 42.4922 25.4109 42.4922 29.1791C42.4922 32.9473 45.4826 36.0021 49.1715 36.0021Z" fill="#00A609" fill-opacity="0.1"></path>
+          </svg>
+        </div>
       </div>
     </div>
   </section>
@@ -98,294 +98,308 @@ const depositAmount = ref('')
 const walletAddress = ref('0x403AD07CBd18B2583f7AeAeC2fC807e66a2cA692')
 </script>
 
-<style scoped>
-/* === Base Variables === */
-:root {
-  --font-color-main: #fff;
-  --font-color3-pc: #84849f;
-  --btn-bg: #00f0ff;
-  --font-color-btn: #000;
-  --content-bg: #1f1f2f;
-  --data-bg18: #2c2c3e;
-  --border-color: #2c2c3e;
-  --font-win: #00b15d;
-}
-
+<style scoped lang="less">
 .recharge-view {
-  box-sizing: border-box !important;
-}
-
-/* === Blue color text === */
-.blue-color-text {
-    margin-left: 20px;
-    cursor: pointer;
-    background: linear-gradient(90deg,#9bb8f0,#6491e9 49.79%,#556dea);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent
-}
-
-.content {
-    text-align: center;
-    padding: 30px 50px
-}
-
-.cursor {
-    cursor: pointer
+  box-sizing: border-box;
 }
 
 /* === Section Top === */
 .section-top {
-    width: 100%;
-    min-height: 434px;
-    margin-bottom: 30px;
-    margin-right: 30px;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    box-sizing: border-box !important;
+  width: 100%;
+  min-height: 434px;
+  margin-bottom: 30px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .section-top .left {
-    flex: 1;
-    margin-left: 0
+  flex: 1;
+  margin-left: 0;
 }
 
 .section-top .left h4 {
-    font-size: 18px;
-    height: 30px;
-    line-height: 30px;
-    margin-bottom: 30px
+  font-size: 18px;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 30px;
 }
 
 .section-top .left .content {
-    display: flex;
-    text-align: left
+  display: flex;
+  text-align: left;
 }
 
 .section-top .left .content .steps {
-    margin-top: 70px;
-    display: flex;
-    flex-direction: column;
-    align-items: center
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .section-top .left .content .steps .line {
-    width: 0;
-    height: 222px;
-    border: 1px dashed var(--font-color3-pc);
-    margin: 10px 0
+  width: 0;
+  height: 222px;
+  border: 1px dashed #84849f;
+  margin: 10px 0;
 }
 
 .section-top .left .content .steps .step {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #5e5e7a;
-    border-radius: 50%;
-    line-height: 20px;
-    text-align: center;
-    color: #5e5e7a
+  width: 20px;
+  height: 20px;
+  border: 1px solid #5e5e7a;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  color: #5e5e7a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .section-top .left .content .steps .step.active {
-    color: #fff;
-    border-color: #fff
+  color: #fff;
+  border-color: #fff;
 }
 
 .section-top .left .content .operate-area {
-    margin-left: 35px;
-    position: relative
+  margin-left: 35px;
+  position: relative;
 }
 
-.section-top .left .content .tips {
-    display: block;
-    width: 450px;
-    margin-bottom: 10px;
-    margin-top: 20px;
-    padding-left: 20px;
-    color: var(--font-color3-pc);
-    font-size: 14px
+/* === Select Container === */
+.select-container {
+  width: 456px;
 }
 
-.section-top .left .content .tips li {
-    width: 450px;
-    list-style-type: disc;
-    margin-top: 5px
+.select-header {
+  height: 44px;
+  border-radius: 6px;
+  border: 1px solid #2c2c3e;
+  background: #1f1f2f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  cursor: pointer;
+  color: #5e5e7a;
 }
 
-.section-top .left .content .operate-area .next-btn {
-    width: 456px;
-    height: 46px;
-    line-height: 46px;
-    border-radius: 99px;
-    margin-top: 30px;
-    background: var(--btn-bg);
-    color: var(--font-color-btn);
-    text-align: center;
-    cursor: pointer;
-    border: none
+.select-right {
+  display: flex;
+  align-items: center;
+  color: #fff;
 }
 
-.section-top .left .content .operate-area .next-btn:disabled {
-    opacity: .7;
-    cursor: not-allowed
+.select-right .currency-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
 }
 
-.section-top .left .content .operate-area .amount-convert {
-    color: #888;
-    margin: 5px auto 0
+.select-right .selected-value {
+  margin-right: 8px;
 }
 
-.section-top .white-color-text {
-    color: var(--font-color-main)
+/* === Input Box === */
+.cm-input-box-pc {
+  width: 456px;
+  height: 44px;
+  border-radius: 6px;
+  border: 1px solid #2c2c3e;
+  background: #1f1f2f;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  margin-top: 20px;
+  color: #5e5e7a;
 }
 
-.section-top .deposit-page {
-    box-sizing: border-box !important;
-    flex: 1 1 0%
+.cm-input-box-pc span {
+  white-space: nowrap;
 }
 
-.section-top .deposit-page .qr-wrap {
-    width: 300px;
-    height: 300px;
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.cm-input-box-pc input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  text-align: right;
 }
 
-.section-top .deposit-page .qr-code-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    color: #999;
-    border-radius: 6px
+.amount-convert {
+  color: #888;
+  margin: 5px auto 0;
 }
 
-.section-top .deposit-page .label-row {
-    color: var(--font-color-main);
-    margin-bottom: 10px;
-    font-size: 14px
+.tips {
+  display: block;
+  width: 450px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  padding-left: 20px;
+  color: #84849f;
+  font-size: 14px;
 }
 
-.section-top .deposit-page .c-input-box {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid var(--data-bg18);
-    border-radius: 6px;
-    background: var(--content-bg);
-    width: 100%;
-    min-width: 400px;
-    box-sizing: border-box !important;
+.tips li {
+  width: 450px;
+  list-style-type: disc;
+  margin-top: 5px;
 }
 
-.section-top .deposit-page .limit-info {
-    margin-top: 20px;
-    color: var(--font-color3-pc);
-    font-size: 14px
+.next-btn {
+  width: 456px;
+  height: 46px;
+  line-height: 46px;
+  border-radius: 99px;
+  margin-top: 30px;
+  background: #00f0ff;
+  color: #000;
+  text-align: center;
+  cursor: pointer;
+  border: none;
 }
 
-.section-top .deposit-page .limit-info div {
-    margin-bottom: 5px
+/* === Deposit Page (Right Side) === */
+.deposit-page {
+  box-sizing: border-box;
+  flex: 1 1 0%;
 }
 
-section.no-vw {
-    flex: none;
-    border-radius: 12px;
-    border: 2px solid var(--data-bg18)
+.qr-wrap {
+  width: 300px;
+  margin: 0 auto 20px;
+}
+
+.qr-canvas {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.label-row {
+  color: #fff;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.c-input-box {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #2c2c3e;
+  border-radius: 6px;
+  background: #1f1f2f;
+  width: 100%;
+  min-width: 400px;
+  box-sizing: border-box;
+}
+
+.c-input-box input {
+  width: 100%;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  outline: none;
+}
+
+.c-input-box .copy-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  fill: #00f0ff;
+}
+
+.limit-info {
+  margin-top: 20px;
+  color: #84849f;
+  font-size: 14px;
+}
+
+.limit-info div {
+  margin-bottom: 5px;
 }
 
 /* === Section Bottom === */
+section.no-vw {
+  flex: none;
+  border-radius: 12px;
+  border: 2px solid #2c2c3e;
+}
+
 .white-color-text {
-    color: var(--font-color-main)
+  color: #fff;
+}
+
+.blue-color-text {
+  margin-left: 20px;
+  cursor: pointer;
+  background: linear-gradient(90deg,#9bb8f0,#6491e9 49.79%,#556dea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .section-bottom {
-    box-sizing: border-box !important;
-    width: 100%;
-    height: 462px;
-    border-radius: 12px;
-    background: var(--content-bg);
-    padding: 0 30px
+  box-sizing: border-box;
+  width: 100%;
+  height: 462px;
+  border-radius: 12px;
+  background: #1f1f2f;
+  padding: 0 30px;
 }
 
 .section-bottom h3 {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border-color);
-    height: 70px;
-    line-height: 70px;
-    margin: 0
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #2c2c3e;
+  height: 70px;
+  line-height: 70px;
+  margin: 0;
 }
 
 .section-bottom .data-list {
-    width: 100%;
-    height: 361px;
-    text-align: center
+  width: 100%;
+  height: 361px;
+  text-align: center;
 }
 
 .section-bottom .data-list .titles {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    color: #5e5e7a;
-    font-size: 12px
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #5e5e7a;
+  font-size: 12px;
 }
 
 .section-bottom .data-list .list-wrap {
-    height: 320px;
-    overflow-y: auto
-}
-
-.section-bottom .data-list .item {
-    height: 76px;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--content-bg);
-    display: flex;
-    align-items: center;
-    font-size: 14px
+  height: 320px;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .section-bottom .data-list .column0 { width: 15%; text-align: left; }
-.section-bottom .data-list .column1 { width: 20%; padding-left: 5%; box-sizing: border-box !important; }
+.section-bottom .data-list .column1 { width: 20%; padding-left: 5%; box-sizing: border-box; }
 .section-bottom .data-list .column2,
 .section-bottom .data-list .column3,
-.section-bottom .data-list .column4,
 .section-bottom .data-list .column5 { width: 15%; }
 .section-bottom .data-list .column6 { width: 10%; position: relative; cursor: pointer; }
 
-.font-win {
-    color: var(--font-win)
-}
-
-/* === Mobile Deposit Page === */
-.deposit-page.mobile {
-    box-sizing: border-box !important;
-    padding: 5vw
-}
-
-.deposit-page.mobile .label-row {
-    margin-top: 30px
-}
-
-/* van-field styling */
-:deep(.van-field) {
-  background: var(--content-bg);
-  border: 1px solid var(--data-bg18);
-  border-radius: 6px;
-  margin-top: 20px;
-}
-:deep(.van-field__label) {
+.cm-empty-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: #5e5e7a;
-}
-:deep(.van-field__control) {
-  color: #fff;
-}
-.cm-input-box-pc {
-  width: 456px;
 }
 
 /* === Responsive === */
@@ -413,7 +427,7 @@ section.no-vw {
   .section-top .left .content .steps .line {
     width: 50px;
     height: 0;
-    border-top: 1px dashed var(--font-color3-pc);
+    border-top: 1px dashed #84849f;
     border-left: none;
   }
   
@@ -421,29 +435,21 @@ section.no-vw {
     margin-left: 0;
   }
   
-  .section-top .left .content .tips,
-  .section-top .left .content .tips li,
-  .section-top .left .content .operate-area .next-btn,
-  .cm-input-box-pc {
+  .select-container,
+  .cm-input-box-pc,
+  .tips,
+  .tips li,
+  .next-btn {
     width: 100%;
   }
   
-  .section-top .deposit-page .c-input-box {
+  .c-input-box {
     min-width: 100%;
   }
   
   .section-bottom {
     height: auto;
     padding: 15px;
-  }
-  
-  .section-bottom .data-list .titles,
-  .section-bottom .data-list .item {
-    font-size: 12px;
-  }
-  
-  .section-bottom .data-list .item {
-    height: 60px;
   }
 }
 </style>

@@ -46,6 +46,6 @@
 // Top Info Component
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* Using Tailwind/UnoCSS classes directly in template for better portability */
 </style>

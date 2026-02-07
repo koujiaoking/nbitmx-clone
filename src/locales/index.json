@@ -104,6 +104,24 @@
       "candlestick": "K선",
       "line": "라인",
       "indicators": "지표"
+    },
+    "menu": {
+      "home": "홈",
+      "quickBuy": "빠른 구매",
+      "recharge": "충전",
+      "language": "언어",
+      "tradeCenter": "거래 센터",
+      "options": "옵션",
+      "spot": "현물",
+      "perpetualContract": "무기한 계약",
+      "copyTrading": "카피 트레이딩",
+      "charity": "자선",
+      "assets": "자산 센터",
+      "share": "친구 공유",
+      "activity": "이벤트 홀",
+      "notice": "공지사항",
+      "fundPassword": "자금 비밀번호 설정",
+      "logout": "로그아웃"
     }
   },
   "en": {
@@ -188,7 +206,32 @@
       "tabSpot": "Spot",
       "tabContract": "Contract",
       "tabOptions": "Options",
+      "tabHeavyMetal": "Heavy Metal",
       "trading": "Trading",
+      "search": "Search"
+    },
+    "trade": {
+      "market": "Market",
+      "limit": "Limit",
+      "fee": "Fee",
+      "buyPrice": "Buy Price",
+      "price": "Price",
+      "buyAmount": "Buy Amount",
+      "amount": "Amount",
+      "sellPrice": "Sell Price",
+      "sellAmount": "Sell Amount",
+      "available": "Avail",
+      "turnover": "Volume",
+      "buy": "Buy",
+      "sell": "Sell",
+      "entrusted": "Open Orders",
+      "latestDeal": "Latest Trades",
+      "traded": "Filled",
+      "canceled": "Canceled",
+      "assets": "Assets",
+      "noOrders": "No Data",
+      "pair": "Pair",
+      "change": "Change",
       "search": "Search"
     },
     "news": {
@@ -316,6 +359,24 @@
       "candlestick": "Candlestick",
       "line": "Line",
       "indicators": "Indicators"
+    },
+    "menu": {
+      "home": "Home",
+      "quickBuy": "Quick Buy",
+      "recharge": "Recharge",
+      "language": "Language",
+      "tradeCenter": "Transaction Center",
+      "options": "Options",
+      "spot": "Spot",
+      "perpetualContract": "Perpetual Contract",
+      "copyTrading": "Copy Trading",
+      "charity": "Charity",
+      "assets": "Assets Center",
+      "share": "Share",
+      "activity": "Activity Hall",
+      "notice": "Notice",
+      "fundPassword": "Set Fund Password",
+      "logout": "Logout"
     }
   },
   "zh-HK": {
@@ -428,6 +489,30 @@
       "trading": "交易",
       "search": "搜尋"
     },
+    "trade": {
+      "market": "市場交易",
+      "limit": "限價交易",
+      "fee": "費率",
+      "buyPrice": "買入價格",
+      "price": "價格",
+      "buyAmount": "買入數量",
+      "amount": "數量",
+      "sellPrice": "賣出價格",
+      "sellAmount": "賣出數量",
+      "available": "可用餘額",
+      "turnover": "交易額",
+      "buy": "買入",
+      "sell": "賣出",
+      "entrusted": "委託訂單",
+      "latestDeal": "最新成交",
+      "traded": "已成交訂單",
+      "canceled": "已取消訂單",
+      "assets": "資產管理",
+      "noOrders": "暫無訂單",
+      "pair": "幣種",
+      "change": "漲幅",
+      "search": "搜尋"
+    },
     "news": {
       "title": "新聞",
       "desc": "關注幣圈市場動態，做出更明智的交易與投資決策。",
@@ -505,35 +590,6 @@
       "item3Value": "註冊用戶數量"
     },
     "homeNotice": "歡迎造訪BitCoTyrax，您的數位資產交易平台",
-    "footer": {
-      "tradingMarket": "交易市場",
-      "spotTrading": "現貨交易",
-      "contractTrading": "合約交易",
-      "copyTrading": "跟單交易",
-      "optionsTrading": "期權交易",
-      "nftMarket": "NFT市場",
-      "aiStrategy": "AI策略",
-      "service": "服務",
-      "helpCenter": "幫助中心",
-      "announcements": "公告中心",
-      "customerService": "在線客服",
-      "submitTicket": "提交工單",
-      "tradingRules": "交易規則",
-      "company": "公司",
-      "aboutUs": "關於我們",
-      "careers": "加入我們",
-      "blog": "官方博客",
-      "privacy": "隱私政策",
-      "terms": "服務條款",
-      "resources": "資源",
-      "download": "下載應用",
-      "apiDoc": "API文檔",
-      "fees": "費率說明",
-      "listing": "上幣申請",
-      "verification": "認證合作",
-      "copyright": "© 2024 NBITMX. 保留所有權利。",
-      "riskWarning": "風險提示：加密貨幣交易具有高風險，請謹慎投資。"
-    },
     "follow": {
       "title": "交易廣場",
       "totalIncome": "總收益",
@@ -568,6 +624,24 @@
       "candlestick": "K線",
       "line": "分時",
       "indicators": "指標"
+    },
+    "menu": {
+      "home": "首頁",
+      "quickBuy": "快捷買幣",
+      "recharge": "充值",
+      "language": "語言",
+      "tradeCenter": "交易中心",
+      "options": "期權",
+      "spot": "現貨",
+      "perpetualContract": "永續合約",
+      "copyTrading": "跟單",
+      "charity": "慈善",
+      "assets": "資產中心",
+      "share": "分享好友",
+      "activity": "活動大廳",
+      "notice": "公告通知",
+      "fundPassword": "設定資金密碼",
+      "logout": "退出登入"
     }
   },
   "ja": {
@@ -675,6 +749,24 @@
       "candlestick": "ローソク足",
       "line": "ライン",
       "indicators": "インジケーター"
+    },
+    "menu": {
+      "home": "ホーム",
+      "quickBuy": "クイック購入",
+      "recharge": "チャージ",
+      "language": "言語",
+      "tradeCenter": "取引センター",
+      "options": "オプション",
+      "spot": "現物",
+      "perpetualContract": "無期限契約",
+      "copyTrading": "コピートレード",
+      "charity": "チャリティー",
+      "assets": "資産センター",
+      "share": "友達に共有",
+      "activity": "イベントホール",
+      "notice": "お知らせ",
+      "fundPassword": "資金パスワード設定",
+      "logout": "ログアウト"
     }
   },
   "de": {
@@ -777,6 +869,24 @@
         "winRate": "Gewinnrate",
         "scale": "Skala"
       }
+    },
+    "menu": {
+      "home": "Startseite",
+      "quickBuy": "Schnellkauf",
+      "recharge": "Aufladen",
+      "language": "Sprache",
+      "tradeCenter": "Transaktionszentrum",
+      "options": "Optionen",
+      "spot": "Spot",
+      "perpetualContract": "Unbefristeter Vertrag",
+      "copyTrading": "Copy Trading",
+      "charity": "Wohltätigkeit",
+      "assets": "Vermögenszentrum",
+      "share": "Teilen",
+      "activity": "Veranstaltungshalle",
+      "notice": "Hinweis",
+      "fundPassword": "Fondspasswort festlegen",
+      "logout": "Abmelden"
     },
     "chart": {
       "candlestick": "Kerze",

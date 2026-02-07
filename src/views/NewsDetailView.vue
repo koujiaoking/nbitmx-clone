@@ -71,7 +71,7 @@
 // Logic for dynamic loading based on ID can be added here
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .g-content-html h2 {
   color: #fff;
   font-weight: 700;

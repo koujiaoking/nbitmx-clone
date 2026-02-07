@@ -1,0 +1,46 @@
+<svg
+  width="30"
+  height="30"
+  viewBox="0 0 30 30"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect
+    width="30"
+    height="30"
+    rx="8"
+    fill="var(--bg-color, #1A1B24)"
+  />
+  <rect
+    x="5"
+    y="5"
+    width="6"
+    height="19"
+    rx="2"
+    fill="var(--primary-color, #00F0FF)"
+  />
+  <rect
+    x="13.811"
+    y="5"
+    width="10.7692"
+    height="4.54545"
+    rx="2"
+    fill="var(--right-color, #888)"
+  />
+  <rect
+    x="13.811"
+    y="12.2729"
+    width="10.7692"
+    height="4.54545"
+    rx="2"
+    fill="var(--right-color, #888)"
+  />
+  <rect
+    x="13.811"
+    y="19.5459"
+    width="10.7692"
+    height="4.54545"
+    rx="2"
+    fill="var(--right-color, #888)"
+  />
+</svg>

@@ -41,7 +41,7 @@ const description = computed(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .placeholder-page {
   min-height: 100vh;
   display: flex;

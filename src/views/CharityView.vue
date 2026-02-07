@@ -343,7 +343,7 @@ const projects = computed(() => [
 ])
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* Container background matching the provided PC background image if available, else dark */
 .charity-page .container-box {
   background: url('@/assets/images/pc-bg18.png') no-repeat center top;

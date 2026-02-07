@@ -1,15 +1,22 @@
 <template>
-  <div class="home-title-header mb-[60px]" v-animate-on-scroll="'animate__fadeInBottom'">
+  <div class="home-title-header mb-[60px]" :class="{ 'is-mobile': mobile }" v-animate-on-scroll="'animate__fadeInBottom'">
     <div class="title-content">
       <div class="image" v-if="$slots.image">
         <slot name="image"></slot>
       </div>
       <div class="title">
-        <span v-if="!right" class="theme-color mr-[15px]">
+        <span v-if="!right && !mobile" class="theme-color mr-[15px]">
           {{ imp }}
         </span>
-        {{ title }}
-        <span v-if="right" class="theme-color ml-[15px]">
+        
+        <span v-if="mobile" class="text-white text-[5vw] flex-1 text-left" v-animate-on-scroll="'animate__fadeInRight'">
+            {{ title }}
+        </span>
+        <slot name="title" v-else>
+            {{ title }}
+        </slot>
+
+        <span v-if="right && !mobile" class="theme-color ml-[15px]">
           {{ imp }}
         </span>
       </div>
@@ -29,27 +36,40 @@ const props = withDefaults(defineProps<{
   title?: string
   desc?: string
   right?: boolean
+  mobile?: boolean
 }>(), {
   imp: '',
   title: '',
   desc: '',
-  right: false
+  right: false,
+  mobile: false
 })
 
 const $slots = useSlots()
 </script>
 
 <style scoped lang="less">
-/* Add basic styling to ensure layout structure is visible if needed by user later */
 .home-title-header {
   display: flex;
   flex-direction: column;
+
   .title-content {
     display: flex;
     align-items: center;
+    // Default Desktop Style
     justify-content: center;
     font-size: 50px;
     position: relative;
+
+    .image {
+        display: flex;
+        align-items: center;
+    }
+
+    .title {
+        // Desktop title styles
+    }
+
     .action {
       position: absolute;
       right: 0;
@@ -57,6 +77,30 @@ const $slots = useSlots()
       transform: translateY(-50%);
     }
   }
+
+  // Mobile Overrides
+  &.is-mobile {
+      margin-bottom: 20px; // Adjust margin for mobile
+      
+      .title-content {
+          justify-content: flex-start; // Left align
+          font-size: inherit; // Reset size
+          
+          .title {
+              flex: 1;
+              text-align: left;
+              margin: 0 10px; // Add spacing
+              font-size: inherit;
+          }
+
+          .action {
+              position: static; // Relative flow
+              transform: none;
+              margin-left: auto;
+          }
+      }
+  }
+
   .title-desc {
     margin-top: 40px;
     text-align: center;

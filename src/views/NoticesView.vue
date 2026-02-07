@@ -74,7 +74,7 @@ const goBack = () => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 @media screen and (min-width: 992px) {
     .notice-page {
         margin-left: auto;

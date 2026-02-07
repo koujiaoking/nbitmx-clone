@@ -34,7 +34,7 @@ const contentStyle = computed(() => ({
 }))
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .base-scroller {
   position: relative;
   width: 100%;

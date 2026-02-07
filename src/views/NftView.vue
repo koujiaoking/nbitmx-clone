@@ -328,7 +328,7 @@ import { ref } from 'vue';
 const showVideo = ref(false);
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .video-modal-overlay {
     position: fixed;
     top: 0;

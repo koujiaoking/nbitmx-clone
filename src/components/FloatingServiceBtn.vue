@@ -11,7 +11,7 @@
 // Floating customer service button component
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .floating-service-btn {
   position: fixed;
   bottom: 30px;
