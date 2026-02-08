@@ -29,9 +29,13 @@
     <div class="currency-list playHome-products flex-1 overflow-y-auto custom-scrollbar">
       <div class="scroll-wrap">
         <ul class="list">
-          <li v-for="(item, index) in currencyList" :key="index" class="row hover:bg-[#1E2329] cursor-pointer" :class="isActive(item.pair) ? 'active' : ''" @click="handleCurrencyClick(item)">
+          <li v-for="(item, index) in displayedList" :key="index" class="row hover:bg-[#1E2329] cursor-pointer" :class="{ active: isActive(item.pair) }" @click="handleCurrencyClick(item)">
             <div class="column currency">
-              <div class="iconfont fill-[#888]">
+              <div 
+                class="iconfont cursor-pointer transition-colors"
+                :class="isFavorite(item.pair) ? 'fill-[#FFD700]' : 'fill-[#888]'"
+                @click.stop="toggleFavorite(item.pair)"
+              >
                 &#xe929;
               </div>
               <img class="logo" :src="item.logo" :alt="item.name">
@@ -52,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -63,15 +67,24 @@ const route = useRoute()
 const activeTab = ref('Spot')
 const activeSubTab = ref('')
 
-// Initialize activeTab based on route
-// Logic: 
-// /play/currency/trade/:symbol -> Spot
-// /play/ucontract/index/:symbol -> Contract
-// /play/futures/trade/:symbol -> Options
-// But "Optional" is a local state that overlays over the route?
-// User said: "These three pages all support Optional tag, clicking Optional tag in these pages is NOT jumping".
-// So activeTab aligns with route initially, but can be switched to 'Optional' without route change.
+// 收藏列表
+const favorites = ref<string[]>([])
 
+// 从 localStorage 加载收藏列表
+onMounted(() => {
+  const saved = localStorage.getItem('tradeFavorites')
+  if (saved) {
+    try {
+      favorites.value = JSON.parse(saved)
+    } catch (e) {
+      console.error('Failed to load favorites:', e)
+      favorites.value = []
+    }
+  }
+  updateTabFromRoute()
+})
+
+// Initialize activeTab based on route
 const updateTabFromRoute = () => {
   const path = route.path
   if (path.includes('/play/currency/trade')) {
@@ -83,14 +96,6 @@ const updateTabFromRoute = () => {
   }
 }
 
-// Watch route (optional, if we want to sync back)
-// watch(() => route.path, updateTabFromRoute, { immediate: true })
-// But wait, if I click "Optional", I don't want to change route, but I want tab to be Optional.
-// So I shouldn't strict bind route -> activeTab if loop is possible.
-// Let's just set initial.
-// Actually, if user navigates back/forward, we should sync.
-// But "Optional" is tricky. Let's start with default Spot or whatever route says.
-
 const handleTabClick = ({ name }: { name: string }) => {
   if (name === 'Optional') {
     // Do not jump, just filter
@@ -99,8 +104,6 @@ const handleTabClick = ({ name }: { name: string }) => {
   }
 
   // Determine symbol (fallback to default or keep current)
-  // Current design likely has a global symbol or we pick from list. 
-  // For now, hardcode a placeholder or extract from current params if compatible.
   const paramSymbol = route.params.symbol
   const symbol = Array.isArray(paramSymbol) ? paramSymbol[0] : (paramSymbol || 'BTCUSDT')
   
@@ -111,7 +114,6 @@ const handleTabClick = ({ name }: { name: string }) => {
   } else if (name === 'Options') {
     router.push(`/play/futures/trade/${symbol}`)
   }
-  // activeTab will auto update by v-model, but if we route push, we might want to ensure it sticks.
 }
 
 const subTabs = computed(() => {
@@ -147,6 +149,33 @@ const currencyList = [
   { pair: 'XLM/USDT', name: 'XLM', price: '0.1821', change: '+5.57%', changeClass: 'up', logo: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.062ab514bd06f4718ab0dd274127ce1bc.png' },
   { pair: 'WBTC', name: 'WBTC', price: '78854.74', change: '+2.23%', changeClass: 'up', logo: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.056adb1a2ae34471daa998b08b7d4528f.png' },
 ]
+
+// 根据 activeTab 过滤显示的列表
+const displayedList = computed(() => {
+  if (activeTab.value === 'Optional') {
+    // 显示收藏的币种
+    return currencyList.filter(item => favorites.value.includes(item.pair))
+  }
+  // 其他tab显示全部列表
+  return currencyList
+})
+
+// 判断是否收藏
+const isFavorite = (pair: string) => {
+  return favorites.value.includes(pair)
+}
+
+// 切换收藏状态
+const toggleFavorite = (pair: string) => {
+  const index = favorites.value.indexOf(pair)
+  if (index > -1) {
+    favorites.value.splice(index, 1)
+  } else {
+    favorites.value.push(pair)
+  }
+  // 保存到 localStorage
+  localStorage.setItem('tradeFavorites', JSON.stringify(favorites.value))
+}
 
 const isActive = (pair: string) => {
   const symbol = pair.replace('/', '')
@@ -188,6 +217,11 @@ const handleCurrencyClick = (item: any) => {
 
           &:hover {
             background-color: var(--trade-hover);
+          }
+
+          &.active {
+            background-color: rgba(14, 203, 129, 0.1);
+            border-left: 2px solid var(--trade-up, #0ECB81);
           }
 
           .column {

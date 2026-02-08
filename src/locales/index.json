@@ -11,7 +11,8 @@
       "login": "로그인",
       "register": "회원가입",
       "goTrade": "거래 시작",
-      "language": "언어"
+      "language": "언어",
+      "back": "뒤로"
     },
     "header": {
       "tradingTab": "거래",
@@ -73,6 +74,7 @@
     "follow": {
       "title": "팔로우",
       "totalIncome": "총 수익",
+      "myTotalIncome": "내 총 수익",
       "today": "오늘",
       "tabs": {
         "tradingPlaza": "거래 광장",
@@ -136,7 +138,8 @@
       "login": "Login",
       "register": "Register",
       "goTrade": "Go Trade",
-      "language": "Language"
+      "language": "Language",
+      "back": "Back"
     },
     "header": {
       "tradingTab": "Trading",
@@ -232,7 +235,8 @@
       "noOrders": "No Data",
       "pair": "Pair",
       "change": "Change",
-      "search": "Search"
+      "search": "Search",
+      "time": "Time"
     },
     "news": {
       "title": "News",
@@ -328,6 +332,7 @@
     "follow": {
       "title": "Follow",
       "totalIncome": "Total Income",
+      "myTotalIncome": "My Total Income",
       "today": "Today",
       "tabs": {
         "tradingPlaza": "Trading Plaza",
@@ -391,7 +396,8 @@
       "login": "登錄",
       "register": "註冊",
       "goTrade": "立即交易",
-      "language": "語言"
+      "language": "語言",
+      "back": "返回"
     },
     "header": {
       "tradingTab": "交易",
@@ -511,7 +517,8 @@
       "noOrders": "暫無訂單",
       "pair": "幣種",
       "change": "漲幅",
-      "search": "搜尋"
+      "search": "搜尋",
+      "time": "時間"
     },
     "news": {
       "title": "新聞",
@@ -593,6 +600,7 @@
     "follow": {
       "title": "交易廣場",
       "totalIncome": "總收益",
+      "myTotalIncome": "我的總收益",
       "today": "今日",
       "tabs": {
         "tradingPlaza": "交易廣場",
@@ -630,6 +638,7 @@
       "quickBuy": "快捷買幣",
       "recharge": "充值",
       "language": "語言",
+      "back": "返回",
       "tradeCenter": "交易中心",
       "options": "期權",
       "spot": "現貨",

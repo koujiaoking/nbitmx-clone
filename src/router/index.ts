@@ -26,10 +26,15 @@ const routes = [
   defineRoute('/follow', 'Follow', '@/views/FollowView', {
     title: 'Copy Trading | Nbitmx',
   }),
-
   defineRoute('/follow/index', 'FollowIndex', '@/views/FollowView', {
     title: 'Copy Trading | Nbitmx',
   }),
+
+  defineRoute('/follow/my', 'MyFollow', '@/views/MyFollowView', {
+    title: 'My Copy Trading | Nbitmx',
+  }),
+
+
 
   defineRoute('/follow/detail/:id', 'FollowDetail', '@/views/FollowDetailView', {
     title: 'Trader Details | Nbitmx',

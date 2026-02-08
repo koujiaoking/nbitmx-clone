@@ -3,12 +3,12 @@
     <div class="max-w-[1351px] mx-auto pt-[10px] px-4">
       
       <!-- Top Title Area - Desktop -->
-      <div v-if="isDesktop" class="title_wrap" mymode="false">
+      <div v-if="isDesktop" class="title_wrap" mymode="true">
         <div class="top_title">
-          <span class="main-title theme-color">{{ $t('follow.title') }}</span>
+          <span class="main-title theme-color">{{ $t('follow.tabs.myCopyTrading') }}</span>
           <div class="title_sec">
             <span class="name">
-              {{ $t('follow.totalIncome') }} 
+              {{ $t('follow.myTotalIncome') }} 
               <van-icon name="eye-o" color="rgb(0, 240, 255)" size="25px" />
             </span>
             <div class="title_num">
@@ -17,9 +17,9 @@
             </div>
           </div>
         </div>
-        <div class="right-con-1 cursor-pointer" @click="router.push('/follow/my')">
+        <div class="right-con-1 cursor-pointer" @click="router.push('/follow')">
           <img src="@/assets/images/icon-order.svg" class="w-5 h-5 mr-1" alt="" />
-          <span @click="activeMainTab = 'following'">{{ $t('follow.tabs.myCopyTrading') }}</span>
+          <span>{{ $t('common.back') }}</span>
         </div>
       </div>
 
@@ -28,23 +28,23 @@
         <div class="top items-center">
           <div class="left">
             <div class="name">
-              {{ $t('follow.totalIncome') }} 
+              {{ $t('follow.myTotalIncome') }} 
               <van-icon name="eye-o" color="rgb(0, 240, 255)" size="25px" />
             </div>
             <span class="num font20">0</span>
             <span class="gray font16">USDT</span>
             <p class="green font14">
               <span class="gray">{{ $t('follow.today') }}</span>
-   0
+              0
             </p>
           </div>
           <div class="right">
             <img src="@/assets/images/icon-order-big.svg" alt="" />
           </div>
         </div>
-        <div class="button" @click="router.push('/follow/my')">
+        <div class="button" @click="router.push('/follow')">
           <img src="data:image/svg+xml,%3csvg%20width='20'%20height='20'%20viewBox='0%200%2020%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M9.16667%205.83317H10.8333V14.1665H9.16667V5.83317ZM12.5%209.1665H14.1667V14.1665H12.5V9.1665ZM5.83333%2010.8332H7.5V14.1665H5.83333V10.8332ZM12.5%203.33317H4.16667V16.6665H15.8333V6.6665H12.5V3.33317ZM2.5%202.493C2.5%202.03655%202.87291%201.6665%203.33208%201.6665H13.3333L17.4998%205.83317L17.5%2017.4936C17.5%2017.9573%2017.1292%2018.3332%2016.6722%2018.3332H3.32783C2.87063%2018.3332%202.5%2017.9538%202.5%2017.5067V2.493Z'%20fill='white'/%3e%3c/svg%3e" alt="" />
-          {{ $t('follow.tabs.myCopyTrading') }}
+          {{ $t('common.back') }}
         </div>
       </div>
 
@@ -294,6 +294,13 @@ const filteredTraders = computed(() => {
 <style scoped lang="less">
 /* Copied from fllowView.css */
 
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
 
 .title_wrap {
     border: 1px solid #3c3e53;
@@ -583,7 +590,7 @@ const filteredTraders = computed(() => {
         padding: .5vw 1.3vw;
         font-size: 2.6vw;
         --un-text-opacity: 1;
-        color: rgb(0 0 0 / var(--un-text-opacity))
+        color: rgb(0 0 0 / var(--un-bg-opacity))
     }
 
     .item .item_name .item_name_total {

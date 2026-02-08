@@ -38,14 +38,108 @@
       <span class="num text-[#EAECEF] text-sm leading-4">3710794152.03</span>
     </span>
     
-    <span class="normal ml-auto text-[#848E9C] text-xs">EST 12:33:46 | 81ms</span>
+    <span class="normal ml-auto text-[#848E9C] text-xs">EST {{ currentTime }} | {{ ping }}ms</span>
+    
+    <!-- 网络信号指示器 -->
+    <span class="ping">
+      <i :class="{ active: signalStrength >= 1 }"></i>
+      <i :class="{ active: signalStrength >= 2 }"></i>
+      <i :class="{ active: signalStrength >= 3 }"></i>
+      <i :class="{ active: signalStrength >= 4 }"></i>
+    </span>
   </div>
 </template>
 
 <script setup lang="ts">
-// Top Info Component
+import { ref, onMounted, onUnmounted } from 'vue'
+
+// 当前时间
+const currentTime = ref('12:33:46')
+// 网络延迟
+const ping = ref(81)
+// 信号强度 (1-4)
+const signalStrength = ref(3)
+
+let timeInterval: number | null = null
+let pingInterval: number | null = null
+
+// 更新时间
+const updateTime = () => {
+  const now = new Date()
+  const hours = String(now.getHours()).padStart(2, '0')
+  const minutes = String(now.getMinutes()).padStart(2, '0')
+  const seconds = String(now.getSeconds()).padStart(2, '0')
+  currentTime.value = `${hours}:${minutes}:${seconds}`
+}
+
+// 模拟网络延迟检测
+const checkPing = () => {
+  // 模拟 ping 值在 50-150ms 之间波动
+  ping.value = Math.floor(Math.random() * 100) + 50
+  
+  // 根据 ping 值设置信号强度
+  if (ping.value < 70) {
+    signalStrength.value = 4 // 优秀
+  } else if (ping.value < 100) {
+    signalStrength.value = 3 // 良好
+  } else if (ping.value < 130) {
+    signalStrength.value = 2 // 一般
+  } else {
+    signalStrength.value = 1 // 较差
+  }
+}
+
+onMounted(() => {
+  // 立即更新一次
+  updateTime()
+  checkPing()
+  
+  // 每秒更新时间
+  timeInterval = window.setInterval(updateTime, 1000)
+  
+  // 每5秒检测一次网络
+  pingInterval = window.setInterval(checkPing, 5000)
+})
+
+onUnmounted(() => {
+  if (timeInterval) clearInterval(timeInterval)
+  if (pingInterval) clearInterval(pingInterval)
+})
 </script>
 
 <style scoped lang="less">
-/* Using Tailwind/UnoCSS classes directly in template for better portability */
+.top-info .ping {
+  margin: 0 6px 0 10px;
+  width: 16px;
+  height: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+
+  i {
+    width: 3px;
+    background-color: #2d2e39;
+    transition: background-color 0.3s ease;
+
+    &.active {
+      background-color: var(--font-win, #0ECB81);
+    }
+
+    &:nth-of-type(1) {
+      height: 4px;
+    }
+
+    &:nth-of-type(2) {
+      height: 6px;
+    }
+
+    &:nth-of-type(3) {
+      height: 8px;
+    }
+
+    &:nth-of-type(4) {
+      height: 10px;
+    }
+  }
+}
 </style>

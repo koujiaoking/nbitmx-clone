@@ -14,7 +14,7 @@
 
         <!-- Title -->
         <div class="flex items-center gap-2 mb-4">
-             <img src="@/assets/images/home-icon5.svg" class="w-5 h-5" />
+             <img src="@/assets/images/title-hq.png" class="w-5 h-5" />
              <h1 class="text-xl font-bold">市場行情</h1>
         </div>
 
@@ -123,7 +123,7 @@
         <!-- Desktop Tabs and Search -->
         <div class="tab-base mt-[42px] flex items-center justify-between">
           <div class="cm-tabs-container flex-1">
-             <van-tabs v-model:active="activeTab" background="transparent" title-active-color="#fff" title-inactive-color="#888" line-width="50px" line-height="2px" color="#fff" :border="false">
+             <van-tabs v-model:active="activeTab" background="transparent" title-active-color="#fff" title-inactive-color="#888" line-width="50px" line-height="2px" color="#fff" :border="false" shrink>
                <van-tab :title="$t('quotes.tabOptional')" name="optional"></van-tab>
                <van-tab :title="$t('quotes.tabSpot')" name="spot"></van-tab>
                <van-tab :title="$t('quotes.tabContract')" name="contract"></van-tab>
@@ -235,6 +235,9 @@ const marketData = ref([
         background: transparent;
         height: 36px;
         margin: 0;
+    }
+    :deep(.van-tabs__wrap) {
+      height: auto;
     }
     :deep(.van-tab--card) {
         border: none;

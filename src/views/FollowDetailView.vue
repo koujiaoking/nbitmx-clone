@@ -1,6 +1,6 @@
 <template>
   <div class="follow-detail-page text-white w-full min-h-screen bg-[#0b0c15] pb-[50px]">
-    <div class="max-w-[1351px] mx-auto pt-[10px] px-4">
+    <div class="max-w-[1351px] mx-auto pt-[10px]">
       
       <!-- Breadcrumb -->
       <div class="flex items-center text-[#888] select-none mb-4">
@@ -9,8 +9,8 @@
         <span class="text-[#00F0FF] text-[16px]">CryptoMarshal</span>
       </div>
 
-      <!-- Top Info Box -->
-      <div class="user_info_box show">
+      <!-- Top Info Box - Desktop -->
+      <div v-if="isDesktop" class="user_info_box show">
         <div class="item_top_left">
           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=CryptoMarshal" class="avatar">
           <div class="item_name">
@@ -19,7 +19,7 @@
               <span class="user_level">LV.8</span>
             </div>
             <div class="moreBox">
-              <div class="item_name_total">Guiding you through Bitcoin’s wild ride – from beginner to pro.</div>
+              <div class="item_name_total">Guiding you through Bitcoin's wild ride – from beginner to pro.</div>
             </div>
           </div>
           <div class="line_num hidden md:flex">
@@ -41,6 +41,40 @@
         </div>
       </div>
 
+      <!-- Top Info Box - Mobile -->
+      <div v-if="isMobile" class="follow-box">
+        <div class="top">
+          <div class="user-info">
+            <img class="avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=CryptoMarshal">
+            <div class="user">
+              <p class="name">CryptoMarshal <span class="level">LV.8</span></p>
+              <div class="gray w-70vw -ml-10px">
+                <!-- 自定义展开收起 -->
+                <div 
+                  class="description-wrapper"
+                  :class="{ 'expanded': isDescExpanded }"
+                  @click="isDescExpanded = !isDescExpanded"
+                >
+                  <p class="description-text">
+                    Guiding you through Bitcoin's wild ride – from beginner to pro.
+                  </p>
+                  <svg 
+                    class="expand-icon" 
+                    :class="{ 'rotated': isDescExpanded }"
+                    width="12" 
+                    height="12" 
+                    viewBox="0 0 12 12" 
+                    fill="none"
+                  >
+                    <path d="M3 4.5L6 7.5L9 4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="w-full h-[2px] bg-[#232437] relative top-[44px] z-0"></div>
 
       <!-- Tabs -->
@@ -57,14 +91,15 @@
           :border="false"
         >
           <van-tab title="帶單表現" name="performance">
-            <div class="pt-6">
-              <!-- Charts Section -->
-              <ul class="list">
+            <div :class="isMobile ? 'pt-6 px-[3.2vw] box-border text-white' : 'pt-6'">
+              <!-- Charts Section - Desktop -->
+              <ul v-if="isDesktop" class="list">
                 <!-- Line Chart -->
                 <li class="item">
                   <div class="title-content">
                     <div class="title">
                       <!-- SVG icon placeholder -->
+                       <img src="@/assets/images/title-ai.png" />
                       <span>收益週表現</span>
                     </div>
                     <div class="filter-item">按收益金額</div>
@@ -75,7 +110,7 @@
                 <!-- Bar Chart -->
                 <li class="item">
                   <div class="title-content">
-                    <div class="title"><span>殖利率</span></div>
+                    <div class="title"><img src="@/assets/images/title-ai.png" /><span>殖利率</span></div>
                     <div class="filter-item">按收益率</div>
                   </div>
                   <div class="chat-day">
@@ -97,7 +132,7 @@
                 <!-- Status -->
                 <li class="item">
                   <div class="title-content">
-                     <div class="title"><span>帶單情況</span></div>
+                     <div class="title"><img src="@/assets/images/title-ai.png" /><span>帶單情況</span></div>
                   </div>
                   <div class="progress-bar">
                     <van-progress :percentage="92.17" stroke-width="10" track-color="#DB75FF" color="#3AFFCF" :show-pivot="false" />
@@ -114,10 +149,70 @@
                 </li>
               </ul>
 
-              <!-- Info Boxes -->
-              <div class="info_box flex-col lg:flex-row">
+              <!-- Charts Section - Mobile (Flat Layout) -->
+              <div v-if="isMobile" class="flat-layout">
+                <!-- Line Chart -->
+                <div class="chart-section">
+                  <div class="title-content">
+                    <div class="title">
+                       <img src="@/assets/images/title-ai.png" />
+                      <span>收益週表現</span>
+                    </div>
+                    <div class="filter-item">按收益金額</div>
+                  </div>
+                  <div class="chart-container">
+                    <div ref="lineChartRef" class="chart-canvas w-93vw h-66vw"></div>
+                  </div>
+                </div>
+
+                <!-- Bar Chart -->
+                <div class="chart-section">
+                  <div class="title-content">
+                    <div class="title"><img src="@/assets/images/title-ai.png" /><span>殖利率</span></div>
+                    <div class="filter-item">按收益率</div>
+                  </div>
+                  <div class="chat-day">
+                    <p class="rate"></p>
+                    <p class="day-list">
+                      <span 
+                        v-for="filter in timeFilters" 
+                        :key="filter"
+                        :class="{ active: activeTimeFilter === filter }"
+                        @click="handleTimeFilterChange(filter)"
+                      >
+                        {{ filter }}
+                      </span>
+                    </p>
+                  </div>
+                  <div class="chart-container">
+                    <div ref="barChartRef" class="chart-canvas w-93vw h-66vw"></div>
+                  </div>
+                </div>
+
+                <!-- Status -->
+                <div class="chart-section">
+                  <div class="title-content">
+                     <div class="title"><img src="@/assets/images/title-ai.png" /><span>帶單情況</span></div>
+                  </div>
+                  <div class="progress-bar">
+                    <van-progress :percentage="92.17" stroke-width="10" track-color="#DB75FF" color="#3AFFCF" :show-pivot="false" />
+                    <div class="count">
+                      <p><span class="name">盈利天數</span><span class="green">318</span></p>
+                      <p><span class="name">虧損天數</span><span class="red">27</span></p>
+                    </div>
+                  </div>
+                  <div class="info-content">
+                    <p><span class="name">勝率</span><span>92.17%</span></p>
+                    <p><span class="name">年平均收益率</span><span>68%</span></p>
+                    <p><span class="name">近7天跟投收益率</span><span>36%</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Info Boxes - Desktop -->
+              <div v-if="isDesktop" class="info_box flex-col lg:flex-row">
                 <div class="info_box_l">
-                   <div class="title-content"><div class="title"><span>領導團隊概覽</span></div></div>
+                   <div class="title-content"><div class="title"><img src="@/assets/images/title-ai.png" /><span>領導團隊概覽</span></div></div>
                    <div class="info-content">
                       <p v-for="(val, label) in overviewStats" :key="label">
                         <span class="name">{{ label }}</span><span>{{ val }}</span>
@@ -146,23 +241,103 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Info Boxes - Mobile (Flat Layout) -->
+              <div v-if="isMobile" class="flat-layout">
+                <div class="chart-section">
+                   <div class="title-content"><div class="title"><img src="@/assets/images/title-ai.png" /><span>領導團隊概覽</span></div></div>
+                   <div class="info-content">
+                      <p v-for="(val, label) in overviewStats" :key="label">
+                        <span class="name">{{ label }}</span><span>{{ val }}</span>
+                      </p>
+                   </div>
+                </div>
+                
+                <!-- Followers List - Mobile (按照領導團隊概覽样式) -->
+                <div class="chart-section">
+                  <div class="title-content">
+                    <div class="title"><img src="@/assets/images/title-ai.png" /><span>跟單用戶</span></div>
+                  </div>
+                  <div class="info-content">
+                     <p><span class="name">近7天跟投人數</span><span>168</span></p>
+                     <p><span class="name">近7天跟投收益率</span><span>68%</span></p>
+                  </div>
+                </div>
+              </div>
             </div>
           </van-tab>
 
           <!-- Current Orders Tab -->
           <van-tab title="目前帶單" name="current">
-            <div class="data-list-new p-4">
-              <a-table :dataSource="currentOrders" :columns="currentOrderColumns" :pagination="false" :rowClassName="() => 'bg-transparent text-white hover:bg-transparent'" />
+            <!-- PC端表格 -->
+            <div v-if="isDesktop" class="data-list-new">
+              <a-table :dataSource="currentOrders" :columns="currentOrderColumns" :pagination="false" />
+            </div>
+            
+            <!-- 移动端订单卡片 -->
+            <div v-if="isMobile" class="mobile-orders">
+              <div v-for="order in currentOrders" :key="order.key" class="follow-order">
+                <div class="coin">
+                  <img class="icon mr-5px" :src="`https://bitcotyrax.oss-ap-southeast-1.aliyuncs.com/coin_icon/${order.coin}.png`" />
+                  <span>{{ order.coin }}</span>
+                  <span class="ml-15px green">{{ order.leverage }} </span>
+                </div>
+                <p class="order-title"><span>買入價</span><span>殖利率</span></p>
+                <p class="order-desc"><span>{{ order.price }}</span><span :class="parseFloat(order.rate) >= 0 ? 'green' : 'red'">{{ order.rate }}</span></p>
+                <p class="order-title"><span>持倉方向</span><span>投入額</span></p>
+                <p class="order-desc"><span :class="order.direction === 'Long' || order.direction === '做多' ? 'font-win' : 'font-lose'">{{ order.direction === 'Long' ? '做多' : '做空' }}</span><span>{{ order.amount }}</span></p>
+                <p class="order-title"><span>開始時間</span></p>
+                <p class="order-desc order-time"><span class="time">{{ order.time }}</span></p>
+              </div>
             </div>
           </van-tab>
 
           <!-- History Orders Tab -->
           <van-tab title="歷史帶單" name="history">
-            <div class="data-list-new p-4">
-               <a-table :dataSource="historyOrders" :columns="historyOrderColumns" :pagination="false" />
+            <!-- PC端表格 -->
+            <div v-if="isDesktop" class="data-list-new">
+              <a-table :dataSource="historyOrders" :columns="historyOrderColumns" :pagination="false" />
+            </div>
+            
+            <!-- 移动端订单卡片 -->
+            <div v-if="isMobile" class="mobile-orders">
+              <div v-for="order in historyOrders" :key="order.key" class="follow-order">
+                <div class="coin">
+                  <img class="icon mr-5px" :src="`https://bitcotyrax.oss-ap-southeast-1.aliyuncs.com/coin_icon/${order.coin}.png`" />
+                  <span>{{ order.coin }}</span>
+                  <span class="ml-15px green">{{ order.leverage }} </span>
+                </div>
+                <p class="order-title"><span>買入價</span><span>殖利率</span></p>
+                <p class="order-desc"><span>{{ order.price }}</span><span :class="parseFloat(order.rate) >= 0 ? 'green' : 'red'">{{ order.rate }}</span></p>
+                <p class="order-title"><span>持倉方向</span><span>投入額</span></p>
+                <p class="order-desc"><span :class="order.direction === 'Long' || order.direction === '做多' ? 'font-win' : 'font-lose'">{{ order.direction === 'Long' ? '做多' : '做空' }}</span><span>{{ order.amount }}</span></p>
+                <p class="order-title"><span>開始時間</span><span>結束時間</span></p>
+                <p class="order-desc order-time"><span class="time">{{ order.start }}</span><span>→</span><span class="time-end">{{ order.end }}</span></p>
+              </div>
+            </div>
+          </van-tab>
+
+          <!-- 移动端跟单者标签页 -->
+          <van-tab v-if="isMobile" title="跟单者" name="followers">
+            <div class="mobile-followers">
+              <div v-for="follower in followers" :key="follower.id" class="people-item">
+                <img class="avatar" :src="follower.avatar" />
+                <div class="info">
+                  <div class="name">{{ follower.name }}</div>
+                  <div class="profit">
+                    <span>跟單收益</span>
+                    <span :class="follower.profit >= 0 ? 'green' : 'red'">{{ follower.profit >= 0 ? '+' : '' }}{{ follower.profit }}%</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </van-tab>
         </van-tabs>
+      </div>
+      
+      <!-- Mobile Footer Button -->
+      <div v-if="isMobile" class="footer">
+        <button class="btn" @click="showFollowModal">跟單</button>
       </div>
     </div>
   </div>
@@ -173,8 +348,12 @@ import { ref, onMounted, nextTick, shallowRef } from 'vue'
 import * as echarts from 'echarts'
 import { showModal } from '@/utils/showModal'
 import FollowModal from '@/components/follow/FollowModal.vue'
+import { useDevice } from '@/composables/useDevice'
+
+const { isMobile, isDesktop } = useDevice()
 
 const activeTab = ref('performance')
+const isDescExpanded = ref(false)
 const lineChartRef = ref<HTMLElement | null>(null)
 const barChartRef = ref<HTMLElement | null>(null)
 const barChartInstance = shallowRef<echarts.ECharts | null>(null)
@@ -229,6 +408,15 @@ const historyOrders = [
   { key: 8, coin: 'SUIUSDT', price: '1.7041 / 1.9303', amount: '98,502.6', rate: '106.19%', leverage: '8x', direction: 'Long', start: '2026-01-05 02:20:37', end: '2026-01-07 08:08:58' },
   { key: 9, coin: 'LTCUSDT', price: '82.2 / 83.06', amount: '71,999.82', rate: '3.14%', leverage: '3x', direction: 'Long', start: '2026-01-04 05:32:53', end: '2026-01-06 07:22:38' },
   { key: 10, coin: 'BTCUSDT', price: '88,857.61 / 91,529.73', amount: '49,672.13', rate: '30.07%', leverage: '10x', direction: 'Long', start: '2026-01-02 06:52:22', end: '2026-01-04 22:18:42' },
+]
+
+// Followers data for mobile view
+const followers = [
+  { id: 1, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User1', name: 'CryptoNinja', profit: 15.09 },
+  { id: 2, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User2', name: 'TraderPro', profit: 8.5 },
+  { id: 3, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User3', name: 'InvestorElite', profit: -2.3 },
+  { id: 4, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User4', name: 'CoinMaster', profit: 12.7 },
+  { id: 5, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User5', name: 'BlockchainKing', profit: 20.1 },
 ]
 
 onMounted(async () => {
@@ -487,7 +675,7 @@ const initCharts = () => {
     flex-wrap: wrap;
     gap: 30px;
     padding-top: 30px;
-    padding-bottom: 5px
+    padding-bottom: 5px;
 }
 
 .list .item {
@@ -674,11 +862,141 @@ const initCharts = () => {
     width: 100%;
     min-height: 550px;
     overflow: hidden;
-    border-radius: 12px
+    border-radius: 12px;
+    background: var(--data-bg-main, #1A1B24);
 }
 
 .data-list-new .ant-table,.data-list-new .ant-table-wrapper th,.data-list-new .ant-table-wrapper td {
-    background: transparent!important
+    background: transparent!important;
+    color: var(--font-color-main, #fff)!important;
+}
+
+/* 移动端订单卡片样式 */
+.mobile-orders {
+    padding: 0;
+}
+
+.follow-order {
+    border: 1px solid var(--border-color1, #3c3e53);
+    margin: 2.6vw 3.2vw;
+    border-radius: 4vw;
+    padding-left: 2.6vw;
+    padding-right: 2.6vw;
+    padding-top: 3.7vw;
+}
+
+.follow-order .coin {
+    position: relative;
+    margin-bottom: 2.6vw;
+    display: flex;
+    align-items: center;
+}
+
+.follow-order .coin .icon {
+    width: 5.3vw;
+    height: 5.3vw;
+    border-radius: 9999px;
+}
+
+.follow-order .coin .share {
+    position: absolute;
+    right: 0;
+    width: 4.8vw;
+    height: 4.8vw;
+    border-radius: 0;
+}
+
+.follow-order .order-title {
+    margin-bottom: 2.6vw;
+    display: flex;
+    justify-content: space-between;
+    font-size: 3.3vw;
+    --un-text-opacity: 1;
+    color: rgb(173 173 173 / var(--un-text-opacity));
+}
+
+.follow-order .order-desc {
+    color: var(--font-color-main);
+    margin-bottom: 2.6vw;
+    display: flex;
+    justify-content: space-between;
+    font-size: 3.7vw;
+}
+
+.follow-order .order-time .time,
+.follow-order .order-time .time-end {
+    flex: 1;
+}
+
+.follow-order .order-time .time-end {
+    text-align: right;
+}
+
+.follow-order .green {
+    color: #0ff;
+}
+
+.follow-order .red {
+    color: #eb5757;
+}
+
+.follow-order .font-win {
+    color: var(--font-win, #0ff);
+}
+
+.follow-order .font-lose {
+    color: var(--font-lose, #eb5757);
+}
+
+/* 移动端跟单者列表样式 */
+.mobile-followers {
+    padding: 0;
+}
+
+.mobile-followers .people-item {
+    background: var(--data-bg36, #1A222B);
+    border: 1px solid var(--border-color1, #3c3e53);
+    margin: 2.6vw 3.2vw;
+    box-sizing: border-box;
+    height: 24.5vw;
+    display: flex;
+    align-items: center;
+    border-radius: 4vw;
+    padding: 4.2vw;
+}
+
+.mobile-followers .people-item .avatar {
+    margin-right: 4vw;
+    width: 12vw;
+    height: 12vw;
+    border-radius: 9999px;
+}
+
+.mobile-followers .people-item .info {
+    flex: 1;
+}
+
+.mobile-followers .people-item .name {
+    margin-bottom: 5px;
+    color: var(--font-color-main, #fff);
+}
+
+.mobile-followers .people-item .profit {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mobile-followers .people-item .profit span:first-child {
+    color: var(--font-color3-pc, #888);
+}
+
+.mobile-followers .people-item .profit .green {
+    color: var(--font-win, #0ff);
+}
+
+.mobile-followers .people-item .profit .red {
+    color: #eb5757;
 }
 
 @media (max-width: 768px) {
@@ -1003,7 +1321,43 @@ const initCharts = () => {
     color: #888;
 }
 
+
+/* 自定义展开收起样式 */
+.description-wrapper {
+    position: relative;
+    cursor: pointer;
+    padding-right: 20px;
+}
+
+.description-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* 默认显示1行 */
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+    transition: all 0.3s ease;
+    color: #888;
+    font-size: 2.9vw;
+    margin: 0;
+}
+
+.description-wrapper.expanded .description-text {
+    -webkit-line-clamp: unset; /* 展开时显示全部 */
+}
+
+.expand-icon {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    transition: transform 0.3s ease;
+}
+
+.expand-icon.rotated {
+    transform: rotate(180deg);
+}
 .footer {
+    --content-bg: #000;
     background: var(--content-bg);
     position: fixed;
     bottom: 0;
@@ -1015,6 +1369,8 @@ const initCharts = () => {
 }
 
 .footer .btn {
+    --btn-bg: #00f0ff;
+    --font-btn: #000;
     background: var(--btn-bg);
     color: var(--font-btn);
     height: 13vw;
@@ -1265,11 +1621,116 @@ const initCharts = () => {
     }
 
     .center-container {
-        padding: 30px 50px
+        padding: 30px 50px;
     }
 
     .center-container .submit-money {
         background: var(--data-bg-main)
+    }
+
+    /* follow-box 样式 */
+    .follow-box {
+        margin: 3vw 3.2vw;
+        box-sizing: border-box;
+        border-radius: 4.8vw;
+        --un-bg-opacity: 1;
+        background-color: rgb(26 34 43 / var(--un-bg-opacity));
+        padding: 4vw 5.6vw;
+    }
+
+    .follow-box .top {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .follow-box .top .user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .follow-box .top .user-info .avatar {
+        margin-right: 2vw;
+        margin-top: 1vw;
+        width: 60px;
+        height: 60px;
+        align-self: flex-start;
+        border-radius: 9999px;
+    }
+
+    .follow-box .top .user-info .user {
+        flex: 1;
+    }
+
+    .follow-box .top .user-info .user .name {
+        font-size: 4.26667vw;
+        color: var(--font-color-main);
+    }
+
+    .follow-box .top .user-info .user .name .level {
+        background: linear-gradient(270deg, #fcdf7b, #f9cd4e);
+        border-radius: 2vw;
+        padding: 0.5vw 1.3vw;
+        font-size: 2.5vw;
+        --un-text-opacity: 1;
+        color: rgb(160 115 0 / var(--un-text-opacity));
+        font-weight: 700;
+    }
+
+    .follow-box .top .user-info .user .gray {
+        color: var(--font-color3-pc);
+    }
+
+    /* 移动端平铺布局 */
+    .flat-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 4vw;
+        padding: 0 3.2vw;
+    }
+
+    .flat-layout .chart-section {
+        background: var(--data-bg-main, #1A1B24);
+        border-radius: 4vw;
+        padding: 4vw;
+    }
+
+    .flat-layout .chart-container {
+        width: 100%;
+        height: auto;
+        margin-top: 2vw;
+    }
+
+    .flat-layout .chart-canvas {
+        width: 100%;
+        height: 220px;
+    }
+
+    /* Footer按钮样式 */
+    .footer {
+        background: var(--content-bg, #0B0E11);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 2.6vw 3.7vw 8vw;
+    }
+
+    .footer .btn {
+        background: var(--btn-bg, #00F0FF);
+        color: var(--font-btn, #000);
+        height: 13vw;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2vw;
+        border-style: none;
+        font-size: 4vw;
+        cursor: pointer;
     }
 }
 </style>

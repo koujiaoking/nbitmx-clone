@@ -3,7 +3,7 @@
     
     <main>
       <!-- Hero Section -->
-      <div class="box-border! py-[10px] px-[20px] min-h-[700px] text-white flex items-center w-full container-box">
+      <div v-if="isDesktop" class="box-border! py-[10px] px-[20px] min-h-[700px] text-white flex items-center w-full container-box">
         <div class="box-border! lg:w-[1360px] mx-auto h-full flex flex-col justify-center text-[60px]">
           <div class="mb-[20px]">WEB3</div>
           <div data-v-e1a1792a="" class="flex items-center stroke-#f7931a text-60px" style="text-shadow: rgb(247, 147, 26) 0px 0px 5px;">
@@ -24,6 +24,7 @@
           </div>
         </div>
       </div>
+      <div v-if="isMobile" class="w-full px-4vw box-border"><div class="text-18px lh-28px color-white min-h-200px px-4vw box-border flex items-center justify-center container-box">運用WEB3改革慈善工作的提案</div><p class="mt-15px text-14px color-[#888]">我們是「Exchange」慈善組織，一個個非營利組織，致力於利用web3技術作為未來正義的力量。</p></div>
 
       <div class="max-w-[1360px] mx-auto">
         <!-- Feature Cards -->
@@ -45,7 +46,7 @@
         <!-- Assistance Needed -->
         <div class="px-[4vw] box-border!">
           <h1 class="color-white text-[16px] font-extrabold my-[20px] md:hidden flex items-center">
-            <img class="w-[3vw] h-[3vw] mr-[1vw]" src="@/assets/images/logo.png" alt=""> <!-- Placeholder icon -->
+            <img class="w-[3vw] h-[3vw] mr-[1vw]" src="@/assets/images/title-ai.png" alt=""> <!-- Placeholder icon -->
             {{ $t('charity.assistanceNeeded') }}
           </h1>
           
@@ -126,6 +127,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useDevice } from '@/composables/useDevice'
+
+const { isMobile, isDesktop } = useDevice()
 
 const { t } = useI18n()
 
