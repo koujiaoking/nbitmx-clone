@@ -42,32 +42,27 @@
     fill: none;
     stroke-width: .5vw;
     stroke-dasharray: 90 310;
-    animation: stroke 6s infinite linear
-  }
+    animation: stroke 6s infinite linear;  }
 
   .app-loading_text-1 {
     stroke: #3cefff;
     text-shadow: 0 0 1vw #3cefff;
-    animation-delay: -1.5s
-  }
+    animation-delay: -1.5s;  }
 
   .app-loading_text-2 {
     stroke: #F7931A;
     text-shadow: 0 0 1vw #f7931a;
-    animation-delay: -3s
-  }
+    animation-delay: -3s;  }
 
   .app-loading_text-3 {
     stroke: #00D77C;
     text-shadow: 0 0 1vw #00d77c;
-    animation-delay: -4.5s
-  }
+    animation-delay: -4.5s;  }
 
   .app-loading_text-4 {
     stroke: #DB4242;
     text-shadow: 0 0 1vw #db4242;
-    animation-delay: -6s
-  }
+    animation-delay: -6s;  }
 
   @media screen and (min-width: 768px) {
     .app-loading_text {

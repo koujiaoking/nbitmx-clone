@@ -33,6 +33,7 @@ import { wagmiConfig } from './config/web3'
 
 // 导入自定义指令
 import animateOnScroll from './directives/animateOnScroll'
+import copy from './directives/copy'
 
 /**
  * 创建Vue应用实例
@@ -41,6 +42,7 @@ const app = createApp(App)
 
 // 注册全局指令
 app.directive('animate-on-scroll', animateOnScroll)
+app.directive('copy', copy)
 
 // 注册Pinia状态管理
 app.use(pinia)

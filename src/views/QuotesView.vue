@@ -259,8 +259,7 @@ const marketData = ref([
 .tab-base {
     display: flex;
     align-items: center;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .tab-base .search {
     width: 260px;
@@ -270,12 +269,10 @@ const marketData = ref([
     border-radius: 99px;
     border: 1px solid #31323f;
     background: #12141E;
-    padding: 0 10px
-}
+    padding: 0 10px;}
 
 .crypto-table {
-    font-family: Arial,sans-serif
-}
+    font-family: Arial,sans-serif;}
 
 .table-header {
     display: flex;
@@ -285,24 +282,20 @@ const marketData = ref([
     font-weight: 900;
     align-items: center;
     color: #eee;
-    text-transform: uppercase
-}
+    text-transform: uppercase;}
 
 .header-cell {
     flex: 1;
     text-align: right;
-    padding: 0 8px
-}
+    padding: 0 8px;}
 
 .header-cell.name {
     flex: 1.6;
-    text-align: left
-}
+    text-align: left;}
 
 .table-body {
     font-size: 15px;
-    font-weight: 900
-}
+    font-weight: 900;}
 
 .table-row {
     display: flex;
@@ -310,8 +303,7 @@ const marketData = ref([
     align-items: center;
     border-bottom: 1px solid #31323f;
     cursor: pointer;
-    transition: background-color .2s ease
-}
+    transition: background-color .2s ease;}
 
 .table-row:hover {
     background-color: #1a1b26;
@@ -320,13 +312,11 @@ const marketData = ref([
 .row-cell {
     flex: 1;
     text-align: right;
-    padding: 0 8px
-}
+    padding: 0 8px;}
 
 .row-cell.name {
     flex: 1.6;
     display: flex;
     align-items: center;
-    text-align: left
-}
+    text-align: left;}
 </style>

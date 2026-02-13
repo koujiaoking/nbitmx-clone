@@ -104,8 +104,7 @@ onMounted(() => {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 140px;
-  width: 1260px
-}
+  width: 1260px;}
 .home-trend {
     margin-left: auto;
     margin-right: auto;

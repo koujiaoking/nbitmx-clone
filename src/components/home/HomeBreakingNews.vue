@@ -102,23 +102,20 @@ const newsList = ref([
         width:400px;
         --un-bg-opacity: 1;
         background-color: rgb(26 27 36 / var(--un-bg-opacity));
-        padding: 16px 20px
-    }
+        padding: 16px 20px;    }
 
     .news-card:hover {
         --un-bg-opacity: 1;
         background-color: rgb(44 44 62 / var(--un-bg-opacity));
         --un-shadow: var(--un-shadow-inset) 0 10px 15px -3px var(--un-shadow-color, rgb(0 0 0 / .1)),var(--un-shadow-inset) 0 4px 6px -4px var(--un-shadow-color, rgb(0 0 0 / .1));
-        box-shadow: var(--un-ring-offset-shadow),var(--un-ring-shadow),var(--un-shadow)
-    }
+        box-shadow: var(--un-ring-offset-shadow),var(--un-ring-shadow),var(--un-shadow);    }
 
     .card .new-img[data-v-81683583] {
         margin-top: 10px;
         width: 100%;
         height: 250px;
         border-radius: 8px;
-        object-fit: cover
-    }
+        object-fit: cover;    }
 }
 
 @media (max-width: 992px) {
@@ -126,15 +123,13 @@ const newsList = ref([
         border:1px solid #3c3e53;
         --un-bg-opacity: 1;
         background-color: rgb(13 14 15 / var(--un-bg-opacity));
-        padding: 4vw
-    }
+        padding: 4vw;    }
 
     .card .new-img[data-v-81683583] {
         margin-top: 2vw;
         width: 100%;
         height: 54vw;
         border-radius: 2vw;
-        object-fit: cover
-    }
+        object-fit: cover;    }
 }
 </style>

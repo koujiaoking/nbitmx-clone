@@ -45,11 +45,11 @@ import icons from '@/assets/icons'
     flex-direction: column;
     cursor: pointer;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .item-container:hover {
-    transform: translateY(-10px)
+    transform: translateY(-10px);
 }
 
 .item-container>.top {
@@ -59,7 +59,7 @@ import icons from '@/assets/icons'
     width: 360px;
     height: 40px;
     display: flex;
-    align-items: center
+    align-items: center;
 }
 
 .item-container>.bottom {
@@ -73,13 +73,13 @@ import icons from '@/assets/icons'
     align-items: center;
     background-repeat: no-repeat;
     padding-left: 20px;
-    padding-right: 20px
+    padding-right: 20px;
 }
 
 .item-container>.bottom .left {
     display: inline-flex;
     flex: 1 1 0%;
-    flex-direction: column
+    flex-direction: column;
 }
 
 .item-container>.bottom .middle {
@@ -88,8 +88,7 @@ import icons from '@/assets/icons'
     height: 80px;
     display: flex;
     align-items: center;
-    justify-content: center
-}
+    justify-content: center;}
 
 .item-container>.bottom .middle .ball-gif {
     position: relative;
@@ -97,8 +96,7 @@ import icons from '@/assets/icons'
     width: 52px;
     height: 52px;
     flex: none;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .item-container>.bottom .middle .ball-png {
     position: absolute;
@@ -107,33 +105,27 @@ import icons from '@/assets/icons'
     z-index: 1;
     width: 100%;
     height: 100%;
-    flex: none
-}
+    flex: none;}
 
 .item-container>.bottom .right {
     display: inline-flex;
     flex: 1 1 0%;
     flex-direction: column;
-    align-items: flex-end
-}
+    align-items: flex-end;}
 
 .item-container>.bottom .left>span:nth-of-type(1),.item-container>.bottom .right>span:nth-of-type(1) {
-    font-size: 12px
-}
+    font-size: 12px;}
 
 .item-container:nth-of-type(3n-1) {
     margin-left: 30px;
-    margin-right: 30px
-}
+    margin-right: 30px;}
 
 .line {
     margin-bottom: 11px;
     width: 390px;
-    height: 76px
-}
+    height: 76px;}
 
  .ant-avatar-group .ant-avatar {
-    border-color: transparent
-}
+    border-color: transparent;}
 
 </style>

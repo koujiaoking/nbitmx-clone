@@ -46,26 +46,21 @@ const emit = defineEmits(['click'])
       padding: 0px 30px;
       --un-text-opacity: 1;
       color: rgb(255 255 255 / var(--un-text-opacity));
-      line-height: 30px
-    }
+      line-height: 30px;    }
 }
 .g-btn-animation:hover:before {
-    width: 100%
-}
+    width: 100%;}
 
 .g-btn-animation:hover .iconfont {
-    transform: translate(10px)
-}
+    transform: translate(10px);}
 
 .g-btn-animation span {
-    z-index: 1
-}
+    z-index: 1;}
 
 .g-btn-animation .iconfont {
     transition: all .2s;
     z-index: 0;
-    margin-left: 15px
-}
+    margin-left: 15px;}
 
 .g-btn-animation:before {
     content: "";
@@ -77,6 +72,5 @@ const emit = defineEmits(['click'])
     z-index: 0;
     width: 0;
     height: 100%;
-    border-radius: 24px
-}
+    border-radius: 24px;}
 </style>

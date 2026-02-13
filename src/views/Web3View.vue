@@ -7,32 +7,32 @@
     
     <div class="box-1">
       <div class="card-data">
-        <div class="card-title">流動性 Web3 產出</div>
+        <div class="card-title">{{ $t('web3.liquidityOutput') }}</div>
         <p class="total"><i>0</i>ETH </p>
         <div class="data-info">
           <div>
-            <p>總產出</p>
+            <p>{{ $t('web3.totalOutput') }}</p>
             <p><span>0</span>ETH </p>
           </div>
           <div>
-            <p>可兌換</p>
+            <p>{{ $t('web3.redeemable') }}</p>
             <p><span>0</span>ETH </p>
           </div>
           <div>
-            <p>可提幣餘額</p>
+            <p>{{ $t('web3.withdrawableBalance') }}</p>
             <p><span>0</span>USDT </p>
           </div>
           <div>
-            <p>帳戶餘額</p>
+            <p>{{ $t('web3.accountBalance') }}</p>
             <p><span>0</span>USDT </p>
           </div>
         </div>
-        <p class="time-out">即將到來的收益
+        <p class="time-out">{{ $t('web3.upcomingEarnings') }}
           <van-count-down :time="0" format="HH:mm:ss" style="--van-count-down-text-color: #adadad; --van-count-down-font-size: 16px;" />
         </p>
         <button class="c-btn">
           <van-icon name="arrow-double-right" />
-          <span>參與 WEB3.0</span>
+          <span>{{ $t('web3.participateWeb3') }}</span>
           <van-icon name="arrow-double-left" />
         </button>
       </div>
@@ -120,11 +120,11 @@
       </div>
       
       <div class="total-data-view">
-        <div class="title">質押收益數據</div>
-        <p><span class="label">總產量</span><span class="val">165,317,685.3500</span></p>
-        <p><span class="label">活躍節點</span><span class="val">76,525.0000</span></p>
-        <p><span class="label">參與者</span><span class="val">7,653,485</span></p>
-        <p><span class="label">用戶收入</span><span class="val">81,770,134.0000</span></p>
+        <div class="title">{{ $t('web3.stakingData') }}</div>
+        <p><span class="label">{{ $t('web3.totalProduction') }}</span><span class="val">165,317,685.3500</span></p>
+        <p><span class="label">{{ $t('web3.activeNodes') }}</span><span class="val">76,525.0000</span></p>
+        <p><span class="label">{{ $t('web3.participants') }}</span><span class="val">7,653,485</span></p>
+        <p><span class="label">{{ $t('web3.userIncome') }}</span><span class="val">81,770,134.0000</span></p>
       </div>
     </div>
   </div>
@@ -401,14 +401,14 @@ const currentTab = ref('swap')
 
     .box-1 {
         display: flex;
-        flex-direction: column
+        flex-direction: column;
     }
 
     .box-1 .img01 {
         order: 1;
         margin-bottom: 10px;
         width: 100%;
-        height: auto
+        height: auto;
     }
 
     .box-1 .card-data {
@@ -426,7 +426,7 @@ const currentTab = ref('swap')
     }
 
     .box-1 .card-data .card-title {
-        font-size: 4.2vw
+        font-size: 4.2vw;
     }
 
     .box-1 .card-data .total {
@@ -435,28 +435,28 @@ const currentTab = ref('swap')
         font-size: 4vw;
         --un-text-opacity: 1;
         color: rgb(136 136 136 / var(--un-text-opacity));
-        font-weight: 400
+        font-weight: 400;
     }
 
     .box-1 .card-data .total i {
         margin-right: 1vw;
         --un-text-opacity: 1;
         color: rgb(255 255 255 / var(--un-text-opacity));
-        font-weight: 600
+        font-weight: 600;
     }
 
     .box-1 .card-data .data-info {
         margin-top: 3vw;
         display: flex;
         flex-wrap: wrap;
-        align-items: flex-start
+        align-items: flex-start;
     }
 
     .box-1 .card-data .data-info>div {
         box-sizing: border-box;
         width: 50%;
         padding: 2vw 3vw;
-        font-weight: 400
+        font-weight: 400;
     }
 
     .box-1 .card-data .data-info>div p {
@@ -464,19 +464,19 @@ const currentTab = ref('swap')
         margin-bottom: 1.2vw;
         font-size: 3.8vw;
         --un-text-opacity: 1;
-        color: rgb(173 173 173 / var(--un-text-opacity))
+        color: rgb(173 173 173 / var(--un-text-opacity));
     }
 
     .box-1 .card-data .data-info>div p:nth-child(2) {
         --un-text-opacity: 1;
-        color: rgb(136 136 136 / var(--un-text-opacity))
+        color: rgb(136 136 136 / var(--un-text-opacity));
     }
 
     .box-1 .card-data .data-info>div p:nth-child(2) span {
         margin-right: 1vw;
         font-size: 4vw;
         --un-text-opacity: 1;
-        color: rgb(255 255 255 / var(--un-text-opacity))
+        color: rgb(255 255 255 / var(--un-text-opacity));
     }
 
     .box-1 .card-data .time-out {
@@ -487,12 +487,12 @@ const currentTab = ref('swap')
         font-size: 3.2vw;
         --un-text-opacity: 1;
         color: rgb(173 173 173 / var(--un-text-opacity));
-        font-weight: 600
+        font-weight: 600;
     }
 
     .box-2 {
         display: flex;
-        flex-direction: column
+        flex-direction: column;
     }
 
     .swap-container {
@@ -506,25 +506,25 @@ const currentTab = ref('swap')
         --un-bg-opacity: 1;
         background-color: rgb(18 20 30 / var(--un-bg-opacity));
         padding: 3vw;
-        order: 2
+        order: 2;
     }
 
     .swap-container .switch {
         margin-bottom: 15px;
         display: flex;
-        align-items: center
+        align-items: center;
     }
 
     .swap-container .switch p {
         padding: 1vw 2vw;
         font-size: 16px;
         --un-text-opacity: 1;
-        color: rgb(136 136 136 / var(--un-text-opacity))
+        color: rgb(136 136 136 / var(--un-text-opacity));
     }
 
     .swap-container .switch .active {
         --un-text-opacity: 1;
-        color: rgb(0 240 255 / var(--un-text-opacity))
+        color: rgb(0 240 255 / var(--un-text-opacity));
     }
 
     .swap-container .input-view {
@@ -532,25 +532,25 @@ const currentTab = ref('swap')
         margin-bottom: 6vw;
         display: flex;
         align-items: center;
-        column-gap: 2vw
+        column-gap: 2vw;
     }
 
     .swap-container .input-view .input-box {
         box-sizing: border-box;
         flex: 1 1 0%;
         padding-left: 3vw;
-        padding-right: 3vw
+        padding-right: 3vw;
     }
 
     .swap-container .input-view .input-box input {
         width: 100%;
         background-color: transparent;
-        font-size: 5vw
+        font-size: 5vw;
     }
 
     .swap-container .input-view .icon-change {
         flex: none;
-        text-align: center
+        text-align: center;
     }
 
     .swap-container .input-view .ustd-box {
@@ -559,12 +559,12 @@ const currentTab = ref('swap')
         align-items: center;
         column-gap: 1vw;
         padding-left: 3vw;
-        padding-right: 4vw
+        padding-right: 4vw;
     }
 
     .swap-container .input-view .ustd-box img {
         width: 6vw;
-        height: 6vw
+        height: 6vw;
     }
 
     .total-data-view {
@@ -574,14 +574,14 @@ const currentTab = ref('swap')
         margin-bottom: 2vw;
         overflow: hidden;
         border-radius: 2vw;
-        padding: 3.2vw
+        padding: 3.2vw;
     }
 
     .total-data-view .title {
         margin-bottom: 5vw;
         font-size: 4.4vw;
         --un-text-opacity: 1;
-        color: rgb(255 255 255 / var(--un-text-opacity))
+        color: rgb(255 255 255 / var(--un-text-opacity));
     }
 
     .total-data-view>p {
@@ -589,24 +589,24 @@ const currentTab = ref('swap')
         margin-bottom: 1vw;
         display: flex;
         justify-content: space-between;
-        font-size: 3.6vw
+        font-size: 3.6vw;
     }
 
     .swiper-container {
         order: 1;
         margin-top: 3vw;
         margin-bottom: 10px;
-        width: 100%
+        width: 100%;
     }
 
     .swiper-container .item {
-        width: 100%
+        width: 100%;
     }
 
     .swiper-container .item img {
         width: 100%;
         overflow: hidden;
-        border-radius: 2vw
+        border-radius: 2vw;
     }
 }
 </style>

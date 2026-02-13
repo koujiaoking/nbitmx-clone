@@ -52,7 +52,7 @@ export function createResponsiveComponent(
   options: {
     responsive?: boolean
   } = {}
-): Component {
+): Component | (() => Promise<Component>) {
   const { responsive = false } = options
 
   // 业务组件：直接加载统一组件
@@ -65,7 +65,7 @@ export function createResponsiveComponent(
       return defineAsyncComponent(() => Promise.reject(new Error(`Component not found: ${basePath}`)))
     }
 
-    return defineAsyncComponent(loader as any)
+    return loader as unknown as () => Promise<Component>
   }
 
   // 响应式组件：返回包装组件，支持窗口变化时自动切换

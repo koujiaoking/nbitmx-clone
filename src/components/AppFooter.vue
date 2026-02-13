@@ -40,7 +40,7 @@
               <router-link to="/assets/recharge" class="item">{{ $t('footer.deposit') }}</router-link>
               <router-link to="/assets/withdraw" class="item">{{ $t('footer.withdraw') }}</router-link>
               <router-link to="/assets/index?tab=transfer" class="item">{{ $t('footer.transfer') }}</router-link>
-              <router-link to="/assets/index?tab=order_center" class="item">{{ $t('footer.orderCenter') }}</router-link>
+              <router-link to="/assets/index?tab=orders" class="item">{{ $t('footer.orderCenter') }}</router-link>
             </div>
 
             <!-- Products -->

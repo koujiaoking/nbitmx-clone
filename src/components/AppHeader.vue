@@ -126,7 +126,7 @@
              <router-link to="/assets/index?tab=transfer" class="sub-title">
                <span class="top"><div class="iconfont">&#xe923;</div>{{ $t('header.transfer') }}</span>
              </router-link>
-             <router-link to="/assets/index?tab=order_center" class="sub-title">
+             <router-link to="/assets/index?tab=orders" class="sub-title">
                <span class="top"><div class="iconfont">&#xe926;</div>{{ $t('header.orderCenter') }}</span>
              </router-link>
              <router-link to="/assets/address" class="sub-title">
@@ -362,13 +362,13 @@ const handleLogout = () => {
 .icon-menu-item {
   &:hover .sub-list {
     visibility: visible;
-    top: 56px; /* Adjust based on header height 56px */
+    top: 34px; /* Adjust based on header height 56px */
     opacity: 1;
   }
   .sub-list {
     left: auto;
     right: 0; /* Align right for icon menus */
-    top: 66px; /* Start slightly lower for transition effect */
+    top: 56px; /* Start slightly lower for transition effect */
   }
 }
 

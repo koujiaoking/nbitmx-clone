@@ -155,6 +155,23 @@ const routes = [
     responsive: false,
   }),
 
+  defineRoute('/assets/transfer', 'AssetsTransfer', '@/views/assets/TransferView', {
+    title: 'Transfer | Nbitmx',
+    responsive: false,
+  }),
+
+  // Reports
+  defineRoute('/report/index', 'ReportIndex', '@/views/ReportView', {
+    title: 'Order Center | Nbitmx',
+    responsive: false,
+  }),
+
+  // Flash Exchange
+  defineRoute('/play/flashExchange/index', 'FlashExchange', '@/views/FlashExchangeView', {
+    title: 'Flash Exchange | Nbitmx',
+    responsive: false,
+  }),
+
   // 客服
   defineRoute('/customer/index', 'CustomerService', '@/views/CustomerServiceView', {
     title: 'Customer Service | Nbitmx',

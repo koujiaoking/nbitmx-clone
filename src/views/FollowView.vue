@@ -354,26 +354,22 @@ const filteredTraders = computed(() => {
   &:nth-child(1) {
     color: #fff;
       line-height: 24px;
-      font-size: 20px
-  }
+      font-size: 20px;  }
   &:nth-child(2) {
     color: #848e9c;
     line-height: 24px;
-    font-size: 16px
-}
+    font-size: 16px;}
 }
 
 .row2 {
     &:nth-child(1) {
     color: #848e9c;
     line-height: 14px;
-    font-size: 14px
-}
+    font-size: 14px;}
 &:nth-child(2) {
     color: #00f0ff;
     line-height: 14px;
-    font-size: 14px
-}
+    font-size: 14px;}
 }
 
 .right-con-1 {
@@ -389,42 +385,35 @@ const filteredTraders = computed(() => {
 
 .item {
     position: relative;
-    flex: none
-}
+    flex: none;}
 
 .item .item_top {
     display: flex;
     align-items: center;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .item .item_top_left {
     display: flex;
     align-items: center;
-    justify-content: center
-}
+    justify-content: center;}
 
 .item .item_top_left .item_name .item_name_level span:nth-child(1) {
     --un-text-opacity: 1;
     color: rgb(0 240 240 / var(--un-text-opacity));
-    line-height: 1
-}
+    line-height: 1;}
 
 .item .item_top_left .item_name .item_name_level .user_level {
     background: linear-gradient(270deg,#fcdf7b,#f9cd4e);
-    font-weight: 600
-}
+    font-weight: 600;}
 
 .item .item_top_left .item_name .item_name_total {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    line-height: 1
-}
+    line-height: 1;}
 
 .item .item_top_left .item_name .item_name_total .total_all {
-    color: #888
-}
+    color: #888;}
 
 .item .follow_btn {
     cursor: pointer;
@@ -433,35 +422,29 @@ const filteredTraders = computed(() => {
     background-color: rgb(0 240 255 / var(--un-bg-opacity));
     --un-text-opacity: 1;
     color: rgb(0 0 0 / var(--un-text-opacity));
-    line-height: 1
-}
+    line-height: 1;}
 
 .item .item_bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
     --un-bg-opacity: 1;
-    background-color: rgb(29 29 36 / var(--un-bg-opacity))
-}
+    background-color: rgb(29 29 36 / var(--un-bg-opacity));}
 
 .item .disabled {
-    background: #979797
-}
+    background: #979797;}
 
 .item .watch {
-    background: #1778f1
-}
+    background: #1778f1;}
 
 .item .follow {
-    background: #00f0ff
-}
+    background: #00f0ff;}
 
 .item .following {
     border: 1px solid #00f0ff;
     background: #00a60966;
     --un-text-opacity: 1;
-    color: rgb(0 221 12 / var(--un-text-opacity))
-}
+    color: rgb(0 221 12 / var(--un-text-opacity));}
 
 @media screen and (max-width: 992px) {
     .desktop-only {
@@ -558,23 +541,19 @@ const filteredTraders = computed(() => {
     .item {
         margin-bottom:3vw;
         width: 84vw;
-        padding: 4vw 5vw 2vw
-    }
+        padding: 4vw 5vw 2vw;    }
 
     .item .avatar {
         margin-right: 2vw;
         width: 10vw;
         height: 10vw;
-        border-radius: 9999px
-    }
+        border-radius: 9999px;    }
 
     .item .item_name {
-        height: 11vw
-    }
+        height: 11vw;    }
 
     .item .item_name .item_name_level span:nth-child(1) {
-        font-size: 4.2vw
-    }
+        font-size: 4.2vw;    }
 
     .item .item_name .item_name_level .user_level {
         margin-left: 1.6vw;
@@ -583,55 +562,45 @@ const filteredTraders = computed(() => {
         padding: .5vw 1.3vw;
         font-size: 2.6vw;
         --un-text-opacity: 1;
-        color: rgb(0 0 0 / var(--un-text-opacity))
-    }
+        color: rgb(0 0 0 / var(--un-text-opacity));    }
 
     .item .item_name .item_name_total {
         margin-top: 2vw;
-        font-size: 3.2vw
-    }
+        font-size: 3.2vw;    }
 
     .item .item_name .item_name_total .icon-group {
         width: 3.2vw;
-        height: 3.2vw
-    }
+        height: 3.2vw;    }
 
     .item .follow_btn {
         width: 21vw;
         height: 9.6vw;
-        border-radius: 26.6vw
-    }
+        border-radius: 26.6vw;    }
 
     .item .following {
-        font-size: 3.2vw
-    }
+        font-size: 3.2vw;    }
 
     .item .item_bottom {
         margin-top: 1vw;
         height: 8vw;
         border-radius: 4vw;
-        padding: 1vw 3vw
-    }
+        padding: 1vw 3vw;    }
 
     .item .item_bottom>div {
-        font-size: 3.2vw
-    }
+        font-size: 3.2vw;    }
 
     .item .item_bottom>div>span:nth-child(2) {
         margin-left: 1.3vw;
-        margin-right: 2.6vw
-    }
+        margin-right: 2.6vw;    }
 
     .item .item_bottom>div>span:nth-child(4) {
-        margin-left: 1.3vw
-    }
+        margin-left: 1.3vw;    }
 
     .follow-box-base {
         border: 1px solid #3c3e53;
         border-radius: 2vw;
         --un-bg-opacity: 1;
-        background-color: rgb(11 11 13 / var(--un-bg-opacity))
-    }
+        background-color: rgb(11 11 13 / var(--un-bg-opacity));    }
 }
 
 @media screen and (min-width: 992px) {
@@ -639,19 +608,16 @@ const filteredTraders = computed(() => {
         width:388px;
         // height: 227px;
         border-radius: 18px;
-        padding: 20px
-    }
+        padding: 20px;    }
 
     .item .avatar {
         margin-right: 10px;
         width: 40px;
         height: 40px;
-        border-radius: 9999px
-    }
+        border-radius: 9999px;    }
 
     .item .item_name .item_name_level span:nth-child(1) {
-        font-size: 18px
-    }
+        font-size: 18px;    }
 
     .item .item_name .item_name_level .user_level {
         margin-left: 6px;
@@ -661,54 +627,44 @@ const filteredTraders = computed(() => {
         padding: 2px 6px;
         font-size: 14px;
         --un-text-opacity: 1;
-        color: rgb(160 115 0 / var(--un-text-opacity))
-    }
+        color: rgb(160 115 0 / var(--un-text-opacity));    }
 
     .item .item_name .item_name_total {
         margin-top: 2px;
-        font-size: 14px
-    }
+        font-size: 14px;    }
 
     .item .item_name .item_name_total .icon-group {
         width: 14px;
-        height: 14px
-    }
+        height: 14px;    }
 
     .item .follow_btn {
         width: 80px;
         height: 40px;
-        border-radius: 100px
-    }
+        border-radius: 100px;    }
 
     .item .following {
-        font-size: 14px
-    }
+        font-size: 14px;    }
 
     .item .item_bottom {
         margin-top: 4px;
         height: 30px;
         border-radius: 15px;
-        padding: 5px 11px
-    }
+        padding: 5px 11px;    }
 
     .item .item_bottom>div {
-        font-size: 12px
-    }
+        font-size: 12px;    }
 
     .item .item_bottom>div>span:nth-child(2) {
         margin-left: 5px;
-        margin-right: 10px
-    }
+        margin-right: 10px;    }
 
     .item .item_bottom>div>span:nth-child(4) {
-        margin-left: 5px
-    }
+        margin-left: 5px;    }
 
     .follow-box-base {
         border-radius: 18px;
         --un-bg-opacity: 1;
-        background-color: rgb(18 20 30 / var(--un-bg-opacity))
-    }
+        background-color: rgb(18 20 30 / var(--un-bg-opacity));    }
 }
 
 

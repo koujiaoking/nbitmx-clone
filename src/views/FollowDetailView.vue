@@ -3,7 +3,7 @@
     <div class="max-w-[1351px] mx-auto pt-[10px]">
       
       <!-- Breadcrumb -->
-      <div class="flex items-center text-[#888] select-none mb-4">
+      <div v-if="isDesktop" class="flex items-center text-[#888] select-none mb-4">
         <router-link to="/follow/index" class="text-[16px] text-[#888]">交易廣場</router-link>
         <span class="mx-[10px]"> &gt; </span>
         <span class="text-[#00F0FF] text-[16px]">CryptoMarshal</span>
@@ -58,7 +58,7 @@
                   <p class="description-text">
                     Guiding you through Bitcoin's wild ride – from beginner to pro.
                   </p>
-                  <svg 
+                  <!-- <svg 
                     class="expand-icon" 
                     :class="{ 'rotated': isDescExpanded }"
                     width="12" 
@@ -67,7 +67,10 @@
                     fill="none"
                   >
                     <path d="M3 4.5L6 7.5L9 4.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  </svg> -->
+                  <div class="expand-icon" 
+                    :class="{ 'rotated': isDescExpanded }"><van-icon name="arrow-down" /></div>
+                  
                 </div>
               </div>
             </div>
@@ -557,32 +560,27 @@ const initCharts = () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .user_info_box .item_top_left {
     margin-left: 30px;
     display: flex;
-    align-items: center
-}
+    align-items: center;}
 
 .user_info_box .item_top_left .avatar {
     width: 40px;
     height: 40px;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .user_info_box .item_top_left .item_name {
     margin-left: 10px;
     display: flex;
     flex-direction: column;
-    overflow: hidden
-}
+    overflow: hidden;}
 
 .user_info_box .item_top_left .item_name .item_name_level span:nth-child(1) {
     color: var(--font-color-main);
-    font-size: 18px
-}
+    font-size: 18px;}
 
 .user_info_box .item_top_left .item_name .user_level {
     background: linear-gradient(270deg,#fcdf7b,#f9cd4e);
@@ -593,55 +591,46 @@ const initCharts = () => {
     padding: 1px 5px;
     --un-text-opacity: 1;
     color: rgb(160 115 0 / var(--un-text-opacity));
-    font-weight: 600
-}
+    font-weight: 600;}
 
 .user_info_box .item_top_left .item_name .moreBox {
     display: flex;
-    align-items: flex-end
-}
+    align-items: flex-end;}
 
 .user_info_box .item_top_left .item_name .moreBox .item_name_total {
     height: 20px;
     overflow: hidden;
     font-size: 14px;
     --un-text-opacity: 1;
-    color: rgb(136 136 136 / var(--un-text-opacity))
-}
+    color: rgb(136 136 136 / var(--un-text-opacity));}
 
 .user_info_box .item_top_left .line_num {
     margin-left: 50px;
     display: flex;
-    flex-direction: column
-}
+    flex-direction: column;}
 
 .user_info_box .item_top_left .line_num span:nth-child(1) {
     color: #0ff;
     font-family: Franklin Gothic Medium,Arial Narrow,Arial,sans-serif;
     font-size: 24px;
-    line-height: 1
-}
+    line-height: 1;}
 
 .user_info_box .item_top_left .quota {
     margin-left: 50px;
     display: flex;
     flex-direction: column;
-    justify-content: center
-}
+    justify-content: center;}
 
 .user_info_box .item_top_left .quota .quota_line {
-    color: #888
-}
+    color: #888;}
 
 .user_info_box .item_top_left .quota .quota_line span:nth-child(1) {
     margin-right: 10px;
     display: inline-block;
-    text-align: right
-}
+    text-align: right;}
 
 .user_info_box .item_top_left .quota .quota_line .ma {
-    color: #fff
-}
+    color: #fff;}
 
 .user_info_box .follow_btn {
     background: #00f0ff;
@@ -650,8 +639,7 @@ const initCharts = () => {
     width: 80px;
     height: 40px;
     cursor: pointer;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .user_info_box .back_btn {
     color: #000;
@@ -661,12 +649,10 @@ const initCharts = () => {
     cursor: pointer;
     border-radius: 9999px;
     --un-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--un-bg-opacity))
-}
+    background-color: rgb(255 255 255 / var(--un-bg-opacity));}
 
 .bar-chart,.smooth-line-chart {
-    transition: all .3s ease-in-out
-}
+    transition: all .3s ease-in-out;}
 
 .list {
     position: relative;
@@ -685,14 +671,12 @@ const initCharts = () => {
     height: 300px;
     flex: none;
     border-radius: 8px;
-    padding: 30px
-}
+    padding: 30px;}
 
 .list .chat-day {
     display: flex;
     align-items: center;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .list .chat-day .day-list span {
     color: #fff;
@@ -701,47 +685,39 @@ const initCharts = () => {
     cursor: pointer;
     align-items: center;
     gap: 10px;
-    padding: 4px 6px
-}
+    padding: 4px 6px;}
 
 .list .chat-day .day-list .active {
     border-radius: 6px;
     background: #00f0ff;
-    color: #000
-}
+    color: #000;}
 
 .list .progress-bar {
     margin-top: 15px;
-    margin-bottom: 20px
-}
+    margin-bottom: 20px;}
 
 .list .progress-bar .count {
     margin-top: 6px;
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .list .progress-bar .count .name {
-    color: #adadad
-}
+    color: #adadad;}
 
 .title-content {
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .title-content .title {
     color: var(--font-color-main);
     display: flex;
     align-items: center;
-    font-size: 15px
-}
+    font-size: 15px;}
 
 .title-content .title img {
     margin-right: 5px;
     width: 12px;
-    height: 12px
-}
+    height: 12px;}
 
 .title-content .filter-item {
     background: var(--data-bg-main);
@@ -750,34 +726,28 @@ const initCharts = () => {
     align-items: center;
     border-radius: 8px;
     padding: 6px 10px;
-    font-size: 12px
-}
+    font-size: 12px;}
 
 .info-content {
-    margin-top: 10px
-}
+    margin-top: 10px;}
 
 .info-content>p {
     margin-bottom: 12px;
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .info-content .name {
     --un-text-opacity: 1;
     color: rgb(173 173 173 / var(--un-text-opacity));
-    text-decoration-line: underline
-}
+    text-decoration-line: underline;}
 
 .gendan {
-    margin-top: 20px
-}
+    margin-top: 20px;}
 
 .info_box {
     margin-top: 30px;
     display: flex;
-    gap: 30px
-}
+    gap: 30px;}
 
 .info_box_l {
     border: 2px solid #252731;
@@ -785,8 +755,7 @@ const initCharts = () => {
     width: 430px;
     height: 420px;
     border-radius: 8px;
-    padding: 30px
-}
+    padding: 30px;}
 
 .info_box_r {
     border: 2px solid #252731;
@@ -794,17 +763,14 @@ const initCharts = () => {
     height: 420px;
     flex: 1 1 0%;
     border-radius: 8px;
-    padding: 30px
-}
+    padding: 30px;}
 
 .info_box_r .user_top {
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .info_box_r .user_top .user_top_right span {
-    color: var(--font-win)
-}
+    color: var(--font-win);}
 
 .follow-people {
     margin-top: 10px;
@@ -812,8 +778,7 @@ const initCharts = () => {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    overflow-y: auto
-}
+    overflow-y: auto;}
 
 .people-item {
     box-sizing: border-box !important;
@@ -824,25 +789,21 @@ const initCharts = () => {
     border-radius: 8px;
     --un-bg-opacity: 1;
     background-color: rgb(26 27 36 / var(--un-bg-opacity));
-    padding: 16px
-}
+    padding: 16px;}
 
 .people-item .avatar {
     margin-right: 16px;
     width: 46px;
     height: 46px;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .people-item .info {
-    flex: 1
-}
+    flex: 1;}
 
 .people-item .profit {
     width: 100%;
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .people-item .profit span:first-child {
     color: #888;
@@ -853,8 +814,7 @@ const initCharts = () => {
 }
 
 .people-item .profit .red {
-    color: #eb5757
-}
+    color: #eb5757;}
 
 .data-list-new {
     border: 2px solid #252731;
@@ -866,10 +826,40 @@ const initCharts = () => {
     background: var(--data-bg-main, #1A1B24);
 }
 
-.data-list-new .ant-table,.data-list-new .ant-table-wrapper th,.data-list-new .ant-table-wrapper td {
-    background: transparent!important;
-    color: var(--font-color-main, #fff)!important;
-}
+// .data-list-new .ant-table,.data-list-new .ant-table-wrapper th,.data-list-new .ant-table-wrapper td {
+//     background: transparent;
+//     color: var(--font-color-main, #fff);
+// }
+// :deep(.ant-table) {
+//     background: transparent;
+// }
+
+// /* 确保表头背景透明 */
+// .data-list-new :deep(.ant-table-thead > tr > th) {
+//     background: transparent;
+//     border-bottom: 1px solid #030305;
+//     color: #fff;
+// }
+
+// /* 确保表格行背景透明 */
+// .data-list-new :deep(.ant-table-tbody > tr > td) {
+//     background: transparent;
+//     border-bottom: 1px solid #030305;
+//     color: #fff;
+
+// }
+
+// /* hover效果 */
+// .data-list-new :deep(.ant-table-tbody > tr:hover > td) {
+//     background: transparent;
+// }
+// :deep(.ant-table-tbody > tr > td) {
+//     border-bottom: 1px solid #030305 !important;
+// }
+// .data-list-new :deep(.ant-table-thead > tr > th:before) {
+//     background-color: #030305 !important;
+       
+// }
 
 /* 移动端订单卡片样式 */
 .mobile-orders {
@@ -1004,21 +994,18 @@ const initCharts = () => {
     margin-top: 4.2vw;
     margin-bottom: 4.2vw;
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .title-content .title {
     color: var(--font-color-main);
     display: flex;
     align-items: center;
-    font-size: 4vw
-}
+    font-size: 4vw;}
 
 .title-content .title img {
     margin-right: 1vw;
     width: 3vw;
-    height: 3vw
-}
+    height: 3vw;}
 
 .title-content .filter-item {
     background: var(--data-bg-main);
@@ -1027,14 +1014,12 @@ const initCharts = () => {
     align-items: center;
     border-radius: 8px;
     padding: 6px 10px;
-    font-size: 4vw
-}
+    font-size: 4vw;}
 
 .chat-day {
     display: flex;
     align-items: center;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .chat-day .day-list span {
     color: var(--font-color-main);
@@ -1043,45 +1028,37 @@ const initCharts = () => {
     cursor: pointer;
     align-items: center;
     gap: 2vw;
-    padding: 1vw 2vw
-}
+    padding: 1vw 2vw;}
 
 .chat-day .day-list .active {
     border-radius: 2vw;
     background: var(--btn-bg);
-    color: var(--font-btn)
-}
+    color: var(--font-btn);}
 
 .progress-bar {
     margin-top: 1vw;
-    margin-bottom: 2vw
-}
+    margin-bottom: 2vw;}
 
 .progress-bar .count {
     margin-top: 2vw;
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .progress-bar .count .name {
-    color: #adadad
-}
+    color: #adadad;}
 
 .info-content {
-    margin-top: 5vw
-}
+    margin-top: 5vw;}
 
 .info-content>p {
     margin-bottom: 2vw;
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .info-content .name {
     --un-text-opacity: 1;
     color: rgb(173 173 173 / var(--un-text-opacity));
-    text-decoration-line: underline
-}
+    text-decoration-line: underline;}
 
 .notice-bar {
     background: var(--data-bg-main);
@@ -1091,19 +1068,16 @@ const initCharts = () => {
     align-items: center;
     border-radius: 8vw;
     padding-left: 3vw;
-    padding-right: 3vw
-}
+    padding-right: 3vw;}
 
 .notice-bar img {
     margin-right: 3vw;
     width: 7vw;
     height: 7vw;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .green {
-    color: #0ff
-}
+    color: #0ff;}
 
 .follow-order {
     border: 1px solid #3c3e53;;
@@ -1111,29 +1085,25 @@ const initCharts = () => {
     border-radius: 4vw;
     padding-left: 2.6vw;
     padding-right: 2.6vw;
-    padding-top: 3.7vw
-}
+    padding-top: 3.7vw;}
 
 .coin {
     position: relative;
     margin-bottom: 2.6vw;
     display: flex;
-    align-items: center
-}
+    align-items: center;}
 
 .coin .icon {
     width: 5.3vw;
     height: 5.3vw;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .coin .share {
     position: absolute;
     right: 0;
     width: 4.8vw;
     height: 4.8vw;
-    border-radius: 0
-}
+    border-radius: 0;}
 
 .order-title {
     margin-bottom: 2.6vw;
@@ -1141,28 +1111,23 @@ const initCharts = () => {
     justify-content: space-between;
     font-size: 3.3vw;
     --un-text-opacity: 1;
-    color: rgb(173 173 173 / var(--un-text-opacity))
-}
+    color: rgb(173 173 173 / var(--un-text-opacity));}
 
 .order-desc {
     color: var(--font-color-main);
     margin-bottom: 2.6vw;
     display: flex;
     justify-content: space-between;
-    font-size: 3.7vw
-}
+    font-size: 3.7vw;}
 
 .order-time .time,.order-time .time-end {
-    flex: 1
-}
+    flex: 1;}
 
 .order-time .time-end {
-    text-align: right
-}
+    text-align: right;}
 
 .green {
-    color: #0ff
-}
+    color: #0ff;}
 
 .follow-order {
     border: 1px solid #3c3e53;;
@@ -1170,29 +1135,25 @@ const initCharts = () => {
     border-radius: 4vw;
     padding-left: 2.6vw;
     padding-right: 2.6vw;
-    padding-top: 3.7vw
-}
+    padding-top: 3.7vw;}
 
 .coin {
     position: relative;
     margin-bottom: 2.6vw;
     display: flex;
-    align-items: center
-}
+    align-items: center;}
 
 .coin .icon {
     width: 5.3vw;
     height: 5.3vw;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .coin .share {
     position: absolute;
     right: 0;
     width: 4.8vw;
     height: 4.8vw;
-    border-radius: 0
-}
+    border-radius: 0;}
 
 .order-title {
     margin-bottom: 2.6vw;
@@ -1200,28 +1161,23 @@ const initCharts = () => {
     justify-content: space-between;
     font-size: 3.3vw;
     --un-text-opacity: 1;
-    color: rgb(173 173 173 / var(--un-text-opacity))
-}
+    color: rgb(173 173 173 / var(--un-text-opacity));}
 
 .order-desc {
     color: var(--font-color-main);
     margin-bottom: 2.6vw;
     display: flex;
     justify-content: space-between;
-    font-size: 3.7vw
-}
+    font-size: 3.7vw;}
 
 .order-time .time,.order-time .time-end {
-    flex: 1
-}
+    flex: 1;}
 
 .order-time .time-end {
-    text-align: right
-}
+    text-align: right;}
 
 .green {
-    color: #0ff
-}
+    color: #0ff;}
 
 .people-item {
     background: var(--data-bg36);
@@ -1232,29 +1188,26 @@ const initCharts = () => {
     display: flex;
     align-items: center;
     border-radius: 4vw;
-    padding: 4.2vw
+    padding: 4.2vw;
+    width: auto;
 }
 
 .people-item .avatar {
     margin-right: 4vw;
     width: 12vw;
     height: 12vw;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .people-item .info {
-    flex: 1
-}
+    flex: 1;}
 
 .people-item .name {
-    margin-bottom: 5px
-}
+    margin-bottom: 5px;}
 
 .people-item .profit {
     width: 100%;
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .people-item .profit span:first-child {
     color: #888;
@@ -1274,20 +1227,17 @@ const initCharts = () => {
     border-radius: 4.8vw;
     --un-bg-opacity: 1;
     background-color: rgb(26 34 43 / var(--un-bg-opacity));
-    padding: 4vw 5.6vw
-}
+    padding: 4vw 5.6vw;}
 
 .follow-box .top {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .follow-box .top .user-info {
     display: flex;
-    align-items: center
-}
+    align-items: center;}
 
 .follow-box .top .user-info .avatar {
     margin-right: 2vw;
@@ -1295,17 +1245,14 @@ const initCharts = () => {
     width: 60px;
     height: 60px;
     align-self: flex-start;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .follow-box .top .user-info .user {
-    flex: 1
-}
+    flex: 1;}
 
 .follow-box .top .user-info .user .name {
     font-size: 4.26667vw;
-    color: var(--font-color-main)
-}
+    color: var(--font-color-main);}
 
 .follow-box .top .user-info .user .name .level {
     background: linear-gradient(270deg,#fcdf7b,#f9cd4e);
@@ -1314,8 +1261,7 @@ const initCharts = () => {
     font-size: 2.5vw;
     --un-text-opacity: 1;
     color: rgb(160 115 0 / var(--un-text-opacity));
-    font-weight: 700
-}
+    font-weight: 700;}
 
 .follow-box .top .user-info .user .gray {
     color: #888;
@@ -1324,9 +1270,9 @@ const initCharts = () => {
 
 /* 自定义展开收起样式 */
 .description-wrapper {
-    position: relative;
     cursor: pointer;
     padding-right: 20px;
+    display: flex;
 }
 
 .description-text {
@@ -1340,6 +1286,8 @@ const initCharts = () => {
     color: #888;
     font-size: 2.9vw;
     margin: 0;
+    flex: 1;
+    min-height: 22px;
 }
 
 .description-wrapper.expanded .description-text {
@@ -1347,9 +1295,11 @@ const initCharts = () => {
 }
 
 .expand-icon {
-    position: absolute;
-    right: 0;
-    top: 2px;
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.3s ease;
 }
 
@@ -1365,8 +1315,7 @@ const initCharts = () => {
     z-index: 10;
     box-sizing: border-box;
     width: 100%;
-    padding: 2.6vw 3.7vw 8vw
-}
+    padding: 2.6vw 3.7vw 8vw;}
 
 .footer .btn {
     --btn-bg: #00f0ff;
@@ -1380,49 +1329,41 @@ const initCharts = () => {
     justify-content: center;
     border-radius: 2vw;
     border-style: none;
-    font-size: 4vw
-}
+    font-size: 4vw;}
 
 .footer-p {
     width: 100%;
-    height: 8vw
-}
+    height: 8vw;}
 
 .popup-content {
     max-height: 100vh;
     overflow: hidden;
     --un-bg-opacity: 1;
-    background-color: rgb(18 20 30 / var(--un-bg-opacity))
-}
+    background-color: rgb(18 20 30 / var(--un-bg-opacity));}
 
 .submit_top {
     box-sizing: border-box;
     --un-bg-opacity: 1;
-    background-color: rgb(26 27 36 / var(--un-bg-opacity))
-}
+    background-color: rgb(26 27 36 / var(--un-bg-opacity));}
 
 .submit_top .item_top_left {
     display: flex;
-    align-items: center
-}
+    align-items: center;}
 
 .submit_top .item_top_left .avatar {
     width: 40px;
     height: 40px;
-    border-radius: 9999px
-}
+    border-radius: 9999px;}
 
 .submit_top .item_top_left .item_name {
     margin-left: 10px;
     display: flex;
     flex-direction: column;
-    overflow: hidden
-}
+    overflow: hidden;}
 
 .submit_top .item_top_left .item_name .item_name_level span:nth-child(1) {
     color: var(--font-color-main);
-    font-size: 18px
-}
+    font-size: 18px;}
 
 .submit_top .item_top_left .item_name .user_level {
     background: linear-gradient(270deg,#fcdf7b,#f9cd4e);
@@ -1433,8 +1374,7 @@ const initCharts = () => {
     padding: 1px 5px;
     --un-text-opacity: 1;
     color: rgb(160 115 0 / var(--un-text-opacity));
-    font-weight: 600
-}
+    font-weight: 600;}
 
 .submit_top .item_top_left .item_name .item_name_total {
     height: 20px;
@@ -1444,32 +1384,27 @@ const initCharts = () => {
     white-space: nowrap;
     font-size: 14px;
     --un-text-opacity: 1;
-    color: rgb(136 136 136 / var(--un-text-opacity))
-}
+    color: rgb(136 136 136 / var(--un-text-opacity));}
 
 .submit_top .item_top_left .line_num {
     margin-left: 50px;
     display: flex;
-    flex-direction: column
-}
+    flex-direction: column;}
 
 .submit_top .item_top_left .line_num span:nth-child(1) {
     color: var(--font-win);
     font-family: Franklin Gothic Medium,Arial Narrow,Arial,sans-serif;
     font-size: 24px;
-    line-height: 1
-}
+    line-height: 1;}
 
 .center-container .submit-money {
     border-radius: 8px;
-    padding: 20px 12px
-}
+    padding: 20px 12px;}
 
 .center-container .submit-money .submit-title {
     margin-bottom: 10px;
     display: flex;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .center-container .submit-money .submit-title .green {
     color: #0ff;
@@ -1480,18 +1415,15 @@ const initCharts = () => {
     margin-bottom: 17px;
     box-sizing: border-box;
     border-radius: 9999px;
-    padding: 10px 15px!important
-}
+    padding: 10px 15px!important;}
 
 .center-container .submit-money .submit-input .unit {
-    color: var(--font-color-main)
-}
+    color: var(--font-color-main);}
 
 .center-container .submit-money .slider {
     margin-left: 10px;
     margin-right: 10px;
-    margin-top: 15px
-}
+    margin-top: 15px;}
 
 .center-container .submit-money .balance {
     margin-top: 20px;
@@ -1508,8 +1440,7 @@ const initCharts = () => {
 }
 
 .center-container .footer {
-    margin-top: 30px
-}
+    margin-top: 30px;}
 
 .center-container .footer button {
     background: var(--btn-bg);
@@ -1519,8 +1450,7 @@ const initCharts = () => {
     border-radius: 9999px;
     border-style: none;
     text-align: center;
-    line-height: 50px
-}
+    line-height: 50px;}
 
 }
 
@@ -1534,23 +1464,19 @@ const initCharts = () => {
         margin-right: 3vw;
         margin-top: 4vw;
         border-radius: 2vw;
-        padding: 3vw 4vw
-    }
+        padding: 3vw 4vw;    }
 
     .submit_top .user_rate,.submit_top .des_title {
-        display: none
-    }
+        display: none;    }
 
     .submit_top .submit_des {
         margin-top: 5vw;
-        margin-bottom: 5vw
-    }
+        margin-bottom: 5vw;    }
 
     .center-container {
         padding: 2vw 3vw 10vw;
         min-height: 80vh;
-        overflow-y: auto
-    }
+        overflow-y: auto;    }
 }
 
 @media screen and (min-width: 992px) {
@@ -1563,27 +1489,23 @@ const initCharts = () => {
         margin-right: 50px;
         margin-top: 30px;
         border-radius: 8px;
-        padding: 20px 30px
-    }
+        padding: 20px 30px;    }
 
     .submit_top .user_rate {
         display: flex;
         padding-top: 15px;
-        padding-bottom: 15px
-    }
+        padding-bottom: 15px;    }
 
     .submit_top .user_rate .line_num {
         display: flex;
         flex: 1 1 0%;
-        flex-direction: column
-    }
+        flex-direction: column;    }
 
     .submit_top .user_rate .line_num>span:nth-child(1) {
         color: var(--font-win);
         font-family: Franklin Gothic Medium,Arial Narrow,Arial,sans-serif;
         font-size: 24px;
-        line-height: 20px
-    }
+        line-height: 20px;    }
 
     .submit_top .user_rate .quota {
         margin-left: 10px;
@@ -1591,24 +1513,20 @@ const initCharts = () => {
         display: flex;
         flex: 1 1 0%;
         flex-direction: column;
-        justify-content: center
-    }
+        justify-content: center;    }
 
     .submit_top .user_rate .quota .quota_line {
         display: flex;
         --un-text-opacity: 1;
-        color: rgb(136 136 136 / var(--un-text-opacity))
-    }
+        color: rgb(136 136 136 / var(--un-text-opacity));    }
 
     .submit_top .user_rate .quota .quota_line span:nth-child(1) {
         margin-right: 10px;
         display: inline-block;
-        text-align: right
-    }
+        text-align: right;    }
 
     .submit_top .user_rate .quota .quota_line .ma-span {
-        color: #fff
-    }
+        color: #fff;    }
 
     .submit_top .des_title {
         margin-top: 20px;
@@ -1617,16 +1535,14 @@ const initCharts = () => {
         --un-text-opacity: 1;
         color: rgb(249 142 64 / var(--un-text-opacity));
         font-weight: 400;
-        line-height: 15px
-    }
+        line-height: 15px;    }
 
     .center-container {
         padding: 30px 50px;
     }
 
     .center-container .submit-money {
-        background: var(--data-bg-main)
-    }
+        background: var(--data-bg-main);    }
 
     /* follow-box 样式 */
     .follow-box {

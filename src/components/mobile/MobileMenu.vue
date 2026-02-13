@@ -21,8 +21,7 @@
     <div class="draw-row" style="height: 10vw;">
       <div class="top" @click="delayedNavigate('/')">
         <div class="svg-img">
-          <!-- TODO: Use SvgIcon if possible, or extract path -->
-          <van-icon name="wap-home-o" size="20" color="white" />
+          <span class="iconfont text-[20px]">&#xe931;</span>
         </div> 
         {{ $t('menu.home') }}
       </div>
@@ -32,7 +31,7 @@
     <div class="draw-row" :class="{ 'expand-row': expandQuickBuy }" style="min-height: 10vw; height: auto;" @click="expandQuickBuy = !expandQuickBuy">
       <div class="top">
         <div class="svg-img">
-           <van-icon name="cart-o" size="20" color="white" />
+            <span class="iconfont text-[20px]">&#xe92c;</span>
         </div> 
         {{ $t('menu.quickBuy') }}
         <div class="right-triangle" :class="{ 'rotate-180': expandQuickBuy }">
@@ -65,7 +64,7 @@
     <div class="draw-row" style="height: 10vw;">
         <div class="top" @click="delayedNavigate('/assets/recharge')">
             <div class="svg-img">
-                <van-icon name="balance-o" size="20" color="white" />
+                <span class="iconfont text-[20px]">&#xe829;</span>
             </div>
             {{ $t('menu.recharge') }}
         </div>
@@ -75,7 +74,7 @@
     <div class="draw-row">
         <div class="top" @click="showLanguagePopup = true">
             <div class="svg-img">
-                <van-icon name="globe-o" size="20" color="white" />
+                <span class="iconfont text-[20px]">&#xe640;</span>
             </div>
             
             <span class="flex-1">{{ currentLanguage?.name }}</span>
@@ -87,7 +86,7 @@
     <div class="draw-row" :class="{ 'expand-row': expandTrade }" style="min-height: 10vw; height: auto;" @click="expandTrade = !expandTrade">
         <div class="top">
             <div class="svg-img">
-                <van-icon name="bar-chart-o" size="20" color="white" />
+               <span class="iconfont text-[20px]">&#xe932;</span>
             </div>
             <span class="flex-1">{{ $t('menu.tradeCenter') }}</span>
             <div class="right-triangle" :class="{ 'rotate-180': expandTrade }">
@@ -114,7 +113,7 @@
     <div class="draw-row" style="height: 10vw;">
         <div class="top" @click="delayedNavigate('/follow/index')">
             <div class="svg-img">
-                <van-icon name="notes-o" size="20" color="white" />
+                <span class="iconfont text-[20px]">&#xe92f;</span>
             </div>
             {{ $t('menu.copyTrading') }}
         </div>
@@ -124,21 +123,63 @@
     <div class="draw-row" style="height: 10vw;">
         <div class="top" @click="delayedNavigate('/charity')">
             <div class="svg-img">
-                <van-icon name="like-o" size="20" color="white" />
+                <span class="iconfont text-[20px]">&#xe91c;</span>
             </div>
             {{ $t('menu.charity') }}
+        </div>
+    </div>
+    <div class="draw-row" style="height: 10vw;">
+        <div class="top" @click="delayedNavigate('/nft/index')">
+            <div class="svg-img">
+                <span class="iconfont text-[20px]">&#xe92e;</span>
+            </div>
+            NFT
+        </div>
+    </div>
+    <div class="draw-row" :class="{ 'expand-row': expandFinancial }" style="min-height: 10vw; height: auto;" @click="expandFinancial = !expandFinancial">
+        <div class="top">
+            <div class="svg-img">
+               <span class="iconfont text-[20px]">&#xe936;</span>
+            </div>
+            <span class="flex-1">金融理财</span>
+            <div class="right-triangle" :class="{ 'rotate-180': expandFinancial }">
+                <svg width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" class="svg-class"><path d="M7 4L2 0V8L7 4Z" fill="white"></path></svg>
+            </div>
+        </div>
+        <transition
+            name="collapse"
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+            @before-leave="beforeLeave"
+            @leave="leave"
+        >
+            <ul class="child-list" v-show="expandFinancial" @click.stop>
+                <li @click="delayedNavigate('/web3/index')">AI智算</li>
+            </ul>
+        </transition>
+    </div>
+    <!-- Assets Center -->
+    <div class="draw-row" style="height: 10vw;">
+        <div class="top" @click="delayedNavigate('/assets/index')">
+            <div class="svg-img">
+               <span class="iconfont text-[20px]">&#xe92b;</span>
+            </div>
+            {{ $t('menu.assets') }}
         </div>
     </div>
 
     <div class="row-line"></div>
 
-    <!-- Assets Center -->
+    
+    
+    <!-- Activity Hall -->
     <div class="draw-row" style="height: 10vw;">
-        <div class="top" @click="delayedNavigate('/assets/index')">
+        <div class="top" @click="delayedNavigate('/assets/address')">
             <div class="svg-img">
-                <van-icon name="paid" size="20" color="white" />
+                <span class="iconfont text-[20px]">&#xe934;</span>
             </div>
-            {{ $t('menu.assets') }}
+            地址簿
         </div>
     </div>
 
@@ -146,19 +187,9 @@
     <div class="draw-row" style="height: 10vw;">
         <div class="top" @click="delayedNavigate('/customer/index')">
             <div class="svg-img">
-                <van-icon name="share-o" size="20" color="white" />
+                <span class="iconfont text-[20px]">&#xe92d;</span>
             </div>
             {{ $t('menu.share') }}
-        </div>
-    </div>
-
-    <!-- Activity Hall -->
-    <div class="draw-row" style="height: 10vw;">
-        <div class="top" @click="delayedNavigate('/web3/index')">
-            <div class="svg-img">
-                <van-icon name="gift-o" size="20" color="white" />
-            </div>
-            {{ $t('menu.activity') }}
         </div>
     </div>
 
@@ -166,7 +197,7 @@
     <div class="draw-row" style="height: 10vw;">
         <div class="top" @click="delayedNavigate('/notices')">
             <div class="svg-img">
-                <van-icon name="bullhorn-o" size="20" color="white" />
+                <span class="iconfont text-[20px]">&#xe935;</span>
             </div>
             {{ $t('menu.notice') }}
         </div>
@@ -176,7 +207,7 @@
     <div class="draw-row" style="height: 10vw;">
         <div class="top" @click="showToast('Feature coming soon')">
             <div class="svg-img">
-                <van-icon name="setting-o" size="20" color="white" />
+                <span class="iconfont text-[20px]">&#xe933;</span>
             </div>
             {{ $t('menu.fundPassword') }}
         </div>
@@ -188,7 +219,7 @@
     <div class="draw-row" style="height: 10vw;">
         <div class="top" @click="handleLogout">
             <div class="svg-img">
-                <van-icon name="revoke" size="20" color="white" />
+                <span class="iconfont text-[20px]">&#xe930;</span>
             </div>
             {{ $t('menu.logout') }}
         </div>
@@ -235,6 +266,7 @@ const router = useRouter()
 const { locale } = useI18n()
 const expandQuickBuy = ref(false)
 const expandTrade = ref(false)
+const expandFinancial = ref(false)
 const showLanguagePopup = ref(false)
 
 const currentLanguage = computed(() => {

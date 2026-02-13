@@ -48,7 +48,7 @@
     font-size: 50px;
     --un-text-opacity: 1;
     color: rgb(255 255 255 / var(--un-text-opacity));
-    line-height: 60px
+    line-height: 60px;
 }
 
 .stat-item {
@@ -63,27 +63,27 @@
       -webkit-background-clip: text!important;
       background-clip: text!important;
       font-size: 90px;
-      line-height: 100px
+      line-height: 100px;
     }
     .stat-label {
       font-size: 24px;
       --un-text-opacity: 1;
       color: rgb(255 255 255 / var(--un-text-opacity));
-      line-height: 40px
+      line-height: 40px;
     }
 }
 
 
 .stat-1 .stat-number {
-    background: linear-gradient(90deg,#c979dc 49.79%,#3b0086)
+    background: linear-gradient(90deg,#c979dc 49.79%,#3b0086);
 }
 
 .stat-2 .stat-number {
-    background: linear-gradient(90deg,#10e28e 49.79%,#073427)
+    background: linear-gradient(90deg,#10e28e 49.79%,#073427);
 }
 
 .stat-3 .stat-number {
-    background: linear-gradient(90deg,#00f0ff 49.79%,#19007d)
+    background: linear-gradient(90deg,#00f0ff 49.79%,#19007d);
 }
 .stat-1 {
   left: 263px;
@@ -99,7 +99,7 @@
     position: absolute;
     left: 48px;
     bottom: 125px;
-    z-index: 1
+    z-index: 1;
   }
 }
 

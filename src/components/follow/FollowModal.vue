@@ -19,7 +19,7 @@
                 </div>
                 <div class="text-[#888] text-sm mb-4 line-clamp-2">{{ traderInfo.desc || 'Guiding you through crypto journey.' }}</div>
                 
-                <div class="stats grid grid-cols-2 gap-y-2 text-sm">
+                <div v-if="isDesktop" class="stats grid grid-cols-2 gap-y-2 text-sm">
                     <div class="mb-1">
                         <div class="text-[#00F0FF] text-xl font-bold font-mono">{{ traderInfo.roi || '+0%' }}</div>
                         <div class="text-[#00F0FF] text-xs font-mono">{{ traderInfo.pnl || '+$0' }}</div>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="smart-follow mt-4 pt-4 border-t border-[#232437]">
+                <div v-if="isDesktop" class="smart-follow mt-4 pt-4 border-t border-[#232437]">
                     <span class="text-[#ff9046] font-bold text-sm mb-1 block">智慧跟單</span>
                     <p class="text-[#888] text-xs">SOL momentum trades, ecosystem rotation plays, breakout setups.</p>
                 </div>
@@ -61,7 +61,7 @@
       </div>
 
       <!-- Slider -->
-      <div class="mb-6 px-1">
+      <div class="my-[30px] px-1">
           <van-slider v-model="sliderValue" bar-height="4px" active-color="#00F0FF" inactive-color="#2e3044" @update:model-value="handleSliderChange">
               <template #button>
                   <div class="w-4 h-4 bg-[#00F0FF] rounded-full border-2 border-white shadow-lg"></div>
@@ -97,6 +97,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { useDevice } from '@/composables/useDevice'
+
+const { isMobile, isDesktop } = useDevice()
 
 const props = defineProps<{
   traderInfo: {

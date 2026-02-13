@@ -8,7 +8,7 @@
       <!-- Background Video -->
       <div class="absolute inset-0 z-0">
          <video class="w-full h-full object-cover" loop autoplay muted playsinline poster="@/assets/images/bg1.png">
-           <source src="@/assets/images/b.mp4" type="video/mp4">
+           <!-- <source src="@/assets/images/b.mp4" type="video/mp4"> -->
          </video>
          <!-- Overlay Gradient -->
          <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-[#0a0a0f]"></div>

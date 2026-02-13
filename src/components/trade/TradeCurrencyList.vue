@@ -33,7 +33,7 @@
             <div class="column currency">
               <div 
                 class="iconfont cursor-pointer transition-colors"
-                :class="isFavorite(item.pair) ? 'fill-[#FFD700]' : 'fill-[#888]'"
+                :class="isFavorite(item.pair) ? 'text-[#FFD700]' : 'text-[#888]'"
                 @click.stop="toggleFavorite(item.pair)"
               >
                 &#xe929;

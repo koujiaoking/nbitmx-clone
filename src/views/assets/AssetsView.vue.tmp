@@ -1,0 +1,2788 @@
+import AssetDistribution from '@/components/mobile/AssetDistribution.vue'
+<template>
+<div class="assets-page w-1360px mx-auto pt-30px" :class="{ 'mobile-layout': isMobile }">
+  <!-- Tab Navigation -->
+  <van-tabs 
+    v-model:active="activeTab" 
+    shrink 
+    background="transparent" 
+    line-height="2px"
+    :color="isMobile ? '#00f0ff' : '#ffffff'"
+    :title-active-color="isMobile ? '#00f0ff' : '#ffffff'"
+    title-inactive-color="#84849f"
+    :border="false"
+    class="assets-tabs"
+    @click-tab="handleTabClick"
+  >
+    <van-tab 
+      v-for="tab in filteredTabs" 
+      :key="tab.key" 
+      :name="tab.key" 
+      :title="tab.label"
+    />
+  </van-tabs>
+  </div>
+  
+  <!-- Overview Tab Content -->
+   <div class="assets-page" v-if="activeTab === 'overview'">
+    <div class="assets-page1">
+      <!-- Left Section: 資產總估值 + Chart + 資產分布 -->
+    <section class="section-1 no-vw">
+      <div class="top-info">
+        <div class="left-con w-full">
+          <h3 class="white-color-text">
+            {{ t('assetsView.labels.totalValuation') }}
+            <div class="svg-container showmoney">
+              <van-icon name="eye-o" />
+            </div>
+          </h3>
+          <div class="flex justify-between items-start">
+            <div class="balance-row">
+              <span class="balance">$0.00</span>
+              <span class="unit">USD</span>
+            </div>
+            
+             <!-- PC Action Buttons (Visible only on PC) -->
+            <div class="right-actions flex gap-4" v-if="!isMobile">
+              <div class="operate-btn" @click="router.push('/assets/recharge')">
+                <span class="iconfont text-[#556dea]">&#xe938;</span>
+                <span class="name">{{ t('assetsView.buttons.deposit') }}</span>
+              </div>
+              <div class="operate-btn" @click="router.push('/assets/withdraw')">
+                <span class="iconfont text-[#556dea]">&#xe937;</span>
+                <span class="name">{{ t('assetsView.buttons.withdraw') }}</span>
+              </div>
+              <div class="operate-btn" @click="router.push('/play/flashExchange/index')">
+                <span class="iconfont text-[#556dea]">&#xe939;</span>
+                <span class="name">{{ t('assetsView.buttons.flash') }}</span>
+              </div>
+              <div class="operate-btn" @click="handleTransferClick">
+                <span class="name">{{ t('assetsView.buttons.transfer') }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="trend-title mt-4 text-[#84849f] text-sm">{{ t('assetsView.labels.assetTrend') }}</div>
+          <div class="period-selectors flex gap-2 mt-2">
+             <div class="px-3 py-1 rounded-full bg-[#1f1f2f] text-xs text-[#84849f] border border-[#2c2c3e]" :class="{ 'bg-[#2c2c3e] text-white': chartPeriod === '24h' }" @click="chartPeriod = '24h'">24{{ t('assetsView.time.h') }}</div>
+             <div class="px-3 py-1 rounded-full bg-[#1f1f2f] text-xs text-[#84849f] border border-[#2c2c3e]" :class="{ 'bg-[#2c2c3e] text-white': chartPeriod === '7d' }" @click="chartPeriod = '7d'">7{{ t('assetsView.time.d') }}</div>
+             <div class="px-3 py-1 rounded-full bg-[#1f1f2f] text-xs text-[#84849f] border border-[#2c2c3e]" :class="{ 'bg-[#2c2c3e] text-white': chartPeriod === '30d' }" @click="chartPeriod = '30d'">30{{ t('assetsView.time.d') }}</div>
+             <div class="px-3 py-1 rounded-full bg-[#1f1f2f] text-xs text-[#84849f] border border-[#2c2c3e]" :class="{ 'bg-[#2c2c3e] text-white': chartPeriod === '365d' }" @click="chartPeriod = '365d'">365{{ t('assetsView.time.d') }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chart-section mt-4 relative h-[150px]">
+          <div ref="trendChartRef" class="chart-container w-full h-full"></div>
+      </div>
+      
+      <!-- Action Buttons Area (Mobile Only) -->
+      <template v-if="isMobile">
+        <div class="action-buttons-grid grid grid-cols-2 gap-3 mt-4 mb-3 px-4">
+            <div class="action-btn flex items-center justify-center h-10 rounded-full border border-[#2c2c3e] bg-[#1f1f2f]" @click="router.push('/assets/recharge')">
+               <span class="iconfont text-white mr-2">&#xe938;</span> <!-- Check icon -->
+               <span class="text-white">{{ t('assetsView.buttons.deposit') }}</span>
+            </div>
+            <div class="action-btn flex items-center justify-center h-10 rounded-full border border-[#2c2c3e] bg-[#1f1f2f]" @click="router.push('/assets/withdraw')">
+               <span class="iconfont text-white mr-2 transform rotate-180">&#xe938;</span> <!-- Check icon -->
+               <span class="text-white">{{ t('assetsView.buttons.withdraw') }}</span>
+            </div>
+        </div>
+        <div class="action-buttons-row flex justify-between px-4 mb-6">
+            <div class="small-btn flex items-center justify-center px-6 h-9 rounded-full border border-[#2c2c3e] bg-[#1f1f2f]" @click="router.push('/play/flashExchange/index')">
+               <span class="iconfont text-white mr-1 text-sm">&#xe939;</span>
+               <span class="text-white text-sm">{{ t('assetsView.buttons.flash') }}</span>
+            </div>
+            <div class="small-btn flex items-center justify-center px-6 h-9 rounded-full border border-[#2c2c3e] bg-[#1f1f2f]" @click="router.push('/assets/transfer')">
+               <span class="text-white text-sm">{{ t('assetsView.buttons.transfer') }}</span>
+            </div>
+            <div class="small-btn flex items-center justify-center px-6 h-9 rounded-full border border-[#2c2c3e] bg-[#1f1f2f]" @click="router.push('/report/index')">
+               <span class="text-white text-sm">{{ t('assetsView.tabs.orders') }}</span>
+            </div>
+        </div>
+      </template>
+    </section>
+    
+    <section class="section-2 no-vw">
+      <div class="data">
+        <div class="data-left">
+          <h3 class="white-color-text">{{ t('assetsView.labels.assetDistribution') }}</h3>
+          <div class="ring-chart">
+            <!-- ECharts Donut Chart -->
+            <div ref="donutChartRef" class="donut-chart-container"></div>
+          </div>
+        </div>
+        <div class="data-right">
+          <a-table
+            :columns="accountSnapshotColumns"
+            :data-source="accountSnapshotData"
+            :pagination="false"
+            :row-class-name="(record) => record.class"
+            class="account-snapshot-table"
+          >
+            <template #bodyCell="{ column, record }">
+              <template v-if="column.key === 'type'">
+                <div class="column1">
+                  <span class="dot"></span>
+                  {{ record.type }}
+                </div>
+              </template>
+              <template v-else-if="column.key === 'action'">
+                <div class="action-menu-wrapper">
+                  <button class="action-btn" @click.stop="toggleMenu(record.menuKey)">
+                    <EllipsisOutlined />
+                  </button>
+                  <div class="sub-list" :class="{ show: activeMenu === record.menuKey }">
+                    <div class="sub-title" @click.stop="handleAction('trade', record.menuKey)">
+                      <span class="top">{{ t('assetsView.buttons.trade') }}</span>
+                    </div>
+                    <div class="sub-title" @click.stop="handleAction('transfer', record.menuKey)">
+                      <span class="top">{{ t('assetsView.buttons.transfer') }}</span>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </template>
+          </a-table>
+        </div>
+      </div>
+    </section>
+    </div>
+    <!-- Right Section: 資產動態 -->
+    <!-- Mobile Asset Distribution -->
+    <AssetDistribution v-if="isMobile" />
+    
+    <!-- PC: Asset Activity -->
+    <AssetActivity v-else account-type="overview" />
+    
+   </div>
+  
+  <!-- Spot Tab Content -->
+  <div class="assets-page tab-content" v-if="activeTab === 'spot'">
+    <div class="left-section no-vw hasdata">
+      <h3 class="white-color-text">
+        現貨帳戶估值
+        <div class="eye-toggle">
+          <van-icon name="eye-o" />
+        </div>
+      </h3>
+      <div class="top-info">
+        <div class="left-con">
+          <span class="balance white-color-text">$0.00</span>
+          <span class="unit">USD</span>
+        </div>
+        <div class="right-con">
+           <!-- Mobile Actions -->
+          <div class="mobile-actions flex gap-3 w-full mt-4" v-if="isMobile">
+             <div class="flex-1 h-10 bg-[#00f0ff] rounded-full flex items-center justify-center text-black font-bold" @click="router.push('/trade/spot')">
+               <span class="iconfont mr-1 text-black font-normal">&#xe93a;</span>
+               {{ t('assetsView.buttons.goTrade') }}
+             </div>
+             <div class="flex-1 h-10 border border-[#2c2c3e] rounded-full flex items-center justify-center text-white" @click="handleTransferClick">
+               {{ t('assetsView.buttons.transfer') }}
+             </div>
+          </div>
+
+          <!-- PC Buttons -->
+          <div class="operate-btn" v-if="!isMobile">
+            <div class="iconfont text-[#556dea]">
+             &#xe93a;
+            </div>
+            <div class="name" @click="router.push('/follow/index')">{{ t('header.copyTrading') }}</div>
+          </div>
+          <div class="operate-btn" :class="{ active: spotFilter === 'settled' }" @click="spotFilter = 'settled'" v-if="!isMobile">
+            <div class="iconfont text-[#556dea]">
+              &#xe938;
+            </div>
+            <span class="name">{{ t('assetsView.labels.settledOrders') }}</span>
+          </div>
+          <div class="operate-btn" :class="{ active: spotFilter === 'record' }" @click="router.push('/assets/index?tab=orders')" v-if="!isMobile">{{ t('assetsView.labels.tradeRecords') }}</div>
+        </div>
+      </div>
+      <div class="search-wrap">
+        <div class="input-wrap">
+          <div class="svg-container svg-img">
+            <van-icon name="search" />
+          </div>
+          <input :placeholder="t('assetsView.labels.searchPlaceholder')" v-model="searchQuery">
+        </div>
+        <a-checkbox>{{ t('assetsView.labels.hideSmall') }}</a-checkbox>
+      </div>
+
+      <!-- Mobile List View -->
+       <div class="mobile-asset-list px-0 pb-4" v-if="isMobile">
+         <div class="asset-header grid grid-cols-12 text-[#84849f] text-xs mb-2 px-4">
+             <div class="col-span-4">{{ t('assetsView.table.crypto') }}</div>
+             <div class="col-span-3 text-center">{{ t('assetsView.table.equity') }}</div>
+             <div class="col-span-2 text-center">{{ t('assetsView.table.ratio') }}</div>
+             <div class="col-span-2 text-center">{{ t('assetsView.table.frozen') }}</div>
+             <div class="col-span-1 text-center">{{ t('assetsView.table.action') }}</div>
+          </div>
+          <div v-for="item in spotAssets" :key="item.key" class="asset-item py-4 border-b border-[#2c2c3e] px-4">
+             <div class="grid grid-cols-12 items-center">
+                 <!-- Symbol, Name -->
+                 <div class="flex items-center col-span-4">
+                     <img :src="item.iconUrl" class="w-8 h-8 rounded-full mr-2">
+                     <div>
+                         <div class="text-white font-bold">{{ item.symbol }}</div>
+                         <div class="text-[#84849f] text-xs">{{ item.name }}</div>
+                     </div>
+                 </div>
+                 <!-- Equity (Balance) -->
+                  <div class="text-right col-span-3 pr-2">
+                     <div class="text-white font-medium">{{ item.balance }}</div>
+                     <div class="text-[#84849f] text-xs font-normal">${{ item.usdValue }}</div>
+                 </div>
+                 <!-- Ratio -->
+                  <div class="text-right col-span-2 pr-2">
+                     <div class="text-white font-medium">{{ item.percentage }}</div>
+                 </div>
+                 <!-- Frozen -->
+                  <div class="text-right col-span-2 pr-2">
+                     <div class="text-white font-medium">{{ item.frozen }}</div>
+                 </div>
+                 <!-- Actions -->
+                  <div class="text-right col-span-1 flex justify-end">
+                     <button class="text-[#84849f]" @click.stop="toggleMenu('spot_' + item.key)">
+                         <EllipsisOutlined />
+                     </button>
+                 </div>
+             </div>
+              <!-- Mobile Dropdown Menu -->
+              <div v-if="activeMenu === 'spot_' + item.key" class="mobile-dropdown bg-[#2c2c3e] rounded mt-2 p-2 absolute right-4 z-10 w-24">
+                  <div class="py-2 text-center text-white text-sm" @click.stop="handleAction('trade', 'spot')">{{ t('assetsView.buttons.trade') }}</div>
+                  <div class="py-2 text-center text-white text-sm border-t border-[#3d3d52]" @click.stop="handleAction('transfer', 'spot')">{{ t('assetsView.buttons.transfer') }}</div>
+              </div>
+          </div>
+       </div>
+
+      <div class="data-list" v-else>
+        <a-table
+          :columns="spotColumns"
+          :data-source="spotAssets"
+          :pagination="false"
+          :scroll="{ y: 650 }"
+          class="assets-table"
+        >
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'symbol'">
+              <div v-if="isMobile" class="column1 flex items-center gap-2">
+                <img :src="record.iconUrl" class="size-[32px]" :alt="record.symbol">
+                <div>
+                  <div>{{ record.symbol }}</div>
+                  <div class="brief">{{ record.name }}</div>
+                </div>
+              </div>
+              <div v-else class="flex items-center">
+                 <img :src="record.iconUrl" class="w-8 h-8 mr-2" :alt="record.symbol">
+                 <span class="text-base font-bold mr-1">{{ record.symbol }}</span>
+                 <span class="text-[#84849f] text-xs">{{ record.name }}</span>
+              </div>
+            </template>
+            <template v-if="column.key === 'balance'">
+              <div v-if="isMobile" class="column2">
+                <div>{{ record.balance }}</div>
+                <div>$ {{ record.usdValue }}</div>
+              </div>
+              <span v-else>{{ record.balance }}</span>
+            </template>
+            <template v-if="column.key === 'action'">
+               <!-- Mobile Action Menu -->
+              <div v-if="isMobile" class="action-menu-wrapper flex justify-end">
+                 <button class="action-btn" @click.stop="toggleMenu('spot_' + record.key)">
+                   <EllipsisOutlined />
+                 </button>
+                 <div class="sub-list" :class="{ show: activeMenu === 'spot_' + record.key }" style="right: 0; top: 30px;">
+                    <div class="sub-title" @click.stop="handleAction('trade', 'spot')">
+                       <span class="top">{{ t('assetsView.buttons.trade') }}</span>
+                    </div>
+                    <div class="sub-title" @click.stop="handleAction('transfer', 'spot')">
+                       <span class="top">{{ t('assetsView.buttons.transfer') }}</span>
+                    </div>
+                 </div>
+              </div>
+              <!-- PC Action Buttons -->
+              <div v-else class="flex gap-2 justify-end">
+                  <span class="cursor-pointer text-[#556dea] hover:text-[#4a5fcc]" @click="handleAction('trade', 'spot')">{{ t('assetsView.buttons.trade') }}</span>
+                  <span class="cursor-pointer text-[#556dea] hover:text-[#4a5fcc]" @click="handleAction('transfer', 'spot')">{{ t('assetsView.buttons.transfer') }}</span>
+              </div>
+            </template>
+          </template>
+        </a-table>
+      </div>
+    </div>
+    <AssetActivity account-type="spot" />
+  </div>
+
+  <!-- Option Tab Content -->
+  <div class="assets-page tab-content" v-if="activeTab === 'option'">
+    <div class="left-section no-vw hasdata">
+      <h3 class="white-color-text">
+        {{ t('assetsView.tabs.option') }} {{ t('assetsView.labels.valuation') }}
+        <div class="eye-toggle">
+          <van-icon name="eye-o" />
+        </div>
+      </h3>
+      <div class="top-info">
+        <div class="left-con">
+          <span class="balance white-color-text">$0.00</span>
+          <span class="unit">USD</span>
+        </div>
+        <div class="right-con">
+          <!-- Mobile Actions -->
+          <div class="mobile-actions flex gap-3 w-full mt-4" v-if="isMobile">
+             <div class="flex-1 h-10 bg-[#00f0ff] rounded-full flex items-center justify-center text-black font-bold" @click="router.push('/trade/option')">
+               <span class="iconfont mr-1 text-black font-normal">&#xe93a;</span>
+               {{ t('assetsView.buttons.trade') }}
+             </div>
+             <div class="flex-1 h-10 border border-[#2c2c3e] bg-[#1f1f2f] rounded-full flex items-center justify-center text-white" @click="handleTransferClick">
+               {{ t('assetsView.buttons.transfer') }}
+             </div>
+          </div>
+          
+          <!-- PC Buttons -->
+          <div class="operate-btn" v-else>
+            <span class="iconfont text-[#556dea]">&#xe93a;</span>
+            {{ t('assetsView.buttons.trade') }}
+          </div>
+          <div class="operate-btn" v-if="!isMobile">{{ t('assetsView.buttons.transfer') }}</div>
+        </div>
+      </div>
+      
+      <!-- Mobile Hide Small Balance Checkbox -->
+      <div class="mobile-filter flex justify-end items-center px-4 mb-2 mt-4" v-if="isMobile">
+        <a-checkbox class="text-[#84849f]"><span class="text-[#84849f]">{{ t('assetsView.labels.hideSmall') }} < 1USD</span></a-checkbox>
+      </div>
+      <div class="search-wrap">
+        <div class="input-wrap" v-if="!isMobile">
+          <div class="svg-container svg-img">
+            <van-icon name="search" />
+          </div>
+          <input :placeholder="t('assetsView.labels.searchPlaceholder')" v-model="searchQuery">
+        </div>
+        <a-checkbox>{{ t('assetsView.labels.hideSmall') }}</a-checkbox>
+      </div>
+
+      <!-- Mobile List View -->
+      <div class="mobile-asset-list px-4 pb-4" v-if="isMobile">
+        <div class="asset-header grid grid-cols-4 text-[#84849f] text-xs mb-2">
+            <div class="col-span-1">{{ t('assetsView.table.crypto') }}</div>
+            <div class="col-span-1 text-center">{{ t('assetsView.table.balance') }}</div>
+            <div class="col-span-1 text-center">{{ t('assetsView.table.action') }}</div>
+         </div>
+         <div v-for="item in optionAssets" :key="item.key" class="asset-item py-4 border-b border-[#2c2c3e]">
+            <div class="grid grid-cols-4 items-center">
+                <div class="flex items-center col-span-1">
+                    <img :src="item.iconUrl" class="w-8 h-8 rounded-full mr-2">
+                    <div>
+                        <div class="text-white font-bold">{{ item.symbol }}</div>
+                        <div class="text-[#84849f] text-xs">{{ item.name }}</div>
+                    </div>
+                </div>
+                 <div class="text-right col-span-1 pr-4">
+                    <div class="text-white font-medium">{{ item.balance }}</div>
+                    <div class="text-[#84849f] text-xs font-normal">0.00</div>
+                </div>
+                 <div class="text-right col-span-1 pr-4">
+                    <div class="text-white font-medium">0.00</div>
+                    <div class="text-[#84849f] text-xs font-normal">0.00</div>
+                </div>
+                 <div class="text-right col-span-1 flex justify-end">
+                    <button class="text-[#84849f]" @click.stop="toggleMenu('option_' + item.key)">
+                        <EllipsisOutlined />
+                    </button>
+                </div>
+            </div>
+             <!-- Mobile Dropdown Menu -->
+             <div v-if="activeMenu === 'option_' + item.key" class="mobile-dropdown bg-[#2c2c3e] rounded mt-2 p-2 absolute right-4 z-10 w-24">
+                 <div class="py-2 text-center text-white text-sm" @click.stop="handleAction('trade', 'option')">{{ t('assetsView.buttons.trade') }}</div>
+                 <div class="py-2 text-center text-white text-sm border-t border-[#3d3d52]" @click.stop="handleAction('transfer', 'option')">{{ t('assetsView.buttons.transfer') }}</div>
+             </div>
+         </div>
+      </div>
+
+      <div class="data-list" v-else>
+        <a-table
+          :columns="optionColumns"
+          :data-source="optionAssets"
+          :pagination="false"
+          sticky
+          class="assets-table"
+        >
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'symbol'">
+              <div v-if="isMobile" class="column1 flex items-center gap-2">
+                <img :src="record.iconUrl" class="size-[32px]" :alt="record.symbol">
+                <div>
+                  <div>{{ record.symbol }}</div>
+                  <div class="brief">{{ record.name }}</div>
+                </div>
+              </div>
+              <div v-else class="flex items-center">
+                 <img :src="record.iconUrl" class="w-8 h-8 mr-2" :alt="record.symbol">
+                 <span class="text-base font-bold mr-1">{{ record.symbol }}</span>
+                 <span class="text-[#84849f] text-xs">{{ record.name }}</span>
+              </div>
+            </template>
+            <template v-if="column.key === 'balance'">
+              <div v-if="isMobile" class="column2">
+                <div>{{ record.balance }}</div>
+                <div>$ {{ record.usdValue }}</div>
+              </div>
+              <span v-else>{{ record.balance }}</span>
+            </template>
+            <template v-if="column.key === 'action'">
+              <div v-if="isMobile" class="action-menu-wrapper flex justify-end">
+                <button class="action-btn" @click.stop="toggleMenu('option_' + record.key)">
+                  <EllipsisOutlined />
+                </button>
+                <div class="sub-list" :class="{ show: activeMenu === 'option_' + record.key }">
+                  <div class="sub-title" @click.stop="handleAction('trade', 'option')">
+                     <span class="top">{{ t('assetsView.buttons.trade') }}</span>
+                  </div>
+                  <div class="sub-title" @click.stop="handleAction('transfer', 'option')">
+                     <span class="top">{{ t('assetsView.buttons.transfer') }}</span>
+                  </div>
+                </div>
+              </div>
+              <div v-else class="flex gap-2 justify-end">
+                  <span class="cursor-pointer text-[#556dea] hover:text-[#4a5fcc]" @click="handleAction('trade', 'option')">{{ t('assetsView.buttons.trade') }}</span>
+                  <span class="cursor-pointer text-[#556dea] hover:text-[#4a5fcc]" @click="handleAction('transfer', 'option')">{{ t('assetsView.buttons.transfer') }}</span>
+              </div>
+            </template>
+          </template>
+        </a-table>
+      </div>
+    </div>
+    <AssetActivity account-type="option" />
+  </div>
+
+  <!-- Contract Tab Content -->
+  <div class="assets-page tab-content" v-if="activeTab === 'contract'">
+    <div class="left-section no-vw hasdata">
+      <h3 class="white-color-text">
+        {{ t('assetsView.tabs.contract') }} {{ t('assetsView.labels.valuation') }}
+        <div class="eye-toggle">
+          <van-icon name="eye-o" />
+        </div>
+      </h3>
+      <div class="top-info">
+        <div class="left-con">
+          <span class="balance white-color-text">$0.00</span>
+          <span class="unit">USD</span>
+        </div>
+        <div class="right-con">
+          <!-- New Mobile Actions -->
+          <div class="mobile-actions flex gap-3 w-full mt-4" v-if="isMobile">
+             <div class="flex-1 h-10 bg-[#00f0ff] rounded-full flex items-center justify-center text-black font-bold" @click="router.push('/trade/contract')">
+               <span class="iconfont mr-1 text-black font-normal">&#xe93a;</span>
+               {{ t('assetsView.buttons.trade') }}
+             </div>
+             <div class="flex-1 h-10 border border-[#2c2c3e] bg-[#1f1f2f] rounded-full flex items-center justify-center text-white" @click="handleTransferClick">
+               {{ t('assetsView.buttons.transfer') }}
+             </div>
+          </div>
+          
+          <!-- PC Buttons -->
+           <div class="operate-btn" v-if="!isMobile">
+            <span class="iconfont text-[#556dea]">&#xe938;</span>
+            <span class="name">{{ t('assetsView.buttons.deposit') }}</span>
+          </div>
+          <div class="operate-btn" v-if="!isMobile">
+            <span class="iconfont text-[#556dea]">&#xe937;</span>
+            <span class="name">{{ t('assetsView.buttons.withdraw') }}</span>
+          </div>
+          <div class="operate-btn" @click="handleTransferClick" v-if="!isMobile">
+            <span class="name">{{ t('assetsView.buttons.transfer') }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mobile Hide Small Balance Checkbox -->
+      <div class="mobile-filter flex justify-end items-center px-4 mb-2 mt-4" v-if="isMobile">
+        <a-checkbox class="text-[#84849f]"><span class="text-[#84849f]">{{ t('assetsView.labels.hideSmall') }} < 1USD</span></a-checkbox>
+      </div>
+      <div class="search-wrap">
+        <div class="input-wrap">
+          <div class="svg-container svg-img">
+            <van-icon name="search" />
+          </div>
+          <input :placeholder="t('assetsView.labels.searchPlaceholder')" v-model="searchQuery">
+        </div>
+        <a-checkbox>{{ t('assetsView.labels.hideSmall') }}</a-checkbox>
+      </div>
+
+      <!-- Mobile List View -->
+      <div class="mobile-asset-list px-4 pb-4" v-if="isMobile">
+        <div class="asset-header grid grid-cols-4 text-[#84849f] text-xs mb-2">
+            <div class="col-span-1">{{ t('assetsView.table.crypto') }}</div>
+            <div class="col-span-1 text-center">{{ t('assetsView.table.balance') }}</div>
+            <div class="col-span-1 text-center">{{ t('assetsView.table.action') }}</div>
+         </div>
+         <div v-for="item in contractAssets" :key="item.key" class="asset-item py-4 border-b border-[#2c2c3e]">
+            <div class="grid grid-cols-4 items-center">
+                <div class="flex items-center col-span-1">
+                    <img :src="item.iconUrl" class="w-8 h-8 rounded-full mr-2">
+                    <div>
+                        <div class="text-white font-bold">{{ item.symbol }}</div>
+                        <div class="text-[#84849f] text-xs">{{ item.name }}</div>
+                    </div>
+                </div>
+                 <div class="text-right col-span-1 pr-4">
+                    <div class="text-white font-medium">{{ item.balance }}</div>
+                    <div class="text-[#84849f] text-xs font-normal">0.00</div>
+                </div>
+                 <div class="text-right col-span-1 pr-4">
+                    <div class="text-white font-medium">0.00</div>
+                    <div class="text-[#84849f] text-xs font-normal">0.00</div>
+                </div>
+                 <div class="text-right col-span-1 flex justify-end">
+                    <button class="text-[#84849f]" @click.stop="toggleMenu('contract_' + item.key)">
+                        <EllipsisOutlined />
+                    </button>
+                </div>
+            </div>
+             <!-- Mobile Dropdown Menu -->
+             <div v-if="activeMenu === 'contract_' + item.key" class="mobile-dropdown bg-[#2c2c3e] rounded mt-2 p-2 absolute right-4 z-10 w-24">
+                 <div class="py-2 text-center text-white text-sm" @click.stop="handleAction('trade', 'contract')">{{ t('assetsView.buttons.trade') }}</div>
+                 <div class="py-2 text-center text-white text-sm border-t border-[#3d3d52]" @click.stop="handleAction('transfer', 'contract')">{{ t('assetsView.buttons.transfer') }}</div>
+             </div>
+         </div>
+      </div>
+
+      <div class="data-list" v-else>
+        <a-table
+          :columns="contractColumns"
+          :data-source="contractAssets"
+          :pagination="false"
+          sticky
+          class="assets-table"
+        >
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'symbol'">
+              <div v-if="isMobile" class="column1 flex items-center gap-2">
+                <img :src="record.iconUrl" class="size-[32px]" :alt="record.symbol">
+                <div>
+                  <div>{{ record.symbol }}</div>
+                  <div class="brief">{{ record.name }}</div>
+                </div>
+              </div>
+              <div v-else class="flex items-center">
+                 <img :src="record.iconUrl" class="w-8 h-8 mr-2" :alt="record.symbol">
+                 <span class="text-base font-bold mr-1">{{ record.symbol }}</span>
+                 <span class="text-[#84849f] text-xs">{{ record.name }}</span>
+              </div>
+            </template>
+            <template v-if="column.key === 'balance'">
+              <div v-if="isMobile" class="column2">
+                <div>{{ record.balance }}</div>
+                <div>$ {{ record.usdValue }}</div>
+              </div>
+              <span v-else>{{ record.balance }}</span>
+            </template>
+            <template v-if="column.key === 'action'">
+              <div v-if="isMobile" class="action-menu-wrapper flex justify-end">
+                <button class="action-btn" @click.stop="toggleMenu('contract_' + record.key)">
+                  <EllipsisOutlined />
+                </button>
+                <div class="sub-list" :class="{ show: activeMenu === 'contract_' + record.key }">
+                  <div class="sub-title" @click.stop="handleAction('trade', 'contract')">
+                     <span class="top">{{ t('assetsView.buttons.trade') }}</span>
+                  </div>
+                  <div class="sub-title" @click.stop="handleAction('transfer', 'contract')">
+                     <span class="top">{{ t('assetsView.buttons.transfer') }}</span>
+                  </div>
+                </div>
+              </div>
+              <div v-else class="flex gap-2 justify-end">
+                  <span class="cursor-pointer text-[#556dea] hover:text-[#4a5fcc]" @click="handleAction('trade', 'contract')">{{ t('assetsView.buttons.trade') }}</span>
+                  <span class="cursor-pointer text-[#556dea] hover:text-[#4a5fcc]" @click="handleAction('transfer', 'contract')">{{ t('assetsView.buttons.transfer') }}</span>
+              </div>
+            </template>
+          </template>
+        </a-table>
+      </div>
+    </div>
+    <AssetActivity account-type="contract" />
+  </div>
+
+  <!-- Orders Tab Content -->
+  <div class="orders-page" v-if="activeTab === 'orders'">
+    <section class="no-vw">
+      <van-tabs v-model:active="ordersSubTab" background="transparent" color="#ffffff" title-active-color="#ffffff" title-inactive-color="#84849f" shrink>
+      <van-tab :title="t('assetsView.tabs.orders')" name="deposit"></van-tab>
+      <van-tab :title="t('assetsView.buttons.withdraw') + t('assetsView.flash.record')" name="withdraw"></van-tab>
+      <van-tab :title="t('assetsView.tabs.option')" name="option"></van-tab>
+      <van-tab :title="t('assetsView.tabs.contract')" name="contract"></van-tab>
+      <van-tab :title="t('assetsView.tabs.spot')" name="spot"></van-tab>
+      <van-tab :title="t('header.copyTrading')" name="copy"></van-tab>
+    </van-tabs>
+    <div class="orders-content py-[20px]">
+      <!-- Deposit Records -->
+      <div v-if="ordersSubTab === 'deposit'">
+        <a-table
+          :columns="depositOrdersColumns"
+          :data-source="depositOrdersData"
+          :pagination="{ pageSize: 10 }"
+          :scroll="{ x: 1000 }"
+          bordered
+        />
+      </div>
+
+      <!-- Withdrawal Records -->
+      <div v-if="ordersSubTab === 'withdraw'">
+        <a-table
+          :columns="withdrawalOrdersColumns"
+          :data-source="withdrawalOrdersData"
+          :pagination="{ pageSize: 10 }"
+          :scroll="{ x: 1000 }"
+          bordered
+        />
+      </div>
+
+      <!-- Options Trading -->
+      <div v-if="ordersSubTab === 'option'">
+        <a-table
+          :columns="optionsOrdersColumns"
+          :data-source="optionsOrdersData"
+          :pagination="{ pageSize: 10 }"
+          :scroll="{ x: 1200 }"
+          bordered
+        />
+      </div>
+
+      <!-- Contracts -->
+      <div v-if="ordersSubTab === 'contract'">
+        <a-table
+          :columns="contractsOrdersColumns"
+          :data-source="contractsOrdersData"
+          :pagination="{ pageSize: 10 }"
+          :scroll="{ x: 1400 }"
+          bordered
+        />
+      </div>
+
+      <!-- Spot -->
+      <div v-if="ordersSubTab === 'spot'">
+        <a-table
+          :columns="spotOrdersColumns"
+          :data-source="spotOrdersData"
+          :pagination="{ pageSize: 10 }"
+          :scroll="{ x: 1200 }"
+          bordered
+        />
+      </div>
+
+      <!-- Copy Trading -->
+      <div v-if="ordersSubTab === 'copy'">
+        <a-table
+          :columns="copyTradingOrdersColumns"
+          :data-source="copyTradingOrdersData"
+          :pagination="{ pageSize: 10 }"
+          :scroll="{ x: 1300 }"
+          bordered
+        />
+      </div>
+    </div>
+    </section>
+    
+  </div>
+  
+    <div class="transfer-container" v-if="activeTab === 'transfer'">
+      <div class="transfer-form-section">
+        <h3 class="section-title">{{ t('assetsView.transfer.title') }}</h3>
+        
+        <div class="form-group">
+          <span class="text-[#84849f] text-xs pb-[10px] block">{{ t('assetsView.transfer.selectCoin') }}</span>
+          <a-select v-model:value="transferForm.currency" class="w-full" :bordered="false" style="background: #12131e; border-radius: 8px;">
+            <a-select-option value="USDT">
+              <div class="flex items-center">
+                <img src="https://nbitmx.com/assets/Withdraw-img-BdwzADJm.png" class="w-5 h-5 mr-2 rounded-full">
+                USDT
+              </div>
+            </a-select-option>
+            <a-select-option value="BTC">
+               <div class="flex items-center">
+                <img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/btc.png" class="w-5 h-5 mr-2 rounded-full">
+                BTC
+              </div>
+            </a-select-option>
+             <a-select-option value="ETH">
+               <div class="flex items-center">
+                <img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/eth.png" class="w-5 h-5 mr-2 rounded-full">
+                ETH
+              </div>
+            </a-select-option>
+          </a-select>
+        </div>
+
+        <div class="transfer-accounts flex items-center mt-[20px]">
+           <div class="account-select-group">
+             <span class="label text-[#84849f]">{{ t('assetsView.transfer.from') }}</span>
+             <a-select v-model:value="transferForm.fromAccount" class="w-full" :bordered="false" style="background: #12131e; border-radius: 8px;">
+               <a-select-option value="spot">{{ t('assetsView.tabs.spot') }}</a-select-option>
+               <a-select-option value="contract">{{ t('assetsView.tabs.contract') }}</a-select-option>
+               <a-select-option value="option">{{ t('assetsView.tabs.option') }}</a-select-option>
+             </a-select>
+           </div>
+           
+           <div class="iconfont px-[10px] text-[24px]">
+            &#xe689;
+           </div>
+
+           <div class="account-select-group">
+             <span class="label text-[#84849f]">{{ t('assetsView.transfer.to') }}</span>
+             <a-select v-model:value="transferForm.toAccount" class="w-full" :bordered="false" style="background: #12131e; border-radius: 8px;">
+               <a-select-option value="spot">{{ t('assetsView.tabs.spot') }}</a-select-option>
+               <a-select-option value="contract">{{ t('assetsView.tabs.contract') }}</a-select-option>
+               <a-select-option value="option">{{ t('assetsView.tabs.option') }}</a-select-option>
+             </a-select>
+           </div>
+        </div>
+
+        <div class="amount-input mt-5 mb-3 flex items-center bg-[#12131e] rounded-lg px-4 h-11 border border-[#2c2c3e]">
+          <label class="text-[#84849f] mr-2">{{ t('assetsView.transfer.amount') }}</label>
+          <input type="number" v-model="transferForm.amount" :placeholder="t('assetsView.transfer.inputPlaceholder')" class="flex-1 bg-transparent border-none text-white text-right outline-none">
+          <button class="text-[#00f0ff] ml-2" @click="transferForm.amount = '1000'">{{ t('assetsView.transfer.all') }}</button>
+          <span class="ml-2 text-white">USDT</span>
+        </div>
+
+        <div class="balance-info flex justify-between text-sm text-[#84849f] mb-6">
+          <span>{{ t('assetsView.transfer.available') }}</span>
+          <span class="text-white">0.000000 USDT</span>
+        </div>
+
+        <button class="confirm-btn w-full h-11 bg-[#00f0ff] text-[#0f0f16] rounded-full font-bold text-base hover:opacity-90 transition-opacity" @click="handleTransferSubmit">
+          {{ t('assetsView.transfer.confirm') }}
+        </button>
+      </div>
+
+      <div class="banner-section hidden md:block">
+        <!-- Banner content if needed -->
+      </div>
+      
+      <div class="history-section">
+        <div class="section-header flex justify-between items-center mb-4 border-b border-[#2c2c3e] pb-2">
+          <h3 class="text-white text-lg">{{ t('assetsView.transfer.history') }}</h3>
+          <div class="text-[#84849f] text-sm">{{ t('assetsView.transfer.total') }} <span class="text-white">1</span> </div>
+        </div>
+        
+        <a-table
+          :columns="transferRecordColumns"
+          :data-source="transferRecordData"
+          :pagination="false"
+          class="assets-table"
+        />
+      </div>
+  </div>
+  <!-- Flash Tab Content -->
+    <div class="exchange-page mt-30px" v-if="activeTab === 'flash'">
+      <div class="exchange-top">
+        <div class="exchange-form">
+          <div class="form-main">
+            <div class="form-get flex justify-between mb-3 text-[#e5e7eb]">
+              <span class="action_title">{{ t('assetsView.flash.consume') }}</span>
+              <span>{{ t('assetsView.flash.currentTotal', { coin: 'TRX' }) }} 0.00000000 TRX</span>
+            </div>
+            
+            <div class="cm-input-box mb-4">
+              <div class="crypto-selector-container bg-[#12131e] rounded-lg p-3 flex justify-between items-center border border-[#2c2c3e]">
+                <div class="selector-wrapper flex-1">
+                  <div class="select-container">
+                    <div class="label-title text-[#84849f] text-xs mb-1">{{ t('assetsView.transfer.selectCoin') }}</div>
+                    <a-select v-model:value="flashForm.fromCoin" class="w-full" :bordered="false" style="background: transparent;">
+                      <a-select-option value="TRX">
+                        <div class="flex items-center">
+                          <img src="https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.05938baf3249e440892fdc8f1409a0bc1.png" class="w-5 h-5 mr-2">
+                          TRX
+                        </div>
+                      </a-select-option>
+                      <a-select-option value="USDT">
+                        <div class="flex items-center">
+                          <img src="https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0998f55db750c4170b786f51659698f5a.png" class="w-5 h-5 mr-2">
+                          USDT
+                        </div>
+                      </a-select-option>
+                    </a-select>
+                  </div>
+                </div>
+                <div class="input-container flex-1 text-right">
+                  <a-input type="number" v-model:value="flashForm.fromAmount" :placeholder="t('assetsView.flash.inputPlaceholder')" :bordered="false" class="text-right text-white" />
+                </div>
+              </div>
+            </div>
+
+            <div class="change flex justify-center my-4 cursor-pointer">
+              <div class="iconfont transform-rotate-90 text-[30px]">&#xe689;</div>
+            </div>
+
+            <div class="form-get flex justify-between mb-3 text-[#e5e7eb]">
+              <span class="action_title">{{ t('assetsView.flash.receive') }} ≈ 0 USDT</span>
+            </div>
+
+            <div class="cm-input-box mb-4">
+              <div class="crypto-selector-container bg-[#12131e] rounded-lg p-3 flex justify-between items-center border border-[#2c2c3e]">
+                <div class="selector-wrapper flex-1">
+                  <div class="select-container">
+                    <div class="label-title text-[#84849f] text-xs mb-1">{{ t('assetsView.transfer.selectCoin') }}</div>
+                    <a-select v-model:value="flashForm.toCoin" class="w-full" :bordered="false" style="background: transparent;">
+                      <a-select-option value="USDT">
+                        <div class="flex items-center">
+                          <img src="https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0998f55db750c4170b786f51659698f5a.png" class="w-5 h-5 mr-2">
+                          USDT
+                        </div>
+                      </a-select-option>
+                      <a-select-option value="TRX">
+                        <div class="flex items-center">
+                          <img src="https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.05938baf3249e440892fdc8f1409a0bc1.png" class="w-5 h-5 mr-2">
+                          TRX
+                        </div>
+                      </a-select-option>
+                    </a-select>
+                  </div>
+                </div>
+                <div class="input-container flex-1 text-right">
+                   <span class="text-gray-500">0</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="transfer_tip flex justify-center items-center my-6 text-[#9ca3af] text-sm">
+              <span>1</span> <span class="text-[#00f0ff] mx-1">{{ flashForm.fromCoin }}</span> 
+              <span>≈ {{ flashRate }}</span> <span class="text-[#00f0ff] mx-1">{{ flashForm.toCoin }}</span>
+              <span class="cursor-pointer ml-2">
+                <img src="@/assets/images/icon-dollar.svg" alt="">
+              </span>
+            </div>
+
+            <button class="w-full h-11 bg-[#00f0ff] text-[#0f0f16] rounded-full font-bold text-base hover:opacity-90 transition-opacity" @click="handleFlashSubmit">{{ t('assetsView.flash.confirm') }}</button>
+          </div>
+        </div>
+
+        <div class="exchange-record flex-1">
+          <div class="record-search flex justify-between items-center mb-4">
+            <div class="record-title text-[#e5e7eb] text-lg">{{ t('assetsView.flash.record') }} ({{ flashRecordData.length }})</div>
+            <div class="flex gap-4 items-center">
+              <a-range-picker 
+                class="bg-[#12131e] border-[#2c2c3e] h-[42px] rounded-[8px]" 
+                :bordered="false" 
+                :placeholder="[t('assetsView.flash.startDate'), t('assetsView.flash.endDate')]"
+              />
+              <a-select 
+                :placeholder="t('assetsView.flash.select')" 
+                style="width: 120px" 
+                class="bg-[#12131e] h-[42px] rounded-[8px] flex items-center" 
+                :bordered="false"
+              >
+                <a-select-option value="all">{{ t('assetsView.flash.all') }}</a-select-option>
+              </a-select>
+              <button class="h-[42px] px-6 border border-[#2c2c3e] bg-[#12131e] rounded-[8px] text-[#84849f] hover:text-white hover:border-[#00f0ff] transition-colors">{{ t('assetsView.flash.search') }}</button>
+            </div>
+          </div>
+          
+          <a-table
+            :columns="flashRecordColumns"
+            :data-source="flashRecordData"
+            :pagination="{ pageSize: 7 }"
+            class="assets-table"
+          />
+        </div>
+      </div>
+    </div>
+
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted, watch, nextTick, shallowRef } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import * as echarts from 'echarts'
+import { EllipsisOutlined } from '@ant-design/icons-vue'
+
+const { t } = useI18n()
+import { useDevice } from '@/composables/useDevice'
+import AssetActivity from '@/components/assets/AssetActivity.vue'
+
+const tabs = computed(() => [
+  { key: 'overview', label: t('assetsView.tabs.overview') },
+  { key: 'spot', label: t('assetsView.tabs.spot') },
+  { key: 'option', label: t('assetsView.tabs.option') },
+  { key: 'contract', label: t('assetsView.tabs.contract') },
+  { key: 'orders', label: t('assetsView.tabs.orders') },
+  { key: 'transfer', label: t('assetsView.buttons.transfer') },
+  { key: 'flash', label: t('assetsView.buttons.flash') },
+])
+
+const route = useRoute()
+const router = useRouter()
+const { isMobile } = useDevice()
+
+const activeTab = ref('overview')
+const chartPeriod = ref('365d')
+const trendChartRef = ref<HTMLElement | null>(null)
+const trendChartInstance = shallowRef<echarts.ECharts | null>(null)
+const donutChartRef = ref<HTMLElement | null>(null)
+const donutChartInstance = shallowRef<echarts.ECharts | null>(null)
+const activeMenu = ref<string | null>(null)
+const isUpdatingRoute = ref(false)
+const spotFilter = ref('latest')
+const searchQuery = ref('')
+const ordersSubTab = ref('deposit')
+
+// Orders Table Columns (prefixed with Orders to avoid conflicts with account columns)
+const depositOrdersColumns = computed(() => [
+  { title: t('time'), dataIndex: 'time', key: 'time', width: 180 },
+  { title: t('assetsView.table.crypto'), dataIndex: 'coin', key: 'coin', width: 100 },
+  { title: t('assetsView.transfer.amount'), dataIndex: 'amount', key: 'amount', width: 150 },
+  { title: t('assetsView.table.address'), dataIndex: 'address', key: 'address', width: 300, ellipsis: true },
+  { title: t('assetsView.table.status'), dataIndex: 'status', key: 'status', width: 120 },
+  { title: 'TxID', dataIndex: 'txid', key: 'txid', width: 300, ellipsis: true },
+])
+
+const withdrawalOrdersColumns = computed(() => [
+  { title: t('time'), dataIndex: 'time', key: 'time', width: 180 },
+  { title: t('assetsView.table.crypto'), dataIndex: 'coin', key: 'coin', width: 100 },
+  { title: t('assetsView.transfer.amount'), dataIndex: 'amount', key: 'amount', width: 150 },
+  { title: t('assetsView.table.fee'), dataIndex: 'fee', key: 'fee', width: 120 },
+  { title: t('assetsView.table.address'), dataIndex: 'address', key: 'address', width: 300, ellipsis: true },
+  { title: t('assetsView.table.status'), dataIndex: 'status', key: 'status', width: 120 },
+  { title: 'TxID', dataIndex: 'txid', key: 'txid', width: 300, ellipsis: true },
+])
+
+// Options Orders Columns (Restored)
+const optionsOrdersColumns = computed(() => [
+  { title: t('time'), dataIndex: 'time', key: 'time', width: 180 },
+  { title: t('assetsView.table.pair'), dataIndex: 'pair', key: 'pair', width: 120 },
+  { title: t('assetsView.flash.direction'), dataIndex: 'direction', key: 'direction', width: 100 },
+  { title: t('assetsView.table.strikePrice'), dataIndex: 'strikePrice', key: 'strikePrice', width: 130 },
+  { title: t('assetsView.table.expiry'), dataIndex: 'expiry', key: 'expiry', width: 180 },
+  { title: t('assetsView.table.investment'), dataIndex: 'investment', key: 'investment', width: 130 },
+  { title: t('assetsView.table.profit'), dataIndex: 'profit', key: 'profit', width: 130 },
+  { title: t('assetsView.table.status'), dataIndex: 'status', key: 'status', width: 120 },
+])
+
+// Option Assets Mock Data
+const optionAssets = ref([
+ {
+    key: '1',
+    symbol: 'ETH',
+    name: 'Ethereum',
+    iconUrl: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/eth.png',
+    balance: '0.00000000',
+    usdValue: '0.00',
+    percentage: '0.00%',
+    frozen: '0.00000000',
+    change: '+2.5%'
+  }
+])
+
+// Contract Assets Mock Data
+const contractAssets = ref([
+ {
+    key: '1',
+    symbol: 'USDT',
+    name: 'Tether',
+    iconUrl: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c25fa5/128/color/usdt.png',
+    balance: '0.00000000',
+    usdValue: '0.00',
+    percentage: '0.00%',
+    frozen: '0.00000000',
+    change: '+0.1%'
+  }
+])
+
+
+const contractsOrdersColumns = computed(() => [
+  { title: t('time'), dataIndex: 'time', key: 'time', width: 180 },
+  { title: t('assetsView.table.contract'), dataIndex: 'contract', key: 'contract', width: 120 },
+  { title: t('assetsView.flash.direction'), dataIndex: 'direction', key: 'direction', width: 100 },
+  { title: t('assetsView.table.leverage'), dataIndex: 'leverage', key: 'leverage', width: 100 },
+  { title: t('assetsView.table.openPrice'), dataIndex: 'openPrice', key: 'openPrice', width: 130 },
+  { title: t('assetsView.table.closePrice'), dataIndex: 'closePrice', key: 'closePrice', width: 130 },
+  { title: t('assetsView.transfer.amount'), dataIndex: 'amount', key: 'amount', width: 130 },
+  { title: t('assetsView.web3.profitAndLoss'), dataIndex: 'pnl', key: 'pnl', width: 130 },
+  { title: t('assetsView.table.fee'), dataIndex: 'fee', key: 'fee', width: 120 },
+  { title: t('assetsView.table.status'), dataIndex: 'status', key: 'status', width: 120 },
+])
+
+const spotOrdersColumns = computed(() => [
+  { title: t('time'), dataIndex: 'time', key: 'time', width: 180 },
+  { title: t('assetsView.table.pair'), dataIndex: 'pair', key: 'pair', width: 120 },
+  { title: t('assetsView.flash.direction'), dataIndex: 'direction', key: 'direction', width: 100 },
+  { title: t('assetsView.table.price'), dataIndex: 'price', key: 'price', width: 130 },
+  { title: t('assetsView.transfer.amount'), dataIndex: 'amount', key: 'amount', width: 130 },
+  { title: t('assetsView.table.total'), dataIndex: 'total', key: 'total', width: 130 },
+  { title: t('assetsView.table.fee'), dataIndex: 'fee', key: 'fee', width: 120 },
+  { title: t('assetsView.table.status'), dataIndex: 'status', key: 'status', width: 120 },
+])
+
+const copyTradingOrdersColumns = computed(() => [
+  { title: t('time'), dataIndex: 'time', key: 'time', width: 180 },
+  { title: t('assetsView.table.trader'), dataIndex: 'trader', key: 'trader', width: 150 },
+  { title: t('assetsView.table.pair'), dataIndex: 'pair', key: 'pair', width: 120 },
+  { title: t('assetsView.flash.direction'), dataIndex: 'direction', key: 'direction', width: 100 },
+  { title: t('assetsView.table.openPrice'), dataIndex: 'openPrice', key: 'openPrice', width: 130 },
+  { title: t('assetsView.table.closePrice'), dataIndex: 'closePrice', key: 'closePrice', width: 130 },
+  { title: t('assetsView.transfer.amount'), dataIndex: 'amount', key: 'amount', width: 130 },
+  { title: '盈虧', dataIndex: 'pnl', key: 'pnl', width: 130 },
+  { title: '狀態', dataIndex: 'status', key: 'status', width: 120 },
+])
+
+// Account Snapshot Table Columns
+const accountSnapshotColumns = computed(() => [
+  { title: t('assetsView.table.type'), dataIndex: 'type', key: 'type', width: '25%' },
+  { title: t('assetsView.table.balance'), dataIndex: 'balance', key: 'balance', width: '25%' },
+  { title: t('assetsView.table.todayProfit'), dataIndex: 'profit', key: 'profit', width: '25%' },
+  { title: t('assetsView.table.ratio'), dataIndex: 'percentage', key: 'percentage', width: '20%' },
+  { title: t('assetsView.table.action'), key: 'action', width: '15%', align: 'center' as const },
+])
+
+const accountSnapshotData = computed(() => [
+  {
+    key: 'spot',
+    type: t('assetsView.tabs.spot'),
+    balance: '$0.000',
+    profit: '0',
+    percentage: '0.0000%',
+    class: 'item-coin',
+    menuKey: 'spot'
+  },
+  {
+    key: 'option',
+    type: t('assetsView.tabs.option'),
+    balance: '$0.000',
+    profit: '0',
+    percentage: '0.0000%',
+    class: 'item-contract',
+    menuKey: 'option'
+  },
+  {
+    key: 'contract',
+    type: t('assetsView.tabs.contract'),
+    balance: '$0.000',
+    profit: '0',
+    percentage: '0.0000%',
+    class: 'item-cft',
+    menuKey: 'contract'
+  }
+])
+
+// Orders Mock Data
+const depositOrdersData = computed(() => [
+  {
+    key: '1',
+    time: '2024-01-15 14:23:45',
+    coin: 'USDT',
+    amount: '1,000.00',
+    address: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb5',
+    status: t('assetsView.status.success'),
+    txid: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+  },
+  {
+    key: '2',
+    time: '2024-01-14 10:15:22',
+    coin: 'BTC',
+    amount: '0.05',
+    address: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+    status: t('assetsView.status.success'),
+    txid: '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
+  },
+  {
+    key: '3',
+    time: '2024-01-13 16:45:30',
+    coin: 'ETH',
+    amount: '2.5',
+    address: '0x8Ba1f109551bD432803012645Ac136ddd64DBA72',
+    status: t('assetsView.status.pending'),
+    txid: '0x9876543210fedcba9876543210fedcba9876543210fedcba9876543210fedcba',
+  },
+])
+
+const withdrawalOrdersData = computed(() => [
+  {
+    key: '1',
+    time: '2024-01-15 09:30:12',
+    coin: 'USDT',
+    amount: '500.00',
+    fee: '1.00',
+    address: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb5',
+    status: t('assetsView.status.success'),
+    txid: '0xdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abc',
+  },
+  {
+    key: '2',
+    time: '2024-01-14 15:20:45',
+    coin: 'BTC',
+    amount: '0.02',
+    fee: '0.0001',
+    address: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+    status: t('assetsView.status.success'),
+    txid: '0xcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890ab',
+  },
+  {
+    key: '3',
+    time: '2024-01-13 11:10:20',
+    coin: 'ETH',
+    amount: '1.0',
+    fee: '0.005',
+    address: '0x8Ba1f109551bD432803012645Ac136ddd64DBA72',
+    status: t('assetsView.status.auditing'),
+    txid: '-',
+  },
+])
+
+const optionsOrdersData = computed(() => [
+  {
+    key: '1',
+    time: '2024-01-15 14:00:00',
+    pair: 'BTC/USDT',
+    direction: t('assetsView.direction.call'),
+    strikePrice: '45,000',
+    expiry: '2024-01-15 18:00:00',
+    investment: '100.00',
+    profit: '+85.00',
+    status: t('assetsView.status.settled'),
+  },
+  {
+    key: '2',
+    time: '2024-01-15 12:30:00',
+    pair: 'ETH/USDT',
+    direction: t('assetsView.direction.put'),
+    strikePrice: '2,500',
+    expiry: '2024-01-15 16:00:00',
+    investment: '200.00',
+    profit: '-200.00',
+    status: t('assetsView.status.settled'),
+  },
+  {
+    key: '3',
+    time: '2024-01-15 10:15:00',
+    pair: 'BTC/USDT',
+    direction: t('assetsView.direction.call'),
+    strikePrice: '44,500',
+    expiry: '2024-01-15 20:00:00',
+    investment: '150.00',
+    profit: '-',
+    status: t('assetsView.status.processing'),
+  },
+])
+
+const contractsOrdersData = computed(() => [
+  {
+    key: '1',
+    time: '2024-01-15 14:25:30',
+    contract: 'BTCUSDT',
+    direction: t('assetsView.direction.buy'),
+    leverage: '10x',
+    openPrice: '44,500',
+    closePrice: '45,200',
+    amount: '0.5',
+    pnl: '+350.00',
+    fee: '2.25',
+    status: t('assetsView.status.closed'),
+  },
+  {
+    key: '2',
+    time: '2024-01-15 11:15:20',
+    contract: 'ETHUSDT',
+    direction: t('assetsView.direction.sell'),
+    leverage: '20x',
+    openPrice: '2,520',
+    closePrice: '2,480',
+    amount: '2.0',
+    pnl: '+1,600.00',
+    fee: '5.04',
+    status: t('assetsView.status.closed'),
+  },
+  {
+    key: '3',
+    time: '2024-01-15 09:30:00',
+    contract: 'BNBUSDT',
+    direction: t('assetsView.direction.buy'),
+    leverage: '5x',
+    openPrice: '320',
+    closePrice: '-',
+    amount: '10',
+    pnl: '-85.00',
+    fee: '0.80',
+    status: t('assetsView.status.holding'),
+  },
+])
+
+const spotOrdersData = computed(() => [
+  {
+    key: '1',
+    time: '2024-01-15 15:30:45',
+    pair: 'BTC/USDT',
+    direction: t('assetsView.direction.buy'),
+    price: '44,850',
+    amount: '0.1',
+    total: '4,485.00',
+    fee: '4.49',
+    status: t('assetsView.status.filled'),
+  },
+  {
+    key: '2',
+    time: '2024-01-15 13:20:30',
+    pair: 'ETH/USDT',
+    direction: t('assetsView.direction.sell'),
+    price: '2,505',
+    amount: '1.5',
+    total: '3,757.50',
+    fee: '3.76',
+    status: t('assetsView.status.filled'),
+  },
+  {
+    key: '3',
+    time: '2024-01-15 10:45:15',
+    pair: 'BNB/USDT',
+    direction: t('assetsView.direction.buy'),
+    price: '315',
+    amount: '5',
+    total: '1,575.00',
+    fee: '1.58',
+    status: t('assetsView.status.filled'),
+  },
+])
+
+const copyTradingOrdersData = computed(() => [
+  {
+    key: '1',
+    time: '2024-01-15 14:30:00',
+    trader: 'CryptoMaster',
+    pair: 'BTC/USDT',
+    direction: t('assetsView.direction.buy'),
+    openPrice: '44,600',
+    closePrice: '45,100',
+    amount: '0.2',
+    pnl: '+100.00',
+    status: t('assetsView.status.closed'),
+  },
+  {
+    key: '2',
+    time: '2024-01-15 11:00:00',
+    trader: 'TraderPro',
+    pair: 'ETH/USDT',
+    direction: t('assetsView.direction.sell'),
+    openPrice: '2,530',
+    closePrice: '2,490',
+    amount: '3.0',
+    pnl: '+120.00',
+    status: t('assetsView.status.closed'),
+  },
+  {
+    key: '3',
+    time: '2024-01-15 09:15:00',
+    trader: 'SignalKing',
+    pair: 'BNB/USDT',
+    direction: t('assetsView.direction.buy'),
+    openPrice: '318',
+    closePrice: '-',
+    amount: '8',
+    pnl: '-48.00',
+    status: t('assetsView.status.following'),
+  },
+])
+
+// Toggle menu visibility
+const toggleMenu = (accountType: string) => {
+  activeMenu.value = activeMenu.value === accountType ? null : accountType
+}
+
+// Click outside to close menu
+const handleClickOutside = (event: MouseEvent) => {
+  const target = event.target as HTMLElement
+  if (!target.closest('.action-menu-wrapper')) {
+    activeMenu.value = null
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+// Account type to route mapping
+const accountRouteMap: Record<string, string> = {
+  spot: '/play/currency/trade',
+  option: '/play/futures/trade', 
+  contract: '/play/ucontract/index'
+}
+
+// Mobile-specific routes for hidden tabs
+const mobileTabRoutes: Record<string, string> = {
+  orders: '/report/index',
+  transfer: '/assets/transfer',
+  flash: '/play/flashExchange/index'
+}
+
+// Filter tabs for mobile - hide orders, transfer, flash
+const filteredTabs = computed(() => {
+  if (isMobile.value) {
+    return tabs.value.filter(tab => !['orders', 'transfer', 'flash'].includes(tab.key))
+  }
+  return tabs.value
+})
+
+// Handle tab click - redirect mobile users for certain tabs
+const handleTabClick = (tabInfo: { name: string | number }) => {
+  const tabKey = String(tabInfo.name)
+  
+  // If mobile and this is a hidden tab, redirect to mobile route
+  if (isMobile.value && mobileTabRoutes[tabKey]) {
+    router.push(mobileTabRoutes[tabKey])
+  }
+}
+
+// Handle action click
+const handleAction = (action: string, accountType: string) => {
+  activeMenu.value = null
+  if (action === 'trade') {
+    const route = accountRouteMap[accountType]
+    if (route) {
+      router.push(route)
+    }
+  } else if (action === 'transfer') {
+    router.push('/assets/index?tab=transfer')
+  }
+}
+
+// Transfer Tab Logic
+const transferForm = ref({
+  currency: 'USDT',
+  fromAccount: 'spot',
+  toAccount: 'contract',
+  amount: ''
+})
+
+const transferRecordColumns = computed(() => [
+  { title: t('assetsView.table.crypto'), dataIndex: 'asset', key: 'asset', width: '20%' },
+  { title: t('assetsView.transfer.amount'), dataIndex: 'amount', key: 'amount', width: '30%' },
+  { title: t('assetsView.transfer.from'), dataIndex: 'from', key: 'from', width: '25%' },
+  { title: t('assetsView.transfer.to'), dataIndex: 'to', key: 'to', width: '25%' },
+  { title: t('assetsView.flash.status'), dataIndex: 'status', key: 'status', width: '15%' },
+  { title: t('assetsView.table.action'), dataIndex: 'time', key: 'time', width: '20%' },
+])
+
+
+
+const transferRecordData = computed(() => [
+  {
+    key: '1',
+    time: '2023-10-27 10:00:00',
+    from: t('assetsView.tabs.spot'),
+    to: t('assetsView.tabs.contract'),
+    coin: 'USDT',
+    amount: '100.00',
+    status: t('assetsView.status.success')
+  }
+])
+
+const handleTransferSubmit = () => {
+  console.log('Transfer submit:', transferForm.value)
+}
+
+// Flash Swap Logic
+const flashForm = ref({
+  fromCoin: 'TRX',
+  fromAmount: '',
+  toCoin: 'USDT',
+})
+const flashRate = ref('0.27780000')
+
+const flashRecordColumns = computed(() => [
+  { title: t('assetsView.flash.direction'), dataIndex: 'direction', key: 'direction', width: '20%' },
+  { title: t('assetsView.flash.consume'), dataIndex: 'spent', key: 'spent', width: '15%' },
+  { title: t('assetsView.flash.receive'), dataIndex: 'received', key: 'received', width: '15%' },
+  { title: t('assetsView.flash.channel'), dataIndex: 'channel', key: 'channel', width: '15%' },
+  { title: t('assetsView.flash.rate'), dataIndex: 'rate', key: 'rate', width: '15%' },
+  { title: t('assetsView.table.action'), dataIndex: 'time', key: 'time', width: '10%' },
+  { title: t('assetsView.flash.status'), dataIndex: 'status', key: 'status', width: '10%' },
+])
+
+const flashRecordData = ref([])
+
+
+const handleFlashSubmit = () => {
+  console.log('Flash submit:', flashForm.value)
+}
+
+
+// Spot account table configuration
+// Spot account table configuration
+const spotColumns = computed(() => {
+  if (isMobile.value) {
+    return [
+      { title: t('assetsView.table.crypto'), dataIndex: 'symbol', key: 'symbol', width: '40%' },
+      { title: t('assetsView.table.balance'), dataIndex: 'balance', key: 'balance', width: '40%', align: 'right' },
+      { title: '', dataIndex: 'action', key: 'action', width: '20%', align: 'right' },
+    ]
+  }
+  return [
+    { title: t('assetsView.table.crypto'), dataIndex: 'symbol', key: 'symbol', width: 180 },
+    { title: t('assetsView.table.balance'), dataIndex: 'balance', key: 'balance', width: 120 },
+    { title: t('assetsView.table.ratio'), dataIndex: 'percentage', key: 'percentage', width: 100 },
+    { title: t('assetsView.table.change'), dataIndex: 'change', key: 'change', width: 100 },
+    { title: t('assetsView.table.action'), dataIndex: 'action', key: 'action', width: 80 },
+  ]
+})
+
+const spotAssets = [
+  { key: '1', symbol: 'BTC', name: 'Bitcoin', balance: '0.0042', usdValue: '185.40', percentage: '12.5%', frozen: '0.0001', change: '+1.2%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0b96195d4f367459fbaac66fd39462aa1.png' },
+  { key: '2', symbol: 'SOL', name: 'SOL', balance: '15.50', usdValue: '1550.00', percentage: '45.2%', frozen: '1.5000', change: '+3.5%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0dce5c5137d3f4803b8a8606140150057.png' },
+  { key: '3', symbol: 'TRUMP', name: 'TRUMP', balance: '1000', usdValue: '500.00', percentage: '5.8%', frozen: '0.0000', change: '-2.1%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.041bc019ab40d4d2080f29eb7e8c2f9db.png' },
+  { key: '4', symbol: 'DOGE', name: 'DOGE', balance: '5000', usdValue: '850.00', percentage: '8.5%', frozen: '100.00', change: '+5.0%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0409f9e843ec74da198ed062120b08f4d.png' },
+  { key: '5', symbol: 'XRP', name: 'XRP', balance: '200', usdValue: '120.00', percentage: '3.2%', frozen: '0.0000', change: '-0.5%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.057766c08906d48919834927082eb7043.png' },
+  { key: '6', symbol: 'LINK', name: 'LINK', balance: '50', usdValue: '750.00', percentage: '18.4%', frozen: '5.0000', change: '+1.8%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.012be8b9b57894415b743bb9a3a5cd69b.png' },
+  { key: '7', symbol: 'DOT', name: 'DOT', balance: '100', usdValue: '650.00', percentage: '14.2%', frozen: '10.000', change: '-1.2%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.01ba2b323da9945138df2c479aa7cc91c.png' },
+  { key: '8', symbol: 'ETH', name: 'Ethereum', balance: '0.5', usdValue: '1250.00', percentage: '25.6%', frozen: '0.1000', change: '+2.0%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0680cf64887f44f3fa7a8b55e243b7597.png' },
+  { key: '9', symbol: 'USDT', name: 'Tether', balance: '500', usdValue: '500.00', percentage: '10.5%', frozen: '0.0000', change: '0.0%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0998f55db750c4170b786f51659698f5a.png' },
+  { key: '10', symbol: 'LTC', name: 'LTC', balance: '10', usdValue: '700.00', percentage: '15.8%', frozen: '1.0000', change: '+0.8%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0d30fa45f78814c84a419b109b09d431b.png' },
+  { key: '11', symbol: 'USDC', name: 'USDC', balance: '1000', usdValue: '1000.00', percentage: '22.4%', frozen: '0.0000', change: '0.0%', iconUrl: 'https://obobs-res.oss-cn-hongkong.aliyuncs.com/echo2.0102bdf74091a473cbaa330641ad32c45.png' },
+  { key: '12', symbol: 'XAU', name: 'XAU', balance: '1', usdValue: '1950.00', percentage: '40.5%', frozen: '0.0000', change: '+0.5%', iconUrl: 'https://v3.ptdemot.bio/public/Withdraw-img.png' },
+]
+
+// Option account table configuration
+// Option account table configuration
+const optionColumns = computed(() => {
+  if (isMobile.value) {
+    return [
+      { title: t('assetsView.table.crypto'), dataIndex: 'symbol', key: 'symbol', width: '40%' },
+      { title: t('assetsView.table.balance'), dataIndex: 'balance', key: 'balance', width: '40%', align: 'right' as const },
+      { title: '', dataIndex: 'action', key: 'action', width: '20%', align: 'right' as const },
+    ]
+  }
+  return [
+    { title: t('assetsView.table.crypto'), dataIndex: 'symbol', key: 'symbol', width: 180 },
+    { title: t('assetsView.table.balance'), dataIndex: 'balance', key: 'balance', width: 120 },
+    { title: t('assetsView.table.ratio'), dataIndex: 'percentage', key: 'percentage', width: 100 },
+    { title: t('assetsView.table.change'), dataIndex: 'change', key: 'change', width: 100 },
+    { title: t('assetsView.table.action'), dataIndex: 'action', key: 'action', width: 80 },
+  ]
+})
+
+// Contract account table configuration
+const contractColumns = computed(() => {
+  if (isMobile.value) {
+    return [
+      { title: t('assetsView.table.crypto'), dataIndex: 'symbol', key: 'symbol', width: '40%' },
+      { title: t('assetsView.table.balance'), dataIndex: 'balance', key: 'balance', width: '40%', align: 'right' as const },
+      { title: '', dataIndex: 'action', key: 'action', width: '20%', align: 'right' as const },
+    ]
+  }
+  return [
+    { title: t('assetsView.table.crypto'), dataIndex: 'symbol', key: 'symbol', width: 180 },
+    { title: t('assetsView.table.balance'), dataIndex: 'balance', key: 'balance', width: 120 },
+    { title: t('assetsView.table.ratio'), dataIndex: 'percentage', key: 'percentage', width: 100 },
+    { title: t('assetsView.table.change'), dataIndex: 'change', key: 'change', width: 100 },
+    { title: t('assetsView.table.action'), dataIndex: 'action', key: 'action', width: 80 },
+  ]
+})
+
+
+
+
+
+// Generate mock data based on period
+const generateChartData = (period: string) => {
+  let dataPoints = 0
+  switch(period) {
+    case '24h':
+      dataPoints = 24
+      break
+    case '7d':
+      dataPoints = 7
+      break
+    case '30d':
+      dataPoints = 30
+      break
+    case '365d':
+      dataPoints = 12 // 12 months
+      break
+    default:
+      dataPoints = 12
+  }
+  
+  // Generate realistic looking data starting from 0
+  const data: number[] = [0]
+  for (let i = 1; i < dataPoints; i++) {
+    const previousValue = data[i - 1] ?? 0
+    const change = (Math.random() - 0.48) * 0.15 // Slight upward bias
+    const newValue = Math.max(0, previousValue + change)
+    data.push(Number(newValue.toFixed(4)))
+  }
+  
+  return data
+}
+
+// Initialize chart
+const initChart = () => {
+  if (!trendChartRef.value) return
+  
+  trendChartInstance.value = echarts.init(trendChartRef.value)
+  updateChartData()
+}
+
+// Initialize donut chart
+const initDonutChart = () => {
+  if (!donutChartRef.value) return
+  
+  donutChartInstance.value = echarts.init(donutChartRef.value)
+  
+  // Mock data for three account types
+  const accountData = [
+    { 
+      value: 33.33, 
+      name: t('assetsView.tabs.spot'),
+      itemStyle: { 
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
+          { offset: 0, color: '#f7be94' },
+          { offset: 1, color: '#f09464' }
+        ])
+      }
+    },
+    { 
+      value: 33.33, 
+      name: t('assetsView.tabs.option'),
+      itemStyle: { 
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
+          { offset: 0, color: '#6dd2f8' },
+          { offset: 1, color: '#147ec7' }
+        ])
+      }
+    },
+    { 
+      value: 33.34, 
+      name: t('assetsView.tabs.contract'),
+      itemStyle: { 
+        color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
+          { offset: 0, color: '#d18bd7' },
+          { offset: 1, color: '#b164e2' }
+        ])
+      }
+    }
+  ]
+  
+  donutChartInstance.value.setOption({
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'item',
+      formatter: '{b}: {c}%'
+    },
+    legend: {
+      show: false
+    },
+    series: [
+      {
+        name: t('assetsView.labels.assetDistribution'),
+        type: 'pie',
+        radius: ['60%', '85%'],
+        avoidLabelOverlap: false,
+        label: {
+          show: true,
+          position: 'center',
+          formatter: function(params: any) {
+            if (params.dataIndex === 0) {
+              return `{a|${params.name}}\n{b|${params.value.toFixed(2)}%}`
+            }
+            return ''
+          },
+          rich: {
+            a: {
+              color: '#fff',
+              fontSize: 14,
+              lineHeight: 20
+            },
+            b: {
+              color: '#fff',
+              fontSize: 12,
+              lineHeight: 20
+            }
+          }
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 14,
+            fontWeight: 'bold'
+          },
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: accountData
+      }
+    ]
+  })
+}
+
+// Update chart data
+const updateChartData = () => {
+  if (!trendChartInstance.value) return
+  
+  const data = generateChartData(chartPeriod.value)
+  
+  trendChartInstance.value.setOption({
+    backgroundColor: 'transparent',
+    grid: {
+      left: 40,
+      right: 20,
+      top: 30,
+      bottom: 30,
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      show: true,
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        show: false
+      },
+      splitLine: {
+        show: true,
+        lineStyle: {
+          color: '#2c2c3e',
+          type: 'dashed'
+        }
+      }
+    },
+    yAxis: {
+      type: 'value',
+      show: true,
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        color: '#84849f',
+        fontSize: 12
+      },
+      splitLine: {
+        show: true,
+        lineStyle: {
+          color: '#2c2c3e',
+          type: 'dashed'
+        }
+      }
+    },
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      borderColor: '#ccc',
+      borderWidth: 1,
+      textStyle: {
+        color: '#333'
+      },
+      formatter: (params: any) => {
+        const value = params[0].value
+        return `${value}`
+      }
+    },
+    series: [
+      {
+        data: data,
+        type: 'line',
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 8,
+        showSymbol: false,
+        itemStyle: {
+          color: '#6491e9'
+        },
+        lineStyle: {
+          width: 2,
+          color: '#6491e9'
+        },
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: 'rgba(100, 145, 233, 0.3)' },
+            { offset: 1, color: 'rgba(100, 145, 233, 0.05)' }
+          ])
+        },
+        emphasis: {
+          focus: 'series',
+          itemStyle: {
+            color: '#6491e9',
+            borderColor: '#fff',
+            borderWidth: 2
+          }
+        }
+      }
+    ]
+  })
+}
+
+// Asset Activity Table
+const activityColumns = computed(() => [
+  {
+    title: t('time.time'),
+    dataIndex: 'time',
+    key: 'time',
+    width: 120,
+  },
+  {
+    title: t('assetsView.table.type'), 
+    dataIndex: 'type',
+    key: 'type',
+    width: 80,
+  },
+  {
+    title: t('assetsView.transfer.amount'),
+    dataIndex: 'amount',
+    key: 'amount',
+    width: 100,
+  },
+  {
+    title: t('assetsView.flash.status'),
+    dataIndex: 'status',
+    key: 'status',
+    width: 80,
+  },
+])
+
+const activityData = computed(() => [
+  {
+    key: '1',
+    time: '2026-02-09 18:30',
+    type: t('assetsView.buttons.deposit'),
+    typeClass: 'text-green-400',
+    amount: '+1000.00 USDT',
+    amountClass: 'text-green-400',
+    status: t('assetsView.status.success'),
+    statusClass: 'text-green-400',
+  },
+  {
+    key: '2',
+    time: '2026-02-09 16:15',
+    type: t('assetsView.buttons.withdraw'),
+    typeClass: 'text-red-400',
+    amount: '-500.00 USDT',
+    amountClass: 'text-red-400',
+    status: t('assetsView.status.success'),
+    statusClass: 'text-green-400',
+  },
+  {
+    key: '3',
+    time: '2026-02-09 14:20',
+    type: t('assetsView.buttons.transfer'),
+    typeClass: 'text-blue-400',
+    amount: '200.00 BTC',
+    amountClass: 'text-white',
+    status: t('assetsView.status.success'),
+    statusClass: 'text-green-400',
+  },
+  {
+    key: '4',
+    time: '2026-02-09 12:45',
+    type: t('assetsView.buttons.trade'),
+    typeClass: 'text-purple-400',
+    amount: '+150.50 ETH',
+    amountClass: 'text-green-400',
+    status: t('assetsView.status.success'),
+    statusClass: 'text-green-400',
+  },
+  {
+    key: '5',
+    time: '2026-02-09 10:30',
+    type: t('assetsView.buttons.deposit'),
+    typeClass: 'text-green-400',
+    amount: '+2000.00 USDT',
+    amountClass: 'text-green-400',
+    status: t('assetsView.status.pending'),
+    statusClass: 'text-yellow-400',
+  },
+  {
+    key: '6',
+    time: '2026-02-08 22:15',
+    type: t('assetsView.buttons.withdraw'),
+    typeClass: 'text-red-400',
+    amount: '-0.5 BTC',
+    amountClass: 'text-red-400',
+    status: t('assetsView.status.success'),
+    statusClass: 'text-green-400',
+  },
+  {
+    key: '7',
+    time: '2026-02-08 18:00',
+    type: t('assetsView.buttons.trade'),
+    typeClass: 'text-purple-400',
+    amount: '-50.00 ETH',
+    amountClass: 'text-red-400',
+    status: t('assetsView.status.success'),
+    statusClass: 'text-green-400',
+  },
+  {
+    key: '8',
+    time: '2026-02-08 15:30',
+    type: t('assetsView.buttons.transfer'),
+    typeClass: 'text-blue-400',
+    amount: '100.00 USDT',
+    amountClass: 'text-white',
+    status: t('assetsView.status.success'),
+    statusClass: 'text-green-400',
+  },
+])
+
+// Transfer button handler
+const handleTransferClick = () => {
+  isUpdatingRoute.value = true
+  router.push('/assets/index?tab=transfer')
+  setTimeout(() => {
+    isUpdatingRoute.value = false
+  }, 100)
+}
+
+// Initialize on route query
+const initFromRoute = () => {
+  const tabParam = route.query.tab as string
+  if (tabParam && tabs.value.some(t => t.key === tabParam)) {
+    activeTab.value = tabParam
+  }
+}
+
+onMounted(async () => {
+  await nextTick()
+  initChart()
+  initDonutChart()
+  initFromRoute()
+})
+
+// Watch for period changes
+watch(chartPeriod, () => {
+  updateChartData()
+})
+
+// Watch activeTab changes to update route
+watch(activeTab, (newTab) => {
+  if (isUpdatingRoute.value) return
+  
+  isUpdatingRoute.value = true
+  router.push({
+    path: '/assets/index',
+    query: { tab: newTab }
+  })
+  setTimeout(() => {
+    isUpdatingRoute.value = false
+  }, 100)
+})
+
+// Watch route changes to update activeTab
+watch(() => route.query.tab, (newTab) => {
+  if (isUpdatingRoute.value) return
+  
+  if (newTab && typeof newTab === 'string' && tabs.value.some(t => t.key === newTab)) {
+    isUpdatingRoute.value = true
+    activeTab.value = newTab
+    setTimeout(() => {
+      isUpdatingRoute.value = false
+    }, 100)
+  }
+})
+
+const currentTabLabel = computed(() => {
+  const tab = tabs.value.find(t => t.key === activeTab.value)
+  return tab ? tab.label : ''
+})
+</script>
+
+<style scoped lang="less">
+.assets-page {
+    width: 1360px;
+    position: relative;
+    margin: 0 auto;
+    // background-color: var(--content-bg);
+    padding-top: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.orders-page {
+  width: 1360px;
+  margin: 30px auto;
+}
+
+/* PC Only: Fixed width for left column */
+@media (min-width: 769px) {
+  .assets-page1 {
+    width: 830px;
+  }
+}
+
+/* === Assets Content Grid === */
+.assets-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+section.no-vw {
+  border-radius: 12px;
+  border: 2px solid #2c2c3e;
+  padding: 20px 30px;
+  box-sizing: border-box;
+}
+
+/* === Section 1: Balance + Chart === */
+.section-1 {
+  /* width: 830px;  <-- Removed fixed width here, handled by assets-page1 or responsive */
+  width: 100%; /* Fill container */
+  height: 513px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.section-1 h3 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.section-1 h3 .svg-container {
+  cursor: pointer;
+  margin-left: 5px;
+  fill: #fff;
+}
+
+.section-1 .top-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-1 .top-info .left-con {
+  position: relative;
+}
+
+.section-1 .top-info .left-con .balance-row {
+  margin-top: 10px;
+}
+
+.section-1 .top-info .left-con .balance {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #fff;
+}
+
+.section-1 .top-info .left-con .unit {
+  margin-right: 10px;
+  color: #84849f;
+}
+
+.section-1 .top-info .right-con {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Shared styles for operate-btn in both right-con and right-actions */
+.section-1 .top-info .right-con .operate-btn,
+.section-1 .top-info .right-actions .operate-btn {
+  width: 100px;
+  height: 40px;
+  line-height: normal; /* Fixed line-height issue */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 99px;
+  border: 1px solid #84849f;
+  margin-left: 10px;
+  // background: #1f1f2f;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+}
+
+.section-1 .top-info .right-con .operate-btn .name,
+.section-1 .top-info .right-actions .operate-btn .name {
+  margin-left: 5px;
+}
+
+.section-1 .top-info .right-con .operate-btn.active,
+.section-1 .top-info .right-actions .operate-btn:hover { /* Added hover state for interaction */
+  background: linear-gradient(90deg, #6491e9 49.79%, #556dea);
+  color: #fff;
+  border-color: #556dea;
+}
+
+.section-1 .chart-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.section-1 .chart-title .left-con {
+  font-size: 16px;
+  color: #fff;
+}
+
+.section-1 .chart-title .right-con {
+  display: flex;
+}
+
+.section-1 .chart-title .right-con > div {
+  padding: 3px 12px;
+  text-align: center;
+  border-radius: 99px;
+  border: 1px solid #84849f;
+  // background: #1f1f2f;
+  margin-left: 6px;
+  color: #84849f;
+  cursor: pointer;
+}
+
+.section-1 .chart-title .right-con > div.active {
+  border-color: #fff;
+  color: #fff;
+}
+
+.section-1 .trend-chart {
+  width: 100%;
+  height: 340px;
+  position: relative;
+}
+
+.chart-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* === Section 2: Asset Distribution === */
+.section-2 {
+  width: 830px;
+  height: 350px;
+  box-sizing: border-box;
+}
+
+.section-2 .data {
+  display: flex;
+  align-items: flex-start;
+}
+
+.section-2 .data-left {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  width: 170px;
+  height: 320px;
+  margin-right: 30px;
+}
+
+.section-2 .data-left h3 {
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 30px;
+}
+
+.section-2 .data-left .ring-chart {
+  width: 170px;
+  height: 170px;
+}
+
+.donut-chart-container {
+  width: 100%;
+  height: 100%;
+}
+
+.section-2 .data-right {
+  width: 570px;
+  height: 327px;
+  text-align: center;
+}
+
+.section-2 .data-right .column5 { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Account Snapshot Table Styles */
+:deep(.account-snapshot-table.ant-table-wrapper) {
+  width: 100%;
+  
+  .ant-table {
+    background: transparent;
+  }
+  
+  .ant-table-thead > tr > th {
+    background: transparent;
+    border-bottom: 1px solid #2c2c3e;
+    color: #5e5e7a;
+    font-size: 12px;
+    padding: 12px 16px; 
+    
+    &::before {
+      display: none; /* Remove column separator */
+    }
+  }
+  
+  .ant-table-tbody > tr > td {
+    background: transparent;
+    border-bottom: 1px solid #2c2c3e;
+    color: #fff;
+    font-size: 16px;
+    padding: 16px;
+  }
+  
+  .ant-table-tbody > tr:hover > td {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  /* Gradient Text Styles for Account Types */
+  .item-coin .column1 {
+    background: radial-gradient(102.27% 102.27% at 83.82% 87.06%, #f09464, #f7be94 0.01%, #f09464);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    .dot {
+      background: linear-gradient(90deg, #f09464 49.79%, #d37442);
+    }
+  }
+  
+  .item-contract .column1 {
+    background: radial-gradient(118.76% 101.38% at 0% 22.64%, #147ec7, #6dd2f8);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    .dot {
+      background: linear-gradient(90deg, #6dd2f8 49.79%, #147ec7);
+    }
+  }
+  
+  .item-cft .column1 {
+    background: radial-gradient(45.13% 45.13% at 47.06% 6.18%, #d18bd7, #b164e2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    .dot {
+      background: linear-gradient(90deg, #d18bd7 49.79%, #b164e2);
+    }
+  }
+  
+  .column1 {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 32px;
+      height: 32px;
+      margin-right: 8px;
+    }
+    
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+  }
+}
+
+
+.action-menu-wrapper {
+  position: relative;
+  .action-btn {
+    color: #84849f;
+    font-size: 20px;
+    padding: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+
+
+.sub-list {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  z-index: 9;
+  width: 96px;
+  background: #2c2e3e;
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.49);
+  border-radius: 4px;
+  border: 1px solid #3c3e53;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  color: #9090ad;
+  height: auto;
+  font-size: 14px;
+  
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.sub-list .sub-title {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 28px;
+  text-align: center;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+.sub-list .sub-title .top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  color: #fff;
+}
+
+.section-2 .data-right .item .column3.flat {
+  color: #84849f;
+}
+
+/* === Section 3: Asset Activity === */
+.section-3 {
+  width: 490px;
+  height: 892px;
+  padding: 20px 0 !important;
+  box-sizing: border-box !important;
+  float: right;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-3 .title-row {
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.section-3 .activity-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.section-3 .activity-content :deep(.ant-table) {
+  background: transparent;
+}
+
+.section-3 .activity-content :deep(.ant-table-thead > tr > th) {
+  background: transparent;
+  color: #5e5e7a;
+  border-bottom: 1px solid #2c2c3e;
+  font-size: 12px;
+  padding: 12px 8px;
+}
+
+.section-3 .activity-content :deep(.ant-table-tbody > tr > td) {
+  background: transparent;
+  border-bottom: 1px solid #2c2c3e;
+  color: #fff;
+  font-size: 14px;
+  padding: 16px 8px;
+}
+
+.section-3 .activity-content :deep(.ant-table-tbody > tr:hover > td) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.section-3 .no-data {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #84849f;
+}
+
+.section-3 .bottom {
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  :deep(.ant-table-thead) {
+    display: none;
+  }
+  
+  .assets-page {
+    padding-top: 50px; /* Offset for fixed header if any */
+    display: block; /* Stack layout on mobile */
+    width: 100% !important;
+  }
+  
+  .section-1, .section-2, .left-section {
+     width: 100% !important;
+     height: auto !important;
+     margin-right: 0 !important;
+     border: none !important;
+     padding: 0 !important;
+     background: transparent !important;
+  }
+  
+  /* Hide charts on mobile overview if problematic, or adjust height */
+  .trend-chart {
+    height: 200px !important;
+  }
+  
+  .assets-table :deep(.ant-table-tbody > tr > td) {
+    padding: 12px 0 !important;
+    border-bottom: 1px solid #1f1f2f !important;
+  }
+  
+  .column1 img {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .column1 div {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+  }
+  
+  .column1 div .brief {
+     color: #84849f;
+     font-size: 12px;
+  }
+  
+  .column2 {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-end;
+  }
+  
+   .column2 div:last-child {
+     color: #84849f;
+     font-size: 12px;
+  }
+
+  .left-section .search-wrap .input-wrap {
+    width: 100% !important;
+  }
+}
+
+.blue-color-text {
+  background: linear-gradient(90deg, #9bb8f0, #6491e9 49.79%, #556dea);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.white-color-text {
+  color: #fff;
+  font-size: 18px;
+}
+
+/* === Tab Placeholder === */
+.tab-placeholder {
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-content {
+  color: #84849f;
+  font-size: 18px;
+}
+
+/* === Left Section Data List === */
+.left-section {
+  width: 830px;
+  height: 892px;
+  margin-bottom: 30px;
+  margin-right: 30px;
+  flex: none;
+  border-radius: 12px;
+  --data-bg18: #2c2c3e;
+  border: 2px solid var(--data-bg18);
+  padding: 20px 30px;
+  box-sizing: border-box;
+}
+
+.left-section h3 {
+  display: flex;
+  align-items: center;
+}
+
+.left-section h3 .eye-toggle {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+  /* .left-section .top-info styles */
+  .left-section .top-info {
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  @media (max-width: 768px) {
+    .left-section .top-info {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .left-section .top-info .left-con {
+      margin-bottom: 16px;
+    }
+    
+    .left-section .top-info .right-con {
+      width: 100%;
+    }
+  }
+
+.left-section .top-info .left-con .balance {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.left-section .top-info .left-con .unit {
+  margin-right: 10px;
+  color: #84849f;
+}
+
+.left-section .top-info .right-con {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-section .top-info .right-con .operate-btn {
+  padding: 0 20px;
+  height: 40px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 99px;
+  border: 1px solid #84849f;
+  margin-left: 10px;
+  background: var(--content-bg);
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.left-section .top-info .right-con .operate-btn .name {
+  margin-left: 5px;
+}
+
+.left-section .top-info .right-con .operate-btn.active {
+  background: var(--btn-bg);
+  border-color: #556dea;
+  color: var(--font-color-btn);
+}
+
+.left-section .search-wrap {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-section .search-wrap .input-wrap {
+  width: 400px;
+  height: 32px;
+  position: relative;
+  display: flex;
+}
+
+.left-section .search-wrap .input-wrap .svg-img {
+  font-size: 16px;
+  color: #5e5e7a;
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  z-index: 10;
+}
+
+.left-section .search-wrap .input-wrap input {
+  flex: 1;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid var(--data-bg18);
+  background: var(--content-bg);
+  padding-left: 30px;
+  color: #fff;
+}
+
+.left-section .search-wrap .input-wrap input::placeholder {
+  color: #84849f;
+}
+
+.left-section .data-list {
+  margin-top: 20px;
+}
+
+.left-section .data-list .titles {
+  display: flex;
+  color: #5e5e7a;
+  font-size: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--data-bg18);
+}
+
+.left-section .data-list .titles .column1 {
+  width: 30%;
+}
+
+.left-section .data-list .titles .column2 {
+  width: 25%;
+}
+
+.left-section .data-list .titles .column3 {
+  width: 15%;
+}
+
+.left-section .data-list .titles .column4 {
+  width: 15%;
+}
+
+.left-section .data-list .titles .column5 {
+  width: 15%;
+}
+
+.left-section .data-list .list-wrap {
+  max-height: 680px;
+  overflow-y: auto;
+}
+
+.left-section .data-list .list-wrap .item {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--data-bg18);
+  color: #fff;
+}
+
+.left-section .data-list .list-wrap .item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.left-section .data-list .list-wrap .item .column1 {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.left-section .data-list .list-wrap .item .column1 img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.left-section .data-list .list-wrap .item .column1 .brief {
+  font-size: 12px;
+  color: #84849f;
+}
+
+.left-section .data-list .list-wrap .item .column2 {
+  width: 25%;
+}
+
+.left-section .data-list .list-wrap .item .column2 div:last-child {
+  font-size: 12px;
+  color: #84849f;
+}
+
+.left-section .data-list .list-wrap .item .column3 {
+  width: 15%;
+}
+
+.left-section .data-list .list-wrap .item .column4 {
+  width: 15%;
+}
+
+.left-section .data-list .list-wrap .item .column5 {
+  width: 15%;
+}
+
+.left-section .data-list .list-wrap .item .transfer-btn {
+    background: #00f0ff;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all .2s ease;
+}
+
+.left-section .data-list .list-wrap .item .transfer-btn:hover {
+  opacity: 0.9;
+}
+
+[data-theme=dark] .left-section.no-vw {
+  border: 2px solid var(--data-bg18);
+}
+
+.svg-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hand {
+  cursor: pointer;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .assets-page {
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .assets-page.mobile-layout {
+    padding-top: 0;
+  }
+  
+  
+  .assets-content {
+    flex-direction: column;
+  }
+  
+  .section-1,
+  .section-2 {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .section-3 {
+    width: 100%;
+    float: none;
+    height: auto;
+  }
+  
+  .section-2 .data {
+    flex-direction: column;
+  }
+  
+  .section-2 .data-left,
+  .section-2 .data-right {
+    width: 100%;
+  }
+}
+
+.transfer-container {
+    max-width: 1360px;
+    margin: 20px auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: auto auto;
+    gap: 20px 30px;
+        grid-template-areas:
+        "form banner"
+        "history history";
+    .section-title {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+}
+.transfer-form-section {
+    grid-area: form;
+    background: #000;
+    border: 2px solid #2c2c3e;
+    border-radius: 12px;
+    padding: 20px 30px
+}
+.banner-section {
+    grid-area: banner;
+    background: url(../../assets/images/transfer-bg.png) center / cover no-repeat;
+    border-radius: 12px;
+    height: 386px;
+}
+.history-section {
+    grid-area: history;
+    background: #000;
+    border: 2px solid #2c2c3e;
+    border-radius: 12px;
+    padding: 20px 30px;
+    min-height: 200px;
+    position: relative;
+}
+.account-select-group {
+  background-color: #12131e;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  padding: 0 10px;
+}
+.exchange-page {
+  width: 1351px;
+  position: relative;
+  margin: 0 auto;
+  // background-color: #000;
+  height: 650px;
+  padding-top: 30px;
+  box-sizing: border-box;
+}
+.exchange-top {
+    height: 660px;
+    display: flex;
+    border: 1px solid #2c2c3e;
+    border-radius: 12px;
+    gap: 30px;
+    box-sizing: border-box;
+}
+.exchange-form {
+    height: 500px;
+    width: 500px;
+    border-radius: 12px;
+    padding: 20px 30px;
+    box-sizing: border-box
+}
+.exchange-record {
+    width: 840px;
+    padding: 23px 30px 0 0;
+    box-sizing: border-box;
+}
+</style>

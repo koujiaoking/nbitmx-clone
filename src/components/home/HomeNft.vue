@@ -37,8 +37,7 @@
     width: 1260px;
     height: 684px;
     display: flex;
-    flex-direction: column
-}
+    flex-direction: column;}
 
 .home-nft>header {
     position: absolute;
@@ -51,8 +50,7 @@
     color: rgb(255 255 255 / var(--un-text-opacity));
     font-weight: 600;
     line-height: 50px;
-    text-transform: uppercase
-}
+    text-transform: uppercase;}
 
 .home-nft .g-btn {
     position: absolute;
@@ -67,8 +65,7 @@
     left: 350px;
     z-index: 2;
     width: 40px;
-    height: 40px
-}
+    height: 40px;}
 
 .video-bg {
     position: absolute;
@@ -79,8 +76,7 @@
     height: 100%;
     border-radius: 18px;
     object-fit: cover;
-    object-position: center center
-}
+    object-position: center center;}
 
 .nft-1 {
     position: absolute;
@@ -88,8 +84,7 @@
     left: -50px;
     z-index: 3;
     width: 265px;
-    height: auto
-}
+    height: auto;}
 
 .nft-2 {
     position: absolute;
@@ -97,8 +92,7 @@
     left: 170px;
     z-index: 1;
     width: auto;
-    height: 310px
-}
+    height: 310px;}
 
 .nft-3 {
     position: absolute;
@@ -106,8 +100,7 @@
     left: 400px;
     z-index: 2;
     width: 265px;
-    height: auto
-}
+    height: auto;}
 
 .nft-4 {
     position: absolute;
@@ -115,58 +108,48 @@
     right: -100px;
     z-index: 2;
     width: 200px;
-    height: 200px
-}
+    height: 200px;}
 
 .nft-rotate-in-left-1 {
     transform-origin: center center;
-    animation: nft-rotate-in-left-1 3s ease 0s
-}
+    animation: nft-rotate-in-left-1 3s ease 0s;}
 
 .nft-rotate-in-left-2 {
     transform-origin: center center;
-    animation: nft-rotate-in-left-2 3s ease 0s
-}
+    animation: nft-rotate-in-left-2 3s ease 0s;}
 
 .nft-rotate-in-left-3 {
     transform-origin: center center;
-    animation: nft-rotate-in-left-3 3s ease 0s
-}
+    animation: nft-rotate-in-left-3 3s ease 0s;}
 
 @keyframes nft-rotate-in-left-1 {
     0% {
         transform: rotate(-900deg);
-        left: -100%
-    }
+        left: -100%;    }
 
     to {
         transform: rotate(0);
-        left: -50px
-    }
+        left: -50px;    }
 }
 
 @keyframes nft-rotate-in-left-2 {
     0% {
         transform: rotate(-900deg);
-        left: -100%
-    }
+        left: -100%;    }
 
     to {
         transform: rotate(0);
-        left: 170px
-    }
+        left: 170px;    }
 }
 
 @keyframes nft-rotate-in-left-3 {
     0% {
         transform: rotate(-900deg);
-        left: -100%
-    }
+        left: -100%;    }
 
     to {
         transform: rotate(0);
-        left: 400px
-    }
+        left: 400px;    }
 }
 .video-bg {
     position: absolute;
@@ -177,6 +160,5 @@
     height: 100%;
     border-radius: 18px;
     object-fit: cover;
-    object-position: center center
-}
+    object-position: center center;}
 </style>

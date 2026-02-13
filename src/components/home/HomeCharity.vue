@@ -55,8 +55,7 @@
     display: flex;
     flex-direction: column;
     background-repeat: no-repeat;
-    padding: 60px
-}
+    padding: 60px;}
 
 .charity-bg .group {
     position: relative;
@@ -65,8 +64,7 @@
     display: flex;
     justify-content: space-between;
     padding-left: 160px;
-    padding-right: 160px
-}
+    padding-right: 160px;}
 
 .charity-bg .group span {
     border: 1px solid #fff;
@@ -77,8 +75,7 @@
     padding: 16px 26px;
     font-size: 18px;
     --un-text-opacity: 1;
-    color: rgb(255 255 255 / var(--un-text-opacity))
-}
+    color: rgb(255 255 255 / var(--un-text-opacity));}
 
 .charity-bg .row {
     position: relative;
@@ -87,24 +84,20 @@
     display: flex;
     justify-content: space-between;
     padding-left: 80px;
-    padding-right: 80px
-}
+    padding-right: 80px;}
 
 .charity-bg .row>span {
     display: flex;
-    flex-direction: column
-}
+    flex-direction: column;}
 
 .charity-bg .row>span img {
     margin-bottom: 12px;
     height: 50px;
-    width: auto
-}
+    width: auto;}
 
 .charity-bg .row>span span {
     font-size: 18px;
-    line-height: 18px
-}
+    line-height: 18px;}
 
 .charity-bg .video-bg {
     position: absolute;
@@ -115,6 +108,5 @@
     height: 100%;
     border-radius: 18px;
     object-fit: cover;
-    object-position: center center
-}
+    object-position: center center;}
 </style>

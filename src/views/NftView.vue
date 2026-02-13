@@ -40,7 +40,7 @@
       <div class="video-modal-container">
         <button class="close-btn" @click="showVideo = false">×</button>
         <video controls autoplay class="video-player">
-          <source src="@/assets/images/b.mp4" type="video/mp4">
+          <!-- <source src="@/assets/images/b.mp4" type="video/mp4"> -->
           Your browser does not support the video tag.
         </video>
       </div>
@@ -339,20 +339,17 @@ const showVideo = ref(false);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000
-}
+    z-index: 1000;}
 
 .video-modal-container {
     position: relative;
     width: 80%;
-    max-width: 900px
-}
+    max-width: 900px;}
 
 .video-player {
     width: 100%;
     border-radius: 8px;
-    box-shadow: 0 0 20px #00000080
-}
+    box-shadow: 0 0 20px #00000080;}
 
 .close-btn {
     position: absolute;
@@ -362,13 +359,11 @@ const showVideo = ref(false);
     color: #fff;
     border: none;
     font-size: 24px;
-    cursor: pointer
-}
+    cursor: pointer;}
 
 @media screen and (min-width: 992px) {
     .nft-top {
-        background: url(@/assets/images/wtopbg.png) no-repeat center center/cover
-    }
+        background: url(@/assets/images/wtopbg.png) no-repeat center center/cover;    }
 }
 
 .nft-top {
@@ -378,14 +373,12 @@ const showVideo = ref(false);
     left: 0;
     width: 100%;
     overflow: hidden;
-    font-size: 14px
-}
+    font-size: 14px;}
 
 @media (min-width: 1024px) {
     .nft-top {
         height: 816px;
-        min-width: 1440px
-    }
+        min-width: 1440px;    }
 }
 
 .right-con {
@@ -403,22 +396,18 @@ const showVideo = ref(false);
 @media (min-width: 768px) {
     .right-con {
         left: calc(50% + 205px);
-        top: 248px
-    }
+        top: 248px;    }
 }
 
 @keyframes pulse {
     0% {
-        transform: scale(1)
-    }
+        transform: scale(1);    }
 
     50% {
-        transform: scale(1.3)
-    }
+        transform: scale(1.3);    }
 
     to {
-        transform: scale(1)
-    }
+        transform: scale(1);    }
 }
 
 .ad-text {
@@ -428,29 +417,24 @@ const showVideo = ref(false);
     color: #fff;
     position: absolute;
     left: calc(50% - 675px);
-    top: 186px
-}
+    top: 186px;}
 
 
 .ad-text .help {
     color: #0e111a;
-    background: linear-gradient(to right, #b6c9ef, #9bb8f0 29%, #6491e9 70%, #556dea)
-}
+    background: linear-gradient(to right, #b6c9ef, #9bb8f0 29%, #6491e9 70%, #556dea);}
 
 .ad-text .child {
-    color: #779eeb
-}
+    color: #779eeb;}
 
 .donate {
     bottom: 70px;
-    left: calc(50% - 675px)
-}
+    left: calc(50% - 675px);}
 
 @media (min-width: 768px) {
     .donate {
         position: absolute;
-        width: 600px
-    }
+        width: 600px;    }
 }
 
 .donate .title {
@@ -461,8 +445,7 @@ const showVideo = ref(false);
     background: linear-gradient(90deg, #9bb8f0, #6491e9 49.79%, #556dea);
     background-clip: text;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent
-}
+    -webkit-text-fill-color: transparent;}
 
 .donate .list {
     margin-top: 30px;
@@ -472,15 +455,13 @@ const showVideo = ref(false);
     align-items: stretch;
     justify-content: space-between;
     row-gap: 35px;
-    text-align: center
-}
+    text-align: center;}
 
 @media (min-width: 768px) {
     .donate .list {
         margin-top: 60px;
         width: 624px;
-        row-gap: 0
-    }
+        row-gap: 0;    }
 }
 
 .donate .list li {
@@ -489,30 +470,24 @@ const showVideo = ref(false);
     padding-bottom: 5px;
     --un-text-opacity: 1;
     color: rgb(255 255 255 / var(--un-text-opacity));
-    width: calc(50% - 10px)
-}
+    width: calc(50% - 10px);}
 
 @media (min-width: 768px) {
     .donate .list li {
-        width: 150px
-    }
+        width: 150px;    }
 }
 
 .donate .list li:nth-child(1) {
-    background: #0e1f1880
-}
+    background: #0e1f1880;}
 
 .donate .list li:nth-child(2) {
-    background: #271f1980
-}
+    background: #271f1980;}
 
 .donate .list li:nth-child(3) {
-    background: #1b142d80
-}
+    background: #1b142d80;}
 
 .donate .list li:nth-child(4) {
-    background: #27172080
-}
+    background: #27172080;}
 
 .hot-item {
     border-radius: 12px;
@@ -522,38 +497,32 @@ const showVideo = ref(false);
     background-color: var(--data-bg9);
     transition: transform .3s;
     aspect-ratio: 1/1;
-    width: calc(50% - 12px)
-}
+    width: calc(50% - 12px);}
 
 @media (min-width: 768px) {
     .hot-item {
         width: calc(33% - 24px);
-        max-width: 300px
-    }
+        max-width: 300px;    }
 }
 
 .hot-item:hover {
-    transform: scale(1.02)
-}
+    transform: scale(1.02);}
 
 .hot-item:hover .nft-img {
-    transform: scale(1.1)
-}
+    transform: scale(1.1);}
 
 .hot-item .nft-img {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform .5s
-}
+    transition: transform .5s;}
 
 .hot-item .content {
     background: #0009;
     -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
-    color: #fff
-}
+    color: #fff;}
 
 .hot-item .content .right {
     display: flex;
@@ -565,34 +534,29 @@ const showVideo = ref(false);
     border-radius: 100px;
     background: linear-gradient(133deg, #9494944a, #2d2d2d42);
     -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px)
-}
+    backdrop-filter: blur(2px);}
 
 .hot-item .content .right .ssr {
     background: linear-gradient(136deg, red 16.15%, #ff90cc);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent
-}
+    -webkit-text-fill-color: transparent;}
 
 .fitwidth-wrap {
     width: 100%;
     max-width: 1360px;
     margin: 0 auto;
-    padding: 0 20px
-}
+    padding: 0 20px;}
 
 .nftauthor {
     width: 100%;
-    font-family: PingFang SC, sans-serif
-}
+    font-family: PingFang SC, sans-serif;}
 
 .nftauthor-title {
     text-align: center;
     font-size: clamp(32px, 4vw, 46px);
     height: 60px;
     line-height: 60px;
-    margin: 70px 0 30px
-}
+    margin: 70px 0 30px;}
 
 .top10 {
     margin-left: 8px;
@@ -600,8 +564,7 @@ const showVideo = ref(false);
     background: linear-gradient(180deg, #a5201b, #e74c47 48.23%, #f8db41);
     background-clip: text;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent
-}
+    -webkit-text-fill-color: transparent;}
 
 .author-list {
     display: grid;
@@ -609,8 +572,7 @@ const showVideo = ref(false);
     gap: 30px 50px;
     margin-top: 50px;
     padding: 0;
-    list-style: none
-}
+    list-style: none;}
 
 .author-item {
     display: flex;
@@ -618,34 +580,28 @@ const showVideo = ref(false);
     padding: 15px 0;
     border-bottom: 1px solid var(--border-color);
     background: #0c0c1d03;
-    font-size: 16px
-}
+    font-size: 16px;}
 
 .sort {
     width: 30px;
     text-align: center;
-    font-weight: 700
-}
+    font-weight: 700;}
 
 .sort1 {
-    color: #f7d41a
-}
+    color: #f7d41a;}
 
 .sort2 {
-    color: #a0b3f5
-}
+    color: #a0b3f5;}
 
 .sort3 {
-    color: #c56118
-}
+    color: #c56118;}
 
 .head-img {
     width: 46px;
     height: 46px;
     border-radius: 50%;
     margin: 0 20px;
-    object-fit: cover
-}
+    object-fit: cover;}
 
 .name {
     flex: 1;
@@ -653,15 +609,13 @@ const showVideo = ref(false);
     margin: 0 20px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden
-}
+    overflow: hidden;}
 
 .articles {
     width: 120px;
     margin: 0 20px;
     color: #7a7a97;
-    text-align: right
-}
+    text-align: right;}
 
 .view-article {
     min-width: 120px;
@@ -672,64 +626,53 @@ const showVideo = ref(false);
     background: var(--content-bg);
     cursor: pointer;
     font: inherit;
-    transition: all .3s ease
-}
+    transition: all .3s ease;}
 
 .view-article:hover {
     background: var(--btn-bg);
     color: var(--font-color-btn);
-    border-color: transparent
-}
+    border-color: transparent;}
 
 @media (max-width: 768px) {
     .author-list {
-        grid-template-columns: 1fr
-    }
+        grid-template-columns: 1fr;    }
 
     .author-item {
         width: 100%;
-        margin-right: 0
-    }
+        margin-right: 0;    }
 }
 
 .column {
-    flex: 1
-}
+    flex: 1;}
 
 .column.addr {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: var(--font-color3-pc)
-}
+    color: var(--font-color3-pc);}
 
 .column.name {
     text-align: center;
-    color: var(--font-color-main)
-}
+    color: var(--font-color-main);}
 
 .column.amount {
     display: flex;
     justify-content: flex-end;
-    color: var(--font-color-main)
-}
+    color: var(--font-color-main);}
 
 .table-body {
     animation: scroll-up 20s linear infinite;
     display: flex;
     flex-direction: column;
     font-weight: 500;
-    width: 100%
-}
+    width: 100%;}
 
 @keyframes scroll-up {
     0% {
-        transform: translateY(0)
-    }
+        transform: translateY(0);    }
 
     to {
-        transform: translateY(-50%)
-    }
+        transform: translateY(-50%);    }
 }
 
 .be-author {
@@ -738,22 +681,19 @@ const showVideo = ref(false);
     box-sizing: border-box;
     width: 100%;
     font-style: normal;
-    font-weight: 400
-}
+    font-weight: 400;}
 
 .be-author-title {
     text-align: center;
     font-size: 46px;
     line-height: 60px;
-    margin: 70px 0 0
-}
+    margin: 70px 0 0;}
 
 .be-author-title-sub {
     text-align: center;
     font-size: 24px;
     margin: 30px 0;
-    color: var(--font-color-secondary)
-}
+    color: var(--font-color-secondary);}
 
 .be-author .advantage-wrap {
     margin-top: 100px;
@@ -761,8 +701,7 @@ const showVideo = ref(false);
     padding-bottom: 150px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-image: url(@/assets/images/becomebg.png)
-}
+    background-image: url(@/assets/images/becomebg.png);}
 
 .be-author .advantage-wrap .advantage-list {
     gap: 20px;
@@ -770,8 +709,7 @@ const showVideo = ref(false);
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between
-}
+    justify-content: space-between;}
 
 .be-author .advantage-wrap .advantage-list .advantage-item {
     width: 320px;
@@ -789,39 +727,33 @@ const showVideo = ref(false);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     border: 2px solid var(--data-bg18);
-    box-shadow: 0 0 7px 1px #3c4f80b3 inset
-}
+    box-shadow: 0 0 7px 1px #3c4f80b3 inset;}
 
 .be-author .advantage-wrap .advantage-list .advantage-item .top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 30px
-}
+    font-size: 30px;}
 
 .be-author .advantage-wrap .advantage-list .advantage-item .top span {
     -webkit-text-fill-color: initial !important;
-    color: #3c4f80b3 !important
-}
+    color: #3c4f80b3 !important;}
 
 .be-author .advantage-wrap .advantage-list .advantage-item .bottom {
     -webkit-text-fill-color: initial !important;
     color: #dedeee !important;
     font-size: 18px;
-    line-height: 26px
-}
+    line-height: 26px;}
 
 .be-author .nft-banner {
     margin: 90px auto 0;
-    max-width: 1360px
-}
+    max-width: 1360px;}
 
 .be-author .nft-banner-title {
     text-align: center;
     font-size: 46px;
     line-height: 60px;
-    margin-bottom: 50px
-}
+    margin-bottom: 50px;}
 @media (max-width: 768px) {
     .fitwidth-wrap,
     .be-author {

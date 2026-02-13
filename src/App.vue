@@ -1,48 +1,50 @@
 <template>
-  <div class="app-wrapper" :class="{ 'is-mobile': isMobile, 'is-desktop': isDesktop, 'is-main': isMobile && isMainPage }">
-    <!-- <AppLoadingSpinner /> -->
-    <!-- PC Layout (Desktop) -->
-    <template v-if="isDesktop">
-      <!-- Desktop Header -->
-      <AppHeader />
+  <a-config-provider :theme="antdTheme">
+    <div class="app-wrapper" :class="{ 'is-mobile': isMobile, 'is-desktop': isDesktop, 'is-main': isMobile && isMainPage }">
+      <!-- <AppLoadingSpinner /> -->
+      <!-- PC Layout (Desktop) -->
+      <template v-if="isDesktop">
+        <!-- Desktop Header -->
+        <AppHeader />
+        
+        <!-- Page Content -->
+        <RouterView />
+        
+        <!-- Desktop Footer -->
+        <AppFooter v-if="!hideFooter" />
+        
+        <!-- Floating Customer Service Button (Desktop) -->
+        <FloatingServiceBtn />
+      </template>
       
-      <!-- Page Content -->
-      <RouterView />
-      
-      <!-- Desktop Footer -->
-      <AppFooter v-if="!hideFooter" />
-      
-      <!-- Floating Customer Service Button (Desktop) -->
-      <FloatingServiceBtn />
-    </template>
-    
-    <!-- H5 Layout (Mobile/Tablet) -->
-    <template v-else>
-      <!-- Main Page Header -->
-      <MobileAppHeader v-if="isMainPage" class="mobile-header" />
-      
-      <!-- Secondary Page Header (NavBar) -->
-      <van-nav-bar
-        v-else
-        :title="pageTitle"
-        left-arrow
-        fixed
-        placeholder
-        @click-left="onClickLeft"
-        class="mobile-navbar"
-      />
-      
-      <!-- Page Content -->
-      <router-view v-slot="{ Component }">
-          <transition :name="transitionName">
-            <component :is="Component" />
-          </transition>
-      </router-view>
-      
-      <!-- Mobile Main Footer -->
-      <MobileAppFooter v-if="isMainPage" class="mobile-footer" />
-    </template>
-  </div>
+      <!-- H5 Layout (Mobile/Tablet) -->
+      <template v-else>
+        <!-- Main Page Header -->
+        <MobileAppHeader v-if="isMainPage" class="mobile-header" />
+        
+        <!-- Secondary Page Header (NavBar) -->
+        <van-nav-bar
+          v-else
+          :title="pageTitle"
+          left-arrow
+          fixed
+          placeholder
+          @click-left="onClickLeft"
+          class="mobile-navbar"
+        />
+        
+        <!-- Page Content -->
+        <router-view v-slot="{ Component }">
+            <transition :name="transitionName">
+              <component :is="Component" />
+            </transition>
+        </router-view>
+        
+        <!-- Mobile Main Footer -->
+        <MobileAppFooter v-if="isMainPage" class="mobile-footer" />
+      </template>
+    </div>
+  </a-config-provider>
 </template>
 
 <script setup lang="ts">
@@ -60,6 +62,67 @@ const router = useRouter()
 
 // Device detection
 const { isMobile, isTablet, isDesktop } = useDevice()
+
+// Ant Design Theme Configuration
+// Ant Design Theme Configuration
+const antdTheme = {
+  token: {
+    colorBgContainer: '#0f0f16', // 容器背景色
+    colorBorderSecondary: '#2c2c3e', // 次級邊框色
+    colorText: '#e5e7eb', // 主要文本色
+    colorTextSecondary: '#9ca3af', // 次要文本色
+    colorTextHeading: '#e5e7eb', // 標題文本色
+    colorBgElevated: '#1a1b24', // 浮層背景色 (下拉菜單等)
+    colorPrimary: '#00f0ff', // 主色調
+    colorBorder: '#2c2c3e', // 邊框色
+    borderRadius: 8, // 圓角
+    controlItemBgHover: 'rgba(255, 255, 255, 0.08)', // 懸停背景色
+  },
+  components: {
+    Table: {
+      headerBg: '#0f0f16', // 表頭背景
+      headerColor: '#e5e7eb', // 表頭文字顏色
+      bodySortBg: '#0f0f16', // 排序背景
+      rowHoverBg: '#1a1b24', // 行懸停背景
+      rowSelectedBg: 'rgba(0, 240, 255, 0.15)', // 行選中背景
+      rowSelectedHoverBg: 'rgba(0, 240, 255, 0.2)', // 行選中懸停背景
+      borderColor: '#2c2c3e', // 邊框顏色
+      headerBorderRadius: 0, // 表頭圓角
+    },
+    Input: {
+      colorBgContainer: '#12131e', // 輸入框背景色
+      colorBorder: '#2c2c3e', // 輸入框邊框色
+      colorTextPlaceholder: '#5e5e7a', // 占位符顏色
+      colorText: '#ffffff', // 輸入文字顏色
+      activeBorderColor: '#00f0ff', // 激活邊框色
+      hoverBorderColor: '#00f0ff', // 懸停邊框色
+      controlHeight: 42,
+    },
+    Select: {
+      colorBgContainer: '#12131e', // 下拉選框背景色
+      colorBorder: '#2c2c3e', // 下拉選框邊框色
+      colorText: '#ffffff', // 選中文字顏色
+      colorTextPlaceholder: '#5e5e7a', // 占位符顏色
+      optionSelectedBg: 'rgba(0, 240, 255, 0.15)', // 選項選中背景
+      optionActiveBg: 'rgba(255, 255, 255, 0.08)', // 選項懸停背景
+      colorBgElevated: '#1a1b24', // 下拉菜單背景色
+      optionSelectedColor: '#ffffff', // 選中文字顏色
+      controlItemBgHover: 'rgba(255, 255, 255, 0.08)', // 懸停背景
+      controlItemBgActive: 'rgba(0, 240, 255, 0.1)', // 激活背景
+      controlHeight: 42,
+    },
+    DatePicker: {
+      colorBgContainer: '#12131e', // 日期選擇器背景色
+      colorBorder: '#2c2c3e', // 日期選擇器邊框色
+      colorText: '#ffffff', // 日期文字顏色
+      colorTextPlaceholder: '#5e5e7a', // 占位符顏色
+      colorBgElevated: '#1a1b24', // 彈出層背景色
+      cellActiveWithRangeBg: 'rgba(0, 240, 255, 0.1)', // 範圍選擇背景
+      cellHoverWithRangeBg: 'rgba(0, 240, 255, 0.15)', // 範圍選擇懸停背景
+      cellRangeBorderColor: '#00f0ff', // 範圍邊框色
+    }
+  }
+}
 
 // Main Pages (Home, Market, Assets)
 const mainRoutes = ['Index', 'Quotes', 'QuotesIndex', 'Assets', 'AssetsPage', 'AssetsIndex']
@@ -232,4 +295,15 @@ router.beforeEach((to, from) => {
    When simplified, 'fixed' might lose the wrapper padding context?
    Actually, .slide-x items are the router-view children. 
 */
+
+/* Hide number input spinners */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
 </style>

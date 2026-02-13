@@ -1,18 +1,24 @@
 import { createI18n } from 'vue-i18n'
 import messages from './index.json'
-
+import iconKo from '@/assets/flag/ko.svg'
+import iconEn from '@/assets/flag/en.svg'
+import iconZhHK from '@/assets/flag/zh-HK.svg'
+import iconJa from '@/assets/flag/ja.svg'
+import iconDe from '@/assets/flag/de.svg'
+import iconRu from '@/assets/flag/ru.svg'
+import iconPt from '@/assets/flag/pt.svg'
 // 支持的语言类型
 export type SupportedLocale = 'ko' | 'en' | 'zh-HK' | 'ja' | 'de' | 'ru' | 'pt'
 
 // 语言配置
 export const languageConfig = [
-  { code: 'ko', name: '한국어', flag: '/src/assets/flag/ko.svg' },
-  { code: 'en', name: 'English', flag: '/src/assets/flag/en.svg' },
-  { code: 'zh-HK', name: '中文繁體', flag: '/src/assets/flag/zh-HK.svg' },
-  { code: 'ja', name: '日本語', flag: '/src/assets/flag/ja.svg' },
-  { code: 'de', name: 'Deutsch', flag: '/src/assets/flag/de.svg' },
-  { code: 'ru', name: 'Русский', flag: '/src/assets/flag/ru.svg' },
-  { code: 'pt', name: 'Português', flag: '/src/assets/flag/pt.svg' },
+  { code: 'ko', name: '한국어', flag: iconKo },
+  { code: 'en', name: 'English', flag: iconEn },
+  { code: 'zh-HK', name: '中文繁體', flag: iconZhHK },
+  { code: 'ja', name: '日本語', flag: iconJa },
+  { code: 'de', name: 'Deutsch', flag: iconDe },
+  { code: 'ru', name: 'Русский', flag: iconRu },
+  { code: 'pt', name: 'Português', flag: iconPt },
 ] as const
 
 // 获取默认语言

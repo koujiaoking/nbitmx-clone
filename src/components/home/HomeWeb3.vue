@@ -57,8 +57,7 @@ const data = [
     box-sizing: border-box !important;
     :deep(.ant-segmented-group > div) {
       background: linear-gradient(90deg,#00e3ff,#089);
-      border-radius: 100px
-    }
+      border-radius: 100px;    }
     :deep(.ant-segmented-item) {
       line-height: 1!important;
       width: 165px;
@@ -90,8 +89,7 @@ const data = [
       height: 46px !important;
       color: rgb(0 0 0 / var(--un-text-opacity)) !important;
       --un-shadow: 0 0 var(--un-shadow-color, rgb(0 0 0 / 0));
-      box-shadow: var(--un-ring-offset-shadow),var(--un-ring-shadow),var(--un-shadow)
-    }
+      box-shadow: var(--un-ring-offset-shadow),var(--un-ring-shadow),var(--un-shadow);    }
 }
 .web3-item {
   &.web {

@@ -8,11 +8,13 @@
     
     <!-- Right Actions -->
     <div class="flex items-center gap-[14px]">
+      <slot name="right">
         <van-icon name="bell" size="24px" color="white" />
         <van-icon name="service" size="24px" color="white" />
         
         <!-- Menu Icon -->
         <van-icon name="wap-nav" color="#ffffff" size="28px" @click="showMenu = true" />
+      </slot>
     </div>
     
   </header>
@@ -36,6 +38,10 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import MobileMenu from '@/components/mobile/MobileMenu.vue' // Import the new component
+
+defineOptions({
+  inheritAttrs: false
+})
 
 const showMenu = ref(false)
 const { t } = useI18n()
